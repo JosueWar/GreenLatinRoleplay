@@ -32,6 +32,10 @@
 	Traduccion al español
 	* McZulian (80%)
 	* dado1996 (20%)
+	
+	Scripters:
+	* McZulian
+	* Josue_Guerra
 
 	Copyright(c) 2012-2015 Emmet Jones (All rights reserved).
 */
@@ -451,6 +455,7 @@ enum playerData {
 	Text3D:pNameTag,
 	pSpawnPoint,
 	pRecargar,
+	pFakeDNI[32]
 };
 
 enum reportData {
@@ -1803,9 +1808,6 @@ new const g_aFurnitureData[][e_FurnitureData] = {
 
 native IsValidVehicle(vehicleid);
 native WP_Hash(buffer[], len, const str[]);
-
-//Otras variables globales
-new connectedPlayers = 0;
 
 main() {
 	print("Green Latin Roleplay");
@@ -13111,7 +13113,6 @@ ResetStatistics(playerid)
     PlayerData[playerid][pNameTag] = Text3D:INVALID_3DTEXT_ID;
     PlayerData[playerid][pRecargar] = 0;
     PlayerData[playerid][pFakeDNI] = 0;
-    PlayerData[playerid][pSubsidioTime] = 0;
     ResetWarnings(playerid);
 }
 
@@ -17758,11 +17759,6 @@ public OnPlayerUpdate(playerid)
 
 public OnPlayerConnect(playerid)
 {
-	//Agregar jugadores en status
-	connectedPlayers = connectedPlayers + 1;
-	//Agregar tiempo subsidio
-	PlayerData[playerid][pSubsidioTime] = gettime();
-
 	if (IsPlayerNPC(playerid))
 	    return 1;
 
@@ -18263,8 +18259,6 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	//Agregar jugadores en status
-	connectedPlayers = connectedPlayers - 1;
 	PlayerData[playerid][pLeaveTime] = GetTickCount();
 
 	format(PlayerData[playerid][pLeaveIP], 16, PlayerData[playerid][pIP]);
@@ -36708,38 +36702,15 @@ CMD:subsidio(playerid, params[])
 
 	gettime(horas,minutos,segundos);
 
-	//ej 4:01 < 4:00
-	if (PlayerData[playerid][pSubsidioTime] > gettime())
+	if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
 	{
-		return SendErrorMessage(playerid, "Tienes que esperar 1 minuto y volver a la fila para poder pedir un subsidio");
+		GiveMoney(playerid, amount);
+		SendClientMessage(playerid,0x00FF00,"Has recibido dinero por el subsidio");
 	}
-	//ej 4:04 < 4:05, ahora si puede hacer peticion
 	else
 	{
-		//if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
-		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
-		{
-			amount = 100 + (connectedPlayers * 10);
-			GiveMoney(playerid, amount);
-			SendServerMessage(playerid,"Has recibido %d de dinero por el subsidio", amount);
-			PlayerData[playerid][pSubsidioTime] = gettime() + 60;
-		}
-		else
-		{
-			SendClientMessage(playerid, COLOR_RED,"Todavia no han pasado dos horas para recibir nuevo subsidio");
-			PlayerData[playerid][pSubsidioTime] = gettime();
-		}
+		SendClientMessage(playerid,0xE32636,"Todavia no han pasado dos horas para recibir nuevo subsidio");
 	}
-	return 1;
-}
-
-CMD:conectados(playerid, params[])
-{
-	if (PlayerData[playerid][pAdmin] < 1)
-	{
-	    return SendErrorMessage(playerid, "No tienes permiso para usar este comando.");
-	}
-	SendServerMessage(playerid,"Hay %d jugadores conectados en este momento", connectedPlayers);
 	return 1;
 }
 
@@ -41498,7 +41469,7 @@ CMD:cono(playerid, params[])
 	if (sscanf(params, "i", id))
  	{
 	 	SendSyntaxMessage(playerid, "/cono [id]");
-	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 1: Cono, 2: Barricada Pequeï¿½a, 3: Barricada Mediana, 4: Barricada Grande");
+	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 1: Cono, 2: Barricada Pequeña, 3: Barricada Mediana, 4: Barricada Grande");
 	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 5: Cartel calle cerrada 6: Cinta de policia, 7: Desvio, 8: Escalera, 9: Barril");
 		return 1;
 	}
@@ -41552,7 +41523,7 @@ CMD:cono(playerid, params[])
 	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.6, 0.0, 0.0, fA);
 	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
 
-			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada pequeï¿½a.", ReturnName(playerid, 0));
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada pequeña.", ReturnName(playerid, 0));
 
 			return 1;
 		}
