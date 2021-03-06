@@ -18263,6 +18263,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 620, 1547.5703, -1661.0313, 13.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 620, 1541.4531, -1642.0313, 13.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 647, 1541.7422, -1638.9141, 14.4375, 0.25);
+	/*
 	////////gasolineras exterior by macia espinoza///////////////////////////
 	RemoveBuildingForPlayer(playerid, 4194, 1360.3828, -1840.6172, 26.8047, 0.25);
 	RemoveBuildingForPlayer(playerid, 4226, 1359.2813, -1796.4688, 24.3438, 0.25);
@@ -18298,6 +18299,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1310.8516, 14.1172, 0.25);
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1305.6016, 14.1172, 0.25);
 	RemoveBuildingForPlayer(playerid, 1617, 1417.0156, -1282.8906, 16.8906, 0.25);
+	*/
 	CancelSelectTextDraw(playerid);
 
 	GetPlayerIp(playerid, PlayerData[playerid][pIP], 16);
@@ -26793,6 +26795,7 @@ public OnGameModeInit()
 	CreateDynamicObject(2922, 1393.59961, -1632.29980, 38.40000,   0.00000, 0.00000, 89.99597);
 	CreateDynamicObject(4100, 1375.77356, -1679.40356, 15.30000,   0.00000, 0.00000, 317.99927);
 	CreateDynamicObject(4100, 1375.77344, -1679.40332, 12.52501,   0.00000, 0.00000, 317.99927);
+	/*
 	//Rejas Pay & Spray y Tunning
 	CreateObject(971, 1025.27954, -1029.22986, 32.10160,   0.00000, 0.00000, 0.00000);
 	CreateObject(971, 488.23410, -1735.45911, 11.14160,   0.00000, 0.00000, 174.00000);
@@ -27404,6 +27407,7 @@ public OnGameModeInit()
 	CreateDynamicObject(18698, 1417.95459, -1356.61133, 12.85992, 0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(18698, 1421.59790, -1260.31348, 12.78621, 0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(18698, 1417.74512, -1256.38354, 11.20332, 0.00000, 0.00000, 0.00000);
+	*/
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
 	    SetDynamicObjectMaterial(PrisonData[prisonCells][i], 0, 19302, "pd_jail_door02", "pd_jail_door02", 0xFF000000);
