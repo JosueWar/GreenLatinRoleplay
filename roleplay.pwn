@@ -18263,8 +18263,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 620, 1547.5703, -1661.0313, 13.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 620, 1541.4531, -1642.0313, 13.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 647, 1541.7422, -1638.9141, 14.4375, 0.25);
-<<<<<<< HEAD
-<<<<<<< HEAD
 	/*
 	////////gasolineras exterior by macia espinoza///////////////////////////
 	RemoveBuildingForPlayer(playerid, 4194, 1360.3828, -1840.6172, 26.8047, 0.25);
@@ -18302,10 +18300,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1305.6016, 14.1172, 0.25);
 	RemoveBuildingForPlayer(playerid, 1617, 1417.0156, -1282.8906, 16.8906, 0.25);
 	*/
-=======
->>>>>>> parent of 0acfdf4 (Merge branch 'main' of https://github.com/JosueWar/GreenLatinRoleplay into main)
-=======
->>>>>>> parent of 0acfdf4 (Merge branch 'main' of https://github.com/JosueWar/GreenLatinRoleplay into main)
 	CancelSelectTextDraw(playerid);
 
 	GetPlayerIp(playerid, PlayerData[playerid][pIP], 16);
@@ -26815,8 +26809,6 @@ public OnGameModeInit()
 	CreateObject(980, -2425.79126, 1028.10962, 52.17105,   0.00000, 0.00000, 0.00000);
 	CreateObject(971, -99.74067, 1111.51843, 20.36211,   0.00000, 0.00000, 0.00000);
 	CreateObject(5340, 2644.85938, -2039.23438, 14.03906,   356.85840, 0.00000, -1.57080);
-<<<<<<< HEAD
-<<<<<<< HEAD
 	CreateObject(5043, 1843.36719, -1856.32031, 13.87500,   356.85840, 0.00000, 3.14159);
 	//24-7 Vinewood
 	CreateDynamicObject(3850, 1342.30005, -856.72998, 40.07000,   0.00000, 0.00000, 0.00000);
@@ -27416,10 +27408,6 @@ public OnGameModeInit()
 	CreateDynamicObject(18698, 1421.59790, -1260.31348, 12.78621, 0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(18698, 1417.74512, -1256.38354, 11.20332, 0.00000, 0.00000, 0.00000);
 	*/
-=======
->>>>>>> parent of 0acfdf4 (Merge branch 'main' of https://github.com/JosueWar/GreenLatinRoleplay into main)
-=======
->>>>>>> parent of 0acfdf4 (Merge branch 'main' of https://github.com/JosueWar/GreenLatinRoleplay into main)
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
 	    SetDynamicObjectMaterial(PrisonData[prisonCells][i], 0, 19302, "pd_jail_door02", "pd_jail_door02", 0xFF000000);
