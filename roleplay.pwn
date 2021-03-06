@@ -455,7 +455,8 @@ enum playerData {
 	Text3D:pNameTag,
 	pSpawnPoint,
 	pRecargar,
-	pFakeDNI[32]
+	pFakeDNI[32],
+	pSubsidioTime
 };
 
 enum reportData {
@@ -36721,7 +36722,7 @@ CMD:subsidio(playerid, params[])
 	else
 	{
 		//if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
-		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
+		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 00 || minutos == 5 || minutos == 10 || minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
 		{
 			amount = 100 + (connectedPlayers * 10);
 			GiveMoney(playerid, amount);
