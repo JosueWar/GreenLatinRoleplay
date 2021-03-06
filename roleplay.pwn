@@ -92,6 +92,7 @@
 #define COLOR_ADMINCHAT 		(0x33EE33FF)
 #define COLOR_DO 				(0xB6DB22FF)
 #define DEFAULT_COLOR			(0xFFFFFFFF)
+#define COLOR_LIGHTBLUE2		(0x33CCFFAA)
 
 //Colores Chat /a
 #define COLOR_MODERADOR 		(0x00A5F4FF)
@@ -208,7 +209,10 @@
 new TruckingCheck[MAX_PLAYERS];
 new Text3D:vehicle3Dtext[MAX_VEHICLES];
 new vehiclecallsign[MAX_VEHICLES];
-
+//Estado
+new bool:ConEstado[MAX_PLAYERS];
+new Text3D:estado[MAX_PLAYERS];
+//
 enum playerData {
 	pID,
 	pAccount,
@@ -29246,7 +29250,7 @@ Dialog:REGLAMENTO1(playerid, response, listitem, inputtext[])
 				new reg3[] = "{FFFFFF} Ya sea el tiempo que nos toma hacer tal acción que se escribió con {C2A2DA}'/me'{FFFFFF}, informar sobre algo que acompaña al {C2A2DA}'/me'{FFFFFF} o rolear ser una persona no jugador\n";
 				new reg4[] = " EJ: {C2A2DA}/me toma el bolígrafo de la mesa y firma el papel\n{B6DB22}/do 1/2\n/do 2/2\n/do Papel firmado\n{C2A2DA}/me guarda el bolígrafo en su mochila abriéndola y cerrándola cuando este ya esta dentro";
 				format(string1, sizeof(string1), "%s%s%s%s", reg, reg2, reg3, reg4);
-				Dialog_Show(playerid, DIALOG_REGLAMENTO1, DIALOG_STYLE_MSGBOX, "Aprende a Rolear con esta Info", string1, "Cerrar", "");
+				Dialog_Show(playerid, DIALOG_REGLAMENTO1, DIALOG_STYLE_MSGBOX, "Aprende a Rolear con esta Info", string1, "Cerrar", "Siguiente");
 			}
 			case 1:
 			{
@@ -29312,31 +29316,43 @@ Dialog:REGLAMENTO1(playerid, response, listitem, inputtext[])
 		}
 	}
 }
+Dialog:DIALOG_REGLAMENTO1(playerid, response, listitem, inputtext[])
+{
+	if(response)
+	{
+		new string1[450];
+		new reg[] = "{BF0000}*Más Comandos de Rol\n{FFFFFF}-Los comandos {C2A2DA}/ame {FFFFFF}y {B6DB22}/ado{FFFFFF} sirven para describir una accion simple. El texto aparece sobre tu cabeza\n";
+		new reg2[] = "También tenemos comandos como {33CCFF}/e {FFFFFF}para hacer rol de entorno, {A9D159}/inte{CDC7A2}ntar y /estado\n Este ultimo comando te permite poner un texto permanente arriba de tu pj. Sirve para describirlo.\n\n";
+		format(string1, sizeof(string1), "%s%s", reg, reg2);
+		Dialog_Show(playerid, DIALOG_REGLAMENTO10, DIALOG_STYLE_MSGBOX, "Comandos de rol extra", string1, "Cerrar", "");
+	}
+}
+
 Dialog:DIALOG_REGLAMENTO5(playerid, response, listitem, inputtext[])
-		{
-			if(response)
-			{
-				new string1[1400];
-				new reg[] = "{BF0000}*Roles simples\n{FFFFFF}-Se Considera rol simple aquel {C2A2DA}/me {FFFFFF}o {B6DB22}/do{FFFFFF} que no especifica de donde se ha sacado o en donde se ha hecho tal cosa, por ejemplo:\n";
-				new reg2[] = " Estas en el mercado negro, compras un arma y escribes '{C2A2DA}/me toma el arma{FFFFFF}', pero... ¿de donde la sacaste?\nEl rol simple es aceptado, sin embargo, hacer este tipo de rol te dejara sin puntos de rol ni beneficios adicionales.\n\n";
-				new reg3[] = "{BF0000}*Roles Avanzados\n{FFFFFF}-Es el Rol más fresco que (ojala) pueden hacer todos, este rol especifica de donde se cogió o se hizo tal acción, un ejemplo:\n";
-				new reg4[] = " Estas en el mercado negro, compras un arma y escribes\n{C2A2DA}   /me toma el arma de la caja y paga por ella al sujeto\n   {B6DB22}/do Arma pagada\n   {C2A2DA}/me se guarda el arma en su mochila abriéndola y cerradola una vez esta ha entrado\n\n";
-				new reg5[] = "{BF0000}*Roles con requisitos\n{FFFFFF}-Como roles normales también están en los que necesitas tales requisitos, como:\n   -;-Tener 4 miembros (para Invadir una HQ)\n   -;-Estar 2 en una patrulla (para hacer rol de Patrullaje)\n   -;-Tener a 2 (Más el conductor) en un coche para secuestrar a alguien\n   -;-Ser miembro de una facción ilegal (para roles de secuestro, robo de banco, entre otros que involucren victimas)";
-				format(string1, sizeof(string1), "%s%s%s%s%s", reg, reg2, reg3, reg4, reg5);
-				Dialog_Show(playerid, DIALOG_REGLAMENTO9, DIALOG_STYLE_MSGBOX, "Reglas en Roles", string1, "Cerrar", "");
-			}
-		}
+{
+	if(response)
+	{
+		new string1[1400];
+		new reg[] = "{BF0000}*Roles simples\n{FFFFFF}-Se Considera rol simple aquel {C2A2DA}/me {FFFFFF}o {B6DB22}/do{FFFFFF} que no especifica de donde se ha sacado o en donde se ha hecho tal cosa, por ejemplo:\n";
+		new reg2[] = " Estas en el mercado negro, compras un arma y escribes '{C2A2DA}/me toma el arma{FFFFFF}', pero... ¿de donde la sacaste?\nEl rol simple es aceptado, sin embargo, hacer este tipo de rol te dejara sin puntos de rol ni beneficios adicionales.\n\n";
+		new reg3[] = "{BF0000}*Roles Avanzados\n{FFFFFF}-Es el Rol más fresco que (ojala) pueden hacer todos, este rol especifica de donde se cogió o se hizo tal acción, un ejemplo:\n";
+		new reg4[] = " Estas en el mercado negro, compras un arma y escribes\n{C2A2DA}   /me toma el arma de la caja y paga por ella al sujeto\n   {B6DB22}/do Arma pagada\n   {C2A2DA}/me se guarda el arma en su mochila abriéndola y cerradola una vez esta ha entrado\n\n";
+		new reg5[] = "{BF0000}*Roles con requisitos\n{FFFFFF}-Como roles normales también están en los que necesitas tales requisitos, como:\n   -;-Tener 4 miembros (para Invadir una HQ)\n   -;-Estar 2 en una patrulla (para hacer rol de Patrullaje)\n   -;-Tener a 2 (Más el conductor) en un coche para secuestrar a alguien\n   -;-Ser miembro de una facción ilegal (para roles de secuestro, robo de banco, entre otros que involucren victimas)";
+		format(string1, sizeof(string1), "%s%s%s%s%s", reg, reg2, reg3, reg4, reg5);
+		Dialog_Show(playerid, DIALOG_REGLAMENTO9, DIALOG_STYLE_MSGBOX, "Reglas en Roles", string1, "Cerrar", "");
+	}
+}
 Dialog:DIALOG_REGLAMENTO6(playerid, response, listitem, inputtext[])
-		{
-			if(response)
-			{
-				new string1[650];
-				new reg[] = "{BF0000}*Acciones de Facción\n{FFFFFF}-Ya seas Legal o ilegal tus acciones tienen consecuencias desde:\n Arrestar a un simple vagabundo\n Hasta:\n Robar un banco o tirarte de suicida a la ciudad\nLa reputación de tu facción siempre dará algo para hablar (IC) así que cuida tu facción\n";
-				new reg2[] = "{BF0000}Nota{FFFFFF}: No solo por ser {8D8DFF}LSPD{FFFFFF}, {9ACD32}SAEM{FFFFFF}, {8D8DFF}FBI{FFFFFF} o {FF8282}LSMD {FFFFFF}están exentos de reputación\nLa gente siempre habla de como es el servicio\nEs posible que con un rol adecuado de forma IC se cambie a los lideres de estas facciones";
-				format(string1, sizeof(string1), "%s%s", reg, reg2);
-				Dialog_Show(playerid, DIALOG_REGLAMENTO11, DIALOG_STYLE_MSGBOX, "Reglas en Facciones", string1, "Cerrar", "");
-			}
-		}
+{
+	if(response)
+	{
+		new string1[650];
+		new reg[] = "{BF0000}*Acciones de Facción\n{FFFFFF}-Ya seas Legal o ilegal tus acciones tienen consecuencias desde:\n Arrestar a un simple vagabundo\n Hasta:\n Robar un banco o tirarte de suicida a la ciudad\nLa reputación de tu facción siempre dará algo para hablar (IC) así que cuida tu facción\n";
+		new reg2[] = "{BF0000}Nota{FFFFFF}: No solo por ser {8D8DFF}LSPD{FFFFFF}, {9ACD32}SAEM{FFFFFF}, {8D8DFF}FBI{FFFFFF} o {FF8282}LSMD {FFFFFF}están exentos de reputación\nLa gente siempre habla de como es el servicio\nEs posible que con un rol adecuado de forma IC se cambie a los lideres de estas facciones";
+		format(string1, sizeof(string1), "%s%s", reg, reg2);
+		Dialog_Show(playerid, DIALOG_REGLAMENTO11, DIALOG_STYLE_MSGBOX, "Reglas en Facciones", string1, "Cerrar", "");
+	}
+}
 
 Dialog:RackWeapons(playerid, response, listitem, inputtext[])
 {
@@ -34384,6 +34400,37 @@ CMD:ado(playerid, params[])
 	return 1;
 }
 
+CMD:e(playerid, params[])
+{
+
+	if (isnull(params))
+	    return SendSyntaxMessage(playerid, "/e [entorno]");
+	SendNearbyMessage(playerid, 30.0, COLOR_LIGHTBLUE2, "* (ID: %s)[Entorno] %s", playerid, params);
+	return 1;
+}
+
+CMD:intentar(playerid, params[])
+{
+	new
+			String[160];
+	if (isnull(params))
+	    return SendSyntaxMessage(playerid, "/intentar [accion]");
+	switch(random(2))
+	{
+		case 0:
+		{
+	    	format(String, sizeof(String), " * %s intenta %s, pero falla *",ReturnName(playerid, 0), params);
+	   		SendNearbyMessage(playerid, 20.0, 0xA9D159FF, String);
+		}
+		case 1:
+	    {
+	    	format(String, sizeof(String), " * %s intenta %s, y lo logra *",ReturnName(playerid, 0), params);
+	        SendNearbyMessage(playerid, 20.0, 0xCDC7A2FF, String);
+		}
+	}
+	return 1;
+}
+
 CMD:g(playerid, params[])
 {
 
@@ -34486,6 +34533,9 @@ CMD:ven(playerid, params[])
 
 CMD:re(playerid, params[])
 	return cmd_reportar(playerid, params);
+
+CMD:darvida(playerid, params[])
+	return cmd_sethp(playerid, params);
 
 CMD:darlicencia(playerid, params[])
 	return cmd_licencias(playerid, params);
@@ -36703,7 +36753,7 @@ CMD:comprar(playerid, params[])
 	return 1;
 }
 
-CMD:subsidio(playerid, params[])
+/*CMD:subsidio(playerid, params[])
 {
 	static
 		amount = 100,
@@ -36736,7 +36786,7 @@ CMD:subsidio(playerid, params[])
 		}
 	}
 	return 1;
-}
+}*/
 
 CMD:conectados(playerid, params[])
 {
@@ -46383,4 +46433,30 @@ CMD:dnifalso(playerid, params[])
 	format(string1, sizeof(string1), "{5AC18E}-------------------------------------------\n{5AC18E}Nombre:{ffffff} %s\n{5AC18E}Genero:{ffffff} %s\n{5AC18E}Origen:{ffffff} %s\n{5AC18E}-------------------------------------------", PlayerData[playerid][pFakeDNI], genero, PlayerData[playerid][pOrigin]);
 	Dialog_Show(userid, DNI, DIALOG_STYLE_MSGBOX, "Documento Nacional de Identidad", string1, "Cerrar", "");
 	return 1;
+}
+
+CMD:miestado(playerid,params[])
+{
+   	new estadoo[200],str[256],mensaje[256];
+   	if(ConEstado[playerid] == true) return SendErrorMessage(playerid,"Ya estas en un estado. Usa /sinestado");
+   	if(sscanf(params, "s[128]", estadoo) )return SendSyntaxMessage(playerid,"Uso: /miestado [ESTADO] ");
+    format(str, sizeof(str), "{FFA500}%s",estadoo);
+    format(mensaje, sizeof(mensaje), "Te pusiste de estado: {FFFFFF}%s",estadoo);
+    estado[playerid] = Create3DTextLabel(str,0x00FF00FF,30.0,40.0,5.0,40.0,1);
+    Attach3DTextLabelToPlayer(estado[playerid], playerid, 0.0, 0.0, 0.40);
+    SendClientMessageEx(playerid, 0x00FF00FF, mensaje);
+    SendClientMessageEx(playerid, 0x00FF00FF, "Para borrar tu estado usa {FFFFFF}/sinestado");
+    ConEstado[playerid] = true;
+    return 1;
+}
+CMD:sinestado(playerid,params[])
+{
+   if(ConEstado[playerid] == true)
+   {
+         SendClientMessageEx(playerid,0x00FF00FF,"Has Borrado tu estado actual");
+         Delete3DTextLabel(estado[playerid]);
+         ConEstado[playerid] = false; return 1; 
+   }
+   if(ConEstado[playerid] == false) return SendErrorMessage(playerid,"No tienes ningun estado");
+   return 1;
 }
