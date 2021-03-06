@@ -455,7 +455,8 @@ enum playerData {
 	Text3D:pNameTag,
 	pSpawnPoint,
 	pRecargar,
-	pFakeDNI[32]
+	pFakeDNI[32],
+	pSubsidioTime
 };
 
 enum reportData {
@@ -1808,6 +1809,9 @@ new const g_aFurnitureData[][e_FurnitureData] = {
 
 native IsValidVehicle(vehicleid);
 native WP_Hash(buffer[], len, const str[]);
+
+//Otras variables globales
+new connectedPlayers = 0;
 
 main() {
 	print("Green Latin Roleplay");
@@ -13113,6 +13117,7 @@ ResetStatistics(playerid)
     PlayerData[playerid][pNameTag] = Text3D:INVALID_3DTEXT_ID;
     PlayerData[playerid][pRecargar] = 0;
     PlayerData[playerid][pFakeDNI] = 0;
+    PlayerData[playerid][pSubsidioTime] = 0;
     ResetWarnings(playerid);
 }
 
@@ -17759,6 +17764,11 @@ public OnPlayerUpdate(playerid)
 
 public OnPlayerConnect(playerid)
 {
+	//Agregar jugadores en status
+	connectedPlayers = connectedPlayers + 1;
+	//Agregar tiempo subsidio
+	PlayerData[playerid][pSubsidioTime] = gettime();
+
 	if (IsPlayerNPC(playerid))
 	    return 1;
 
@@ -18259,6 +18269,8 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
+	//Agregar jugadores en status
+	connectedPlayers = connectedPlayers - 1;
 	PlayerData[playerid][pLeaveTime] = GetTickCount();
 
 	format(PlayerData[playerid][pLeaveIP], 16, PlayerData[playerid][pIP]);
@@ -36702,15 +36714,38 @@ CMD:subsidio(playerid, params[])
 
 	gettime(horas,minutos,segundos);
 
-	if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
+	//ej 4:01 < 4:00
+	if (PlayerData[playerid][pSubsidioTime] > gettime())
 	{
-		GiveMoney(playerid, amount);
-		SendClientMessage(playerid,0x00FF00,"Has recibido dinero por el subsidio");
+		return SendErrorMessage(playerid, "Tienes que esperar 1 minuto y volver a la fila para poder pedir un subsidio");
 	}
+	//ej 4:04 < 4:05, ahora si puede hacer peticion
 	else
 	{
-		SendClientMessage(playerid,0xE32636,"Todavia no han pasado dos horas para recibir nuevo subsidio");
+		//if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
+		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
+		{
+			amount = 100 + (connectedPlayers * 10);
+			GiveMoney(playerid, amount);
+			SendServerMessage(playerid,"Has recibido %d de dinero por el subsidio", amount);
+			PlayerData[playerid][pSubsidioTime] = gettime() + 60;
+		}
+		else
+		{
+			SendClientMessage(playerid, COLOR_RED,"Todavia no han pasado dos horas para recibir nuevo subsidio");
+			PlayerData[playerid][pSubsidioTime] = gettime();
+		}
 	}
+	return 1;
+}
+
+CMD:conectados(playerid, params[])
+{
+	if (PlayerData[playerid][pAdmin] < 1)
+	{
+	    return SendErrorMessage(playerid, "No tienes permiso para usar este comando.");
+	}
+	SendServerMessage(playerid,"Hay %d jugadores conectados en este momento", connectedPlayers);
 	return 1;
 }
 
