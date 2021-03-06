@@ -460,7 +460,7 @@ enum playerData {
 	pSpawnPoint,
 	pRecargar,
 	pFakeDNI[32],
-	pSubsidioTime
+	pSubsidioCheck
 };
 
 enum reportData {
@@ -14941,6 +14941,9 @@ public MinuteCheck()
 	    Plant_Refresh(i);
 	    Plant_Save(i);
 	}
+	//Checkeo de subsidios
+	IsPayTime();
+
 	return 1;
 }
 
@@ -17775,8 +17778,6 @@ public OnPlayerConnect(playerid)
 {
 	//Agregar jugadores en status
 	connectedPlayers = connectedPlayers + 1;
-	//Agregar tiempo subsidio
-	PlayerData[playerid][pSubsidioTime] = gettime();
 
 	if (IsPlayerNPC(playerid))
 	    return 1;
@@ -36790,41 +36791,72 @@ CMD:comprar(playerid, params[])
 	}
 	return 1;
 }
+stock EsHoraPar(hora)
+{
+	for(new i; i < 24; i+=2)
+	{
+	    if(i == hora)
+	        return 1;
+	}
+	return 0;
+}
+stock IsPayTime()
+{
+	new
+	    Hora_, Min;
 
-/*CMD:subsidio(playerid, params[])
+	gettime(Hora_, Min);
+
+	//Habilitar para que solo se ajuste a horas pares y en intervalo de primeros 20 minutos
+	//if( !EsHoraPar(Hora_) || (Min > 20))
+	if(Min != 10 || Min != 20 || Min != 30 || Min != 40 || Min != 50)
+	{
+		//Hacer INSERT sql subsidio 1 en todas las cuentas
+		mysql_tquery(g_iHandle, "UPDATE `Sv McZulian`.`characters` SET `SubsidioCheck` = '1'");
+		return 0;
+	}
+	return 1;
+}
+
+CMD:subsidio(playerid, params[])
 {
 	static
-		amount = 100,
+		amount,
 		horas,
 		minutos,
 		segundos;
 
 	gettime(horas,minutos,segundos);
 
-	//ej 4:01 < 4:00
-	if (PlayerData[playerid][pSubsidioTime] > gettime())
+	if (IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
 	{
-		return SendErrorMessage(playerid, "Tienes que esperar 1 minuto y volver a la fila para poder pedir un subsidio");
-	}
-	//ej 4:04 < 4:05, ahora si puede hacer peticion
-	else
-	{
-		//if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
-		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 00 || minutos == 5 || minutos == 10 || minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
+		if (IsPayTime())
 		{
 			amount = 100 + (connectedPlayers * 10);
 			GiveMoney(playerid, amount);
 			SendServerMessage(playerid,"Has recibido %d de dinero por el subsidio", amount);
-			PlayerData[playerid][pSubsidioTime] = gettime() + 60;
+			
+			//Hacer INSERT sql subsidio 0 en la cuenta del jugador
+			PlayerData[playerid][pSubsidioCheck] = 0;
+			mysql_tquery(g_iHandle, "UPDATE `Sv McZulian`.`characters` SET `SubsidioCheck` = '0' WHERE `characters`.`ID` = 11");
 		}
-		else
+		/*
+		else if(IsPayTime && !IsPlayerAdminPayTime)
 		{
-			SendClientMessage(playerid, COLOR_RED,"Todavia no han pasado dos horas para recibir nuevo subsidio");
-			PlayerData[playerid][pSubsidioTime] = gettime();
+			SendClientMessage(playerid, COLOR_RED,"Ya has recibido el subsidio, espera a la siguiente vez para obtenerlo de nuevo");
 		}
+		else if(!IsPayTime && IsPlayerAdminPayTime)
+		{
+			SendClientMessage(playerid, COLOR_RED,"Todavia no es hora para recibir nuevo subsidio");
+		}
+		*/
+	}
+	else
+	{
+		SendClientMessage(playerid, COLOR_RED,"Tienes que estar dentro de la AFIP y en la ventanilla para pedir subsidio");
 	}
 	return 1;
-}*/
+}
 
 CMD:conectados(playerid, params[])
 {
@@ -37659,14 +37691,14 @@ CMD:crearnegocio(playerid, params[])
  	{
 	 	SendSyntaxMessage(playerid, "/crearnegocio [type] [price]");
     	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 1: Minorista | 2: Armas | 3: Ropa | 4: Comida Rapida | 5: Concesionario ");
-    	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida a Mundo Abierto Beta");
+    	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida \"dinamico\" | 9 bar | 10 bar \"dinamico\" ");
 
     	return 1;
 	}
 	if (type < 1 || type > 8)
 	    return SendErrorMessage(playerid, "Tipo de negocio invalido, los tipos tienen que ser del 1 al 8.");
 
-	if (type > 8)
+	if (type == 8 || type == 10)
 	    return SendErrorMessage(playerid, "Recordar creack un checkpoint nuevo con /editarnegocio ID checkpoint, para agregar el punto de venta.");
 
 	id = Business_Create(playerid, type, price);
@@ -37691,7 +37723,7 @@ CMD:editarnegocio(playerid, params[])
 	if (sscanf(params, "ds[24]S()[128]", id, type, string))
  	{
 	 	SendSyntaxMessage(playerid, "/editarnegocio [id] [opcion]");
-	    SendClientMessage(playerid, COLOR_YELLOW, "[OPCIONES]:{FFFFFF} exterior, interior, checkpoint, entrega, nombre, precio, stock, tipo, autos, spawn");
+	    SendClientMessage(playerid, COLOR_YELLOW, "[OPCIONES]:{FFFFFF} exterior, interior, checkpoint \"dinamico\", entrega, nombre, precio, stock, tipo, autos, spawn");
 	    SendClientMessage(playerid, COLOR_YELLOW, "checkpoint, solo sirve para tiendas a cielo abierto");
 		return 1;
 	}
@@ -37736,11 +37768,28 @@ CMD:editarnegocio(playerid, params[])
 	//Sistema de checkpoints negocios
 	else if (!strcmp(type, "checkpoint", true))
 	{
-	    GetPlayerPos(playerid, BusinessData[id][bizCheck][0], BusinessData[id][bizCheck][1], BusinessData[id][bizCheck][2]);
+		if (BusinessData[id][bizType] == 8 || BusinessData[id][bizType] == 10)
+		{
+		    GetPlayerPos(playerid, BusinessData[id][bizCheck][0], BusinessData[id][bizCheck][1], BusinessData[id][bizCheck][2]);
+			Business_Refresh(id);
+
+			Business_Save(id);
+			SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
+		}
+		else
+		{
+			return SendErrorMessage(playerid, "Este negocio no puede tener checkpoint.");
+		}
+	}
+	else if (!strcmp(type, "checkpointborrar", true))
+	{
+	    BusinessData[id][bizCheck][0] = 0;
+	    BusinessData[id][bizCheck][1] = 0;
+	    BusinessData[id][bizCheck][2] = 0;
 		Business_Refresh(id);
 
 		Business_Save(id);
-		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
+		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s borro el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
 	}
 
 	else if (!strcmp(type, "entrega", true))
