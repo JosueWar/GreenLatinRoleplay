@@ -9382,7 +9382,7 @@ Business_PurchaseMenu(playerid, bizid)
 	    return 0;
 
 	static
-	    string[580];
+	    string[512];
 
 	switch (BusinessData[bizid][bizType])
 	{
@@ -15339,12 +15339,6 @@ public PlayerCheck()
 				PlayerData[i][pDrugUsed] = 0;
 		        SendServerMessage(i, "Los efectos de las drogas han cedido.");
 		        if(marihuanatimer[i]) KillTimer(marihuanatimer[i]);
-		        if(ConEstado[i] == true)
-		        {
-		        	Delete3DTextLabel(estado[i]);
-         			ConEstado[i] = false;
-         			SendServerMessage(i, "Se te quitó tu /estado.");
-         		}
 		    }
 		}
 		else if (PlayerData[i][pStunned] > 0)
@@ -26759,19 +26753,7 @@ public OnGameModeInit()
 	CreateDynamicObject(2922, 1393.59961, -1632.29980, 38.40000,   0.00000, 0.00000, 89.99597);
 	CreateDynamicObject(4100, 1375.77356, -1679.40356, 15.30000,   0.00000, 0.00000, 317.99927);
 	CreateDynamicObject(4100, 1375.77344, -1679.40332, 12.52501,   0.00000, 0.00000, 317.99927);
-	//Rejas Pay & Spray y Tunning
-	CreateObject(971, 1025.27954, -1029.22986, 32.10160,   0.00000, 0.00000, 0.00000);
-	CreateObject(971, 488.23410, -1735.45911, 11.14160,   0.00000, 0.00000, 174.00000);
-	CreateObject(971, 2071.54102, -1831.41431, 13.54690,   0.00000, 0.00000, 90.00000);
-	CreateObject(971, 719.81989, -462.47681, 16.33590,   0.00000, 0.00000, 0.00000);
-	CreateObject(971, -1904.45605, 277.85779, 41.04690,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, 2385.96094, 1043.56250, 12.59370,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, 1968.78955, 2162.33325, 12.59370,   0.00000, 0.00000, 270.00000);
-	CreateObject(980, -1421.79968, 2590.89697, 56.80568,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, -1935.38757, 239.34282, 36.12965,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, -2425.79126, 1028.10962, 52.17105,   0.00000, 0.00000, 0.00000);
-	CreateObject(971, -99.74067, 1111.51843, 20.36211,   0.00000, 0.00000, 0.00000);
-	CreateObject(5340, 2644.85938, -2039.23438, 14.03906,   356.85840, 0.00000, -1.57080);
+
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
 	    SetDynamicObjectMaterial(PrisonData[prisonCells][i], 0, 19302, "pd_jail_door02", "pd_jail_door02", 0xFF000000);
@@ -26817,7 +26799,7 @@ public OnGameModeInit()
 	SetTimer("MinuteCheck", 60000, true);
 	SetTimer("WeatherRotator", 2400000, true);
 	SetTimer("RandomFire", 2400000, true);
-	SetTimer("MensajeAutomatico", 300000, true);
+
 	return 1;
 }
 
@@ -28015,21 +27997,6 @@ public MarihuanaEstado(playerid)
 	Update3DTextLabelText(estado[playerid], COLOR_GREY, "Estado: {FFFFFF}Ojos rojos medio cerrados");
 	Attach3DTextLabelToPlayer(estado[playerid], playerid, 0.0, 0.0, 0.5);
 }*/
-forward MensajeAutomatico(playerid);
-public MensajeAutomatico(playerid)
-{
-	switch(random(7))
-	{
-		case 0: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} Muchas gracas por pertenecer a {40D3FF}GreenLatin RP {FFFFFF}");
-		case 1: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} ¿Alguien comete algún antirol? Usa {40D3FF} /reportar id razón");
-		case 2: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} Recuerda leer el {40D3FF}/reglamento {FFFFFF}y revisar las {40D3FF}/faq");
-		case 3: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} ¿Tenes alguna duda? Usa {40D3FF}/ayudame {FFFFFF}o {40D3FF}/duda{FFFFFF}para pedir ayuda");
-		case 4: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} ¿Encontraste un bug? ¿Tenes alguna sugerencia? dinos por nuestro discord o por el foro");
-		case 5: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} Nuestra web oficial es {40D3FF}greenlatin.fun{FFFFFF} y nuestro foro {40D3FF}foro.greenlatin.fun");
-		case 6: SendClientMessageToAll(0xFFFFFFAA,"{40D3FF}[Servidor Info]{FFFFFF} ¿Algo no te gusta? ¿Viste algo que deberiamos cambiar? Cuentanos por el foro");
-	}
-	return 1;
-}
 
 stock ShowContacts(playerid)
 {
@@ -29356,7 +29323,7 @@ Dialog:DIALOG_REGLAMENTO1(playerid, response, listitem, inputtext[])
 	{
 		new string1[450];
 		new reg[] = "{BF0000}*Más Comandos de Rol\n{FFFFFF}-Los comandos {C2A2DA}/ame {FFFFFF}y {B6DB22}/ado{FFFFFF} sirven para describir una accion simple. El texto aparece sobre tu cabeza\n";
-		new reg2[] = "También tenemos comandos como {33CCFF}/e {FFFFFF}para hacer rol de entorno, {00BF60}/inte{B90000}ntar{FFFFFF} y /estado\n Este ultimo comando te permite poner un texto permanente arriba de tu pj. Sirve para describirlo.\n\n";
+		new reg2[] = "También tenemos comandos como {33CCFF}/e {FFFFFF}para hacer rol de entorno, {A9D159}/inte{CDC7A2}ntar y /estado\n Este ultimo comando te permite poner un texto permanente arriba de tu pj. Sirve para describirlo.\n\n";
 		format(string1, sizeof(string1), "%s%s", reg, reg2);
 		Dialog_Show(playerid, DIALOG_REGLAMENTO10, DIALOG_STYLE_MSGBOX, "Comandos de rol extra", string1, "Cerrar", "");
 	}
@@ -34436,9 +34403,10 @@ CMD:ado(playerid, params[])
 
 CMD:e(playerid, params[])
 {
+
 	if (isnull(params))
 	    return SendSyntaxMessage(playerid, "/e [entorno]");
-	SendNearbyMessage(playerid, 30.0, COLOR_LIGHTBLUE2, "* (ID: %d)[Entorno] %s", playerid, params);
+	SendNearbyMessage(playerid, 30.0, COLOR_LIGHTBLUE2, "* (ID: %s)[Entorno] %s", playerid, params);
 	return 1;
 }
 
@@ -34453,12 +34421,12 @@ CMD:intentar(playerid, params[])
 		case 0:
 		{
 	    	format(String, sizeof(String), " * %s intenta %s, pero falla *",ReturnName(playerid, 0), params);
-	   		SendNearbyMessage(playerid, 20.0, 0xB90000FF, String);
+	   		SendNearbyMessage(playerid, 20.0, 0xA9D159FF, String);
 		}
 		case 1:
 	    {
 	    	format(String, sizeof(String), " * %s intenta %s, y lo logra *",ReturnName(playerid, 0), params);
-	        SendNearbyMessage(playerid, 20.0, 0x00BF60FF, String);
+	        SendNearbyMessage(playerid, 20.0, 0xCDC7A2FF, String);
 		}
 	}
 	return 1;
@@ -34573,17 +34541,11 @@ CMD:darvida(playerid, params[])
 CMD:darlicencia(playerid, params[])
 	return cmd_licencias(playerid, params);
 
-CMD:quitarestado(playerid, params[])
-	return cmd_sinestado(playerid, params);
-
-CMD:no(playerid, params[])
-	return cmd_stopanim(playerid, params);
-
 CMD:ayuda(playerid, params[])
 {
 	SendClientMessage(playerid, COLOR_CLIENT, "CUENTA:{FFFFFF} /cambiarpass, /ultimologin, /usuario, /propiedades.");
-	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /cuenta, /(re)portar, /ayudame, /acc, /me, /do, /(g)ritar, /b, /inventario, /cluces, /e, /ame, /ado, /estado.");
-	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /aceptar, /faq, /reglamento, /vender, /pintar, /beber, /banco, /cocinar, /chaleco, /municion, /usarkit, /celular.");
+	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /cuenta, /(re)portar, /ayudame, /acc, /me, /do, /(g)ritar, /b, /inventario, /cluces.");
+	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /aceptar, /faq, /vender, /pintar, /beber, /banco, /cocinar, /chaleco, /municion, /usarkit, /celular.");
 	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /id, /llamar, /colgar, /texto, /tirar, /facciones, /cajas, /llenar, /pagar, /gps, /abrir, /usardroga.");
 	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /acciones, /mochila, /boombox, /radiocanal, /ayudatrabajo, /ayudantes, /eliminarcheckpoint, /stopanim.");
 	SendClientMessage(playerid, COLOR_CLIENT, "GENERAL:{FFFFFF} /saludo, /darlicencia, /revisar, /toghud, /dararma, /setradio, /forzarpuerta, /desbug, /licencias.");
@@ -34598,7 +34560,7 @@ CMD:ayuda(playerid, params[])
 
  		if (GetFactionType(playerid) == FACTION_POLICE) {
  		    SendClientMessage(playerid, COLOR_CLIENT, "FACCION:{FFFFFF} /tazer, /esposar, /desesposar, /arrastrar, /detener, /omd, /arrestar, /radio, /d, /confiscarplanta.");
- 		    SendClientMessage(playerid, COLOR_CLIENT, "FACCION:{FFFFFF} /multar, /spike, /bloqueocarretera, /huelladactilar, /embargar, /cono.");//, /revokeweapon
+ 		    SendClientMessage(playerid, COLOR_CLIENT, "FACCION:{FFFFFF} /multar, /spike, /bloqueocarretera, /huelladactilar, /embargar.");//, /revokeweapon
  		    SendClientMessage(playerid, COLOR_CLIENT, "FACCION:{FFFFFF} /confiscar, /tirarpuerta, /sirena, /balasgoma /matriculapd");
 		}
 		else if (GetFactionType(playerid) == FACTION_NEWS) {
@@ -42293,9 +42255,7 @@ CMD:usardroga(playerid, params[])
 
 		marihuanatimer[playerid] = SetTimerEx("EfectoMarihuana", 80000, true, "i", playerid);
 		//marihuanaestado[playerid] = SetTimerEx("MarihuanaEstado", 15000, false, "i", playerid);
-		estado[playerid] = Create3DTextLabel("Ojos rojos medio cerrados",0x00FF00FF,30.0,40.0,5.0,40.0,1);
-    	Attach3DTextLabelToPlayer(estado[playerid], playerid, 0.0, 0.0, 0.40);
-		ConEstado[playerid] = true;
+
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_SMOKE_CIGGY);
 		SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s saca su encendedor y prende un porro.", ReturnName(playerid, 0));
 	}
@@ -46524,7 +46484,7 @@ CMD:dnifalso(playerid, params[])
 	return 1;
 }
 
-CMD:estado(playerid,params[])
+CMD:miestado(playerid,params[])
 {
    	new estadoo[200],str[256],mensaje[256];
    	if(ConEstado[playerid] == true) return SendErrorMessage(playerid,"Ya estas en un estado. Usa /sinestado");
