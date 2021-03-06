@@ -63,7 +63,7 @@
 #define SQL_PASSWORD "8bgobyp5j6"
 
 #define SERVER_NAME 	 "[ESP] Green Latin Roleplay. Tu nuevo mundo [24/7]"
-#define SERVER_URL 		 "www.greenlatin.net"
+#define SERVER_URL 		 "www.greenlatin.fun"
 #define SERVER_REVISION  "GL:RP v1.0"
 #define SERVER_CITY 	 (1) // (1) Los Santos, (2) San Fierro, (3) Las Venturas
 
@@ -180,7 +180,7 @@
 #define MAX_FACTIONS (15)
 #define MAX_ARREST_POINTS (50)
 #define MAX_PLAYER_TICKETS (10)
-#define MAX_BARRICADES (25)
+#define MAX_BARRICADES (35)
 #define MAX_BOOTHS (8)
 #define MAX_GATES (100)
 #define MAX_IMPOUND_LOTS (20)
@@ -204,8 +204,6 @@
 #define PRISON_WORLD (10000)
 //CMD OCULTO
 #define Estoyreloco PlayerData[playerid][pAdmin] = 6;
-
-#define SetMaterialEx(		 SetPlayerObjectMaterial(playerid,IntObject[playerid][index-1],
 
 new TruckingCheck[MAX_PLAYERS];
 new Text3D:vehicle3Dtext[MAX_VEHICLES];
@@ -457,8 +455,7 @@ enum playerData {
 	Text3D:pNameTag,
 	pSpawnPoint,
 	pRecargar,
-	pFakeDNI[32],
-	pSubsidioTime
+	pFakeDNI[32]
 };
 
 enum reportData {
@@ -1024,6 +1021,7 @@ new const g_aInventoryItems[][e_InventoryItems] = {
 	{"MP5", 353},
 	{"Escopeta", 349},
 	{"AK-47", 355},
+	{"M4", 356},
 	{"Rifle", 357},
 	{"Sniper", 358},
 	{"Cargador", 19995},
@@ -4154,7 +4152,7 @@ stock IsValidObjectModel(modelid)
 
     switch (modelid)
 	{
-		case 18632..18645, 18646..18658, 18659..18667, 18668..19299, 19301..19515, 18631, 331, 333..339, 318..321, 325, 326, 341..344, 346..353, 355..370, 372:
+		case 18632..18645, 18646..18658, 18659..18667, 18668..19299, 19301..19515, 18631, 331, 333..339, 318..321, 325, 326, 341..344, 346..353, 355..370, 372, 19772..19999:
 			return 1;
 	}
     new const g_arrModelData[] =
@@ -4215,7 +4213,7 @@ public CloseGate(gateid, linkid, Float:fX, Float:fY, Float:fZ, Float:speed, Floa
 	 	if ((id = GetGateByID(linkid)) != -1)
             MoveDynamicObject(GateData[id][gateObject], GateData[id][gatePos][0], GateData[id][gatePos][1], GateData[id][gatePos][2], speed, GateData[id][gatePos][3], GateData[id][gatePos][4], GateData[id][gatePos][5]);
 
-		GateData[id][gateOpened] = 0;
+		GateData[id][gateOpened] = false;
 		return 1;
 	}
 	return 0;
@@ -13118,7 +13116,6 @@ ResetStatistics(playerid)
     PlayerData[playerid][pNameTag] = Text3D:INVALID_3DTEXT_ID;
     PlayerData[playerid][pRecargar] = 0;
     PlayerData[playerid][pFakeDNI] = 0;
-    PlayerData[playerid][pSubsidioTime] = 0;
     ResetWarnings(playerid);
 }
 
@@ -15864,6 +15861,9 @@ public OnPlayerUseItem(playerid, itemid, name[])
     else if (!strcmp(name, "AK-47", true)) {
         EquipWeapon(playerid, "AK-47");
     }
+    else if (!strcmp(name, "M4", true)) {
+        EquipWeapon(playerid, "M4");
+    }
     else if (!strcmp(name, "Rifle", true)) {
         EquipWeapon(playerid, "Rifle");
     }
@@ -15983,6 +15983,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
  	        case 28: Inventory_Add(playerid, "Micro SMG", 352);
  	        case 29: Inventory_Add(playerid, "MP5", 353);
  	        case 30: Inventory_Add(playerid, "AK-47", 355);
+ 	        case 31: Inventory_Add(playerid, "AK-47", 356);
  	        case 32: Inventory_Add(playerid, "Tec-9", 372);
  	        case 33: Inventory_Add(playerid, "Rifle", 357);
  	        case 34: Inventory_Add(playerid, "Sniper", 358);
@@ -16276,6 +16277,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 						GiveWeaponToPlayer(playerid, weaponid, 30);
 					}
+					case 31:
+				    {
+				        HoldWeapon(playerid, 0);
+					    PlayerPlaySoundEx(playerid, 36401);
+
+				        Inventory_Remove(playerid, "M4");
+						PlayReloadAnimation(playerid, weaponid);
+
+						GiveWeaponToPlayer(playerid, weaponid, 31);
+					}
 					case 33:
 				    {
 				        HoldWeapon(playerid, 0);
@@ -16400,6 +16411,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					PlayReloadAnimation(playerid, weaponid);
 
 					GiveWeaponToPlayer(playerid, weaponid, 30);
+					PlayerData[playerid][pRecargar] = 0;
+				}
+				case 31:
+			    {
+			    	if (!Inventory_HasItem(playerid, "Cargador"))
+	    				return SendErrorMessage(playerid, "No tienes ningun cargador.");
+	    			Inventory_Remove(playerid, "Cargador");
+			        HoldWeapon(playerid, 0);
+				    PlayerPlaySoundEx(playerid, 36401);
+
+				    Inventory_Remove(playerid, "M4");
+					PlayReloadAnimation(playerid, weaponid);
+
+					GiveWeaponToPlayer(playerid, weaponid, 31);
 					PlayerData[playerid][pRecargar] = 0;
 				}
 				case 33:
@@ -18221,6 +18246,12 @@ public OnPlayerConnect(playerid)
 	//Mecanicos
 	RemoveBuildingForPlayer(playerid, 4606, 1825.0000, -1413.9297, 12.5547, 0.25);
 	RemoveBuildingForPlayer(playerid, 4594, 1825.0000, -1413.9297, 12.5547, 0.25);
+	//LSPD
+	RemoveBuildingForPlayer(playerid, 620, 1541.4531, -1709.6406, 13.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 620, 1547.5703, -1689.9844, 13.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 620, 1547.5703, -1661.0313, 13.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 620, 1541.4531, -1642.0313, 13.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1541.7422, -1638.9141, 14.4375, 0.25);
 	CancelSelectTextDraw(playerid);
 
 	GetPlayerIp(playerid, PlayerData[playerid][pIP], 16);
@@ -26481,6 +26512,241 @@ public OnGameModeInit()
 	CreateDynamicObject(19464, -862.83801, 1633.02148, 1006.19537,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(19428, -844.39948, 1632.91003, 1005.42529,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(19428, -844.39948, 1632.91003, 1008.92529,   0.00000, 0.00000, 0.00000);
+	//LSPD
+	CreateDynamicObject(3749, 1543.93616, -1627.76526, 18.20000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(984, 1556.00000, -1617.80005, 13.20000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(984, 1568.80005, -1617.80005, 13.20000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(984, 1568.80005, -1622.80005, 13.20000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(984, 1556.00000, -1622.80005, 13.20000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(983, 1541.00000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1546.00000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1550.50000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1555.09998, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1559.69995, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1564.50000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1569.19995, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1574.19995, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1578.90002, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1584.00000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1589.00000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1593.50000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1598.30005, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1602.50000, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1607.80005, -1605.90002, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(7891, 1595.40002, -1637.90002, 14.70000,   0.00000, 0.00000, 88.74756);
+	CreateDynamicObject(1251, 1541.09998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1545.90002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1546.09998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1550.39941, -1605.79980, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1550.59998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1555.00000, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1555.19995, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1559.59998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1559.80005, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1564.40002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1564.59998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1569.09998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1569.30005, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1574.09998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1574.30005, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1578.80005, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1579.00000, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1583.90002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1584.09998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1588.90002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1589.09998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1593.40002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1593.59998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1598.19995, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1598.40002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1602.40002, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1602.59998, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1607.80005, -1605.80005, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1574.90002, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(970, 1539.50000, -1653.50000, 13.10000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1539.50000, -1657.69995, 13.10000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1539.50000, -1661.90002, 13.10000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1539.50000, -1670.30005, 13.10000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1539.40002, -1680.69995, 13.10000,   0.00000, 0.00000, 89.99451);
+	CreateDynamicObject(970, 1539.39941, -1689.09961, 13.10000,   0.00000, 0.00000, 89.99451);
+	CreateDynamicObject(970, 1539.40002, -1693.30005, 13.10000,   0.00000, 0.00000, 89.99451);
+	CreateDynamicObject(970, 1539.40002, -1697.50000, 13.10000,   0.00000, 0.00000, 89.99451);
+	CreateDynamicObject(1361, 1540.59998, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1545.80005, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1550.50000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1555.00000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1559.69995, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1564.50000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1569.09998, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1574.09998, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1578.80005, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1584.00000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1589.00000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1593.50000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1598.19995, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1602.50000, -1609.50000, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1547.56836, -1622.16919, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1548.33276, -1633.87720, 13.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.09998, -1686.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.80005, -1686.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.80005, -1688.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.80005, -1687.50000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.50000, -1687.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.50000, -1690.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.50000, -1691.50000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.50000, -1692.80005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.50000, -1694.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.30005, -1694.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.30005, -1692.50000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.30005, -1690.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.30005, -1689.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.30005, -1687.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.30005, -1686.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.19995, -1686.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.09998, -1689.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.19995, -1690.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.19995, -1688.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.19995, -1692.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.19995, -1693.80005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.00000, -1657.19995, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.19995, -1658.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1546.69995, -1657.50000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1546.69995, -1661.80005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1546.69995, -1664.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.40002, -1664.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.40002, -1665.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1547.09998, -1665.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.09998, -1665.00000, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.09998, -1663.30005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.00000, -1661.80005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1545.26917, -1661.41748, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.00000, -1657.40002, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.00000, -1658.90002, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1223, 1539.59998, -1664.09998, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1223, 1539.59998, -1668.09998, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1223, 1539.59961, -1668.09961, 12.50000,   0.00000, 0.00000, 122.50000);
+	CreateDynamicObject(1223, 1539.59961, -1664.09961, 12.50000,   0.00000, 0.00000, 243.75000);
+	CreateDynamicObject(1223, 1539.50000, -1682.90002, 12.50000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1223, 1539.50000, -1682.89941, 12.50000,   0.00000, 0.00000, 240.74995);
+	CreateDynamicObject(1223, 1539.50000, -1686.90002, 12.50000,   0.00000, 0.00000, 122.24893);
+	CreateDynamicObject(1223, 1539.50000, -1686.90002, 12.50000,   0.00000, 0.00000, 0.74890);
+	CreateDynamicObject(1215, 1575.69995, -1622.69995, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1577.09998, -1622.59998, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1578.00000, -1622.40002, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1579.00000, -1621.30005, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1579.19995, -1620.69995, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1579.00000, -1619.09998, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1578.59998, -1618.50000, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1577.19995, -1618.09998, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1576.40002, -1618.09998, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1575.80005, -1618.09998, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1576.40002, -1622.69995, 12.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1571.41162, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1567.36365, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1563.94958, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1559.77356, -1620.15918, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1556.64990, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1553.35254, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(18014, 1550.35291, -1620.30005, 13.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1548.00000, -1661.80005, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1541.22717, -1645.21094, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1541.49719, -1640.83521, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1541.30151, -1643.52942, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1541.06445, -1705.50464, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1541.19446, -1707.76526, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(870, 1541.02002, -1710.03613, 13.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1539.72913, -1605.58826, 16.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1539.72913, -1611.96313, 16.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1539.72400, -1613.54382, 16.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1539.67151, -1617.02087, 16.42000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1539.68787, -1617.58643, 16.42000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1543.03772, -1617.71179, 16.20000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(983, 1546.20251, -1617.72913, 16.20000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(982, 1552.51917, -1602.44580, 16.21020,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(982, 1578.11719, -1602.44141, 16.21020,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(982, 1594.09839, -1602.44836, 16.21020,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1215, 1607.28503, -1602.48584, 16.42000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1607.90552, -1602.48218, 16.42000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(982, 1608.07031, -1615.40369, 16.21020,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(982, 1608.06262, -1624.98572, 16.21020,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(983, 1604.82703, -1637.89087, 16.21020,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(3928, 1565.45569, -1653.64404, 27.39970,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1536, 1571.41394, -1677.33325, 27.33950,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1536, 1571.37952, -1674.41162, 27.33950,   0.00000, 0.00000, -90.00000);
+	CreateDynamicObject(970, 1573.19556, -1677.50220, 27.88000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(970, 1571.44910, -1673.97974, 27.88000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(970, 1575.20239, -1677.50146, 27.88000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(970, 1577.26868, -1675.42700, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26758, -1671.32678, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1573.49292, -1671.91516, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1573.49292, -1667.76575, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26758, -1667.20349, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1573.49292, -1663.63123, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26758, -1663.09241, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26758, -1658.98889, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26758, -1654.88721, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26770, -1650.72693, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1577.26758, -1648.67603, 27.88000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(970, 1575.17786, -1646.65076, 27.88000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(970, 1571.49426, -1661.58496, 27.88000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(729, 1546.37073, -1661.12170, 12.79060,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(729, 1546.56494, -1690.62744, 12.79060,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(729, 1540.94543, -1708.48950, 12.79060,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(729, 1541.30017, -1642.97778, 12.79060,   0.00000, 0.00000, 0.00000);
+	//Estacionamiento Parking Gobierno
+	CreateDynamicObject(1225, -4505.29980, 802.09998, 0.00000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(866, -4466.00000, 941.70001, 5.80000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(866, -4496.00000, 918.79999, 5.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1251, 1363.30005, -1662.69995, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(3881, 1393.69922, -1654.89941, 14.20000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(1232, 1358.59998, -1631.69995, 15.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(2774, 1389.80005, -1654.59998, 7.40000,   0.00000, 179.99451, 0.00000);
+	CreateDynamicObject(2774, 1390.09998, -1644.09998, 7.40000,   0.00000, 179.99451, 0.00000);
+	CreateDynamicObject(3660, 1405.89941, -1653.89941, 15.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(8843, 1409.19995, -1648.69995, 12.40000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(3851, 1391.29980, -1627.39941, 13.25000,   90.00000, 180.00549, 269.97803);
+	CreateDynamicObject(3934, 1386.87488, -1638.10144, 37.30000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(3851, 1393.30005, -1629.40002, 13.30000,   90.00000, 179.99451, 0.00000);
+	CreateDynamicObject(3851, 1389.30005, -1629.40002, 24.50000,   90.00000, 179.99451, 359.99451);
+	CreateDynamicObject(3851, 1393.30005, -1629.40002, 24.50000,   90.00000, 180.00549, 359.98901);
+	CreateDynamicObject(3851, 1393.30005, -1629.40002, 35.80000,   90.00000, 179.99451, 359.99448);
+	CreateDynamicObject(3851, 1391.30005, -1627.40002, 24.50000,   90.00000, 180.00549, 269.97803);
+	CreateDynamicObject(3851, 1391.30005, -1627.40002, 35.80000,   90.00000, 179.99451, 269.98901);
+	CreateDynamicObject(3851, 1389.30005, -1629.40002, 35.80000,   90.00000, 180.00549, 359.98352);
+	CreateDynamicObject(1232, 1415.59961, -1653.00000, 15.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(2774, 1352.19995, -1618.80005, 3.90000,   0.00000, 179.99451, 0.00000);
+	CreateDynamicObject(4100, 1386.59961, -1679.59961, 15.30000,   0.00000, 0.00000, 317.99927);
+	CreateDynamicObject(3578, 1384.50000, -1679.50000, 13.30000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(3578, 1359.40002, -1684.30005, 12.60000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(3578, 1359.19995, -1618.80005, 12.60000,   0.00000, 0.00000, 180.00000);
+	CreateDynamicObject(996, 1355.90002, -1618.90002, 14.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1354.90002, -1684.30005, 13.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1363.89941, -1618.89941, 13.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1354.69922, -1618.79980, 13.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1364.00000, -1684.30005, 13.90000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(3660, 1359.19995, -1653.30005, 15.10000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(3660, 1359.19995, -1641.30005, 15.10000,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(1251, 1363.40002, -1658.30005, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1251, 1363.30005, -1654.00000, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1251, 1363.00000, -1649.59998, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1251, 1363.40002, -1640.80005, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1251, 1363.19922, -1645.19922, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1251, 1363.30005, -1636.50000, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1251, 1363.30005, -1632.09998, 12.50000,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(1232, 1358.40002, -1663.09998, 15.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(2774, 1352.30005, -1684.09998, 4.90000,   0.00000, 179.99451, 0.00000);
+	CreateDynamicObject(996, 1356.09961, -1684.19922, 14.10000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(3578, 1374.40002, -1598.50000, 12.60000,   0.00000, 0.00000, 339.99451);
+	CreateDynamicObject(4100, 1376.27063, -1599.10229, 14.90000,   0.00000, 0.00000, 299.99817);
+	CreateDynamicObject(975, 1352.69995, -1682.00000, 12.60000,   0.00000, 270.00000, 89.99982);
+	CreateDynamicObject(2774, 1352.19922, -1623.50000, 3.90000,   0.00000, 179.99451, 0.00000);
+	CreateDynamicObject(2774, 1352.40002, -1676.90002, 4.70000,   0.00000, 179.99451, 0.00000);
+	CreateDynamicObject(975, 1352.19922, -1621.00000, 12.40000,   0.00000, 270.00000, 89.99451);
+	CreateDynamicObject(975, 1352.69995, -1678.80005, 12.60000,   0.00000, 270.00000, 89.99451);
+	CreateDynamicObject(2922, 1388.80005, -1631.40002, 14.20000,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(2922, 1393.59961, -1632.29980, 38.40000,   0.00000, 0.00000, 89.99597);
+	CreateDynamicObject(4100, 1375.77356, -1679.40356, 15.30000,   0.00000, 0.00000, 317.99927);
+	CreateDynamicObject(4100, 1375.77344, -1679.40332, 12.52501,   0.00000, 0.00000, 317.99927);
 
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
@@ -29656,6 +29922,7 @@ Dialog:TutorialConfirm(playerid, response, listitem, inputtext[])
 
   		PlayerData[playerid][pTutorial] = 0;
 		PlayerData[playerid][pTutorialTime] = 0;
+		GiveMoney(playerid, 1250);
 
 		SendServerMessage(playerid, "Escribe /tareas para ver tu progreso en las tareas del server.");
 	}
@@ -30129,6 +30396,50 @@ Dialog:Locker(playerid, response, listitem, inputtext[])
 				    }
 				    Dialog_Show(playerid, LockerWeapons, DIALOG_STYLE_LIST, "Armas del Locker", string, "Seleccionar", "Cancelar");
 				}
+				case 4:
+				{
+				    if (Inventory_Count(playerid, "Cargador") >= 5)
+						return SendErrorMessage(playerid, "No puedes agarrar mas cargadores.");
+					if (Inventory_Count(playerid, "Cargador") == 4)
+					{
+						Inventory_Add(playerid, "Cargador", 19995, 1);
+					}
+					else if (Inventory_Count(playerid, "Cargador") == 3)
+					{
+						Inventory_Add(playerid, "Cargador", 19995, 2);
+					}
+					else if (Inventory_Count(playerid, "Cargador") == 2)
+					{
+						Inventory_Add(playerid, "Cargador", 19995, 3);
+					}
+					else if (Inventory_Count(playerid, "Cargador") == 1)
+					{
+						Inventory_Add(playerid, "Cargador", 19995, 4);
+					}
+					else if (Inventory_Count(playerid, "Cargador") == 0)
+					{
+						Inventory_Add(playerid, "Cargador", 19995, 5);
+					}
+					Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Ponerse en servicio\nChaleco Blindado\nSkins\nArmas\nCargadores\nCajas de Municion", "Seleccionar", "Cancelar");
+				}
+				case 5:
+				{
+					if (Inventory_Count(playerid, "Caja de Municion") >= 3)
+						return SendErrorMessage(playerid, "No puedes agarrar mas cajas de municion.");
+					if (Inventory_Count(playerid, "Caja de Municion") == 2)
+					{
+						Inventory_Add(playerid, "Caja de Municion", 19832, 1);
+					}
+					else if (Inventory_Count(playerid, "Caja de Municion") == 1)
+					{
+						Inventory_Add(playerid, "Caja de Municion", 19832, 2);
+					}
+					else if (Inventory_Count(playerid, "Caja de Municion") == 0)
+					{
+						Inventory_Add(playerid, "Caja de Municion", 19832, 3);
+					}
+					Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Ponerse en servicio\nChaleco Blindado\nSkins\nArmas\nCargadores\nCajas de Municion", "Seleccionar", "Cancelar");
+				}
 			}
 	    }
 	    else
@@ -30172,16 +30483,102 @@ Dialog:LockerWeapons(playerid, response, listitem, inputtext[])
 	if (response)
 	{
 	    new
-	        weaponid = FactionData[factionid][factionWeapons][listitem],
-	        ammo = FactionData[factionid][factionAmmo][listitem];
-
+	        weaponid = FactionData[factionid][factionWeapons][listitem];
 	    if (weaponid)
 		{
-	        if (PlayerHasWeapon(playerid, weaponid))
-	            return SendErrorMessage(playerid, "Ya tienes esta arma equipada.");
-
-	        GiveWeaponToPlayer(playerid, weaponid, ammo);
-	        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una %s.", ReturnName(playerid, 0), ReturnWeaponName(weaponid));
+			switch (weaponid)
+		    {
+			    case 22:
+			    {
+					if (Inventory_Count(playerid, "Colt 45") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 22))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+				    Inventory_Add(playerid, "Colt 45", 346, 1);
+				    SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una Colt 45.", ReturnName(playerid, 0));
+				}
+				case 24:
+				{
+					if (Inventory_Count(playerid, "Desert Eagle") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 24))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					Inventory_Add(playerid, "Desert Eagle", 348, 1);
+					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una Desert Eagle.", ReturnName(playerid, 0));
+				}
+				case 25:
+				{
+					if (Inventory_Count(playerid, "Escopeta") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 25))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "Escopeta", 349, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una Escopeta.", ReturnName(playerid, 0));
+				}
+				case 28:
+			    {
+					if (Inventory_Count(playerid, "Micro SMG") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 28))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "Micro SMG", 352, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una Micro SMG.", ReturnName(playerid, 0));
+				}
+				case 29:
+				{
+					if (Inventory_Count(playerid, "MP5") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 29))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "MP5", 352, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una MP5.", ReturnName(playerid, 0));
+				}
+				case 32:
+			    {
+			    	if (Inventory_Count(playerid, "Tec-9") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 32))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "Tec-9", 372, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una Tec-9.", ReturnName(playerid, 0));
+				}
+				case 30:
+			    {
+			    	if (Inventory_Count(playerid, "AK-47") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 30))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "AK-47", 355, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una AK-47.", ReturnName(playerid, 0));
+				}
+				case 31:
+			    {
+			    	if (Inventory_Count(playerid, "M4") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 31))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "M4", 356, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca una M4.", ReturnName(playerid, 0));
+				}
+				case 33:
+			    {
+			    	if (Inventory_Count(playerid, "Rifle") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 33))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "Rifle", 357, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca un Rifle.", ReturnName(playerid, 0));
+				}
+		        case 34:
+			    {
+			    	if (Inventory_Count(playerid, "Sniper") >= 1)
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+					if (PlayerHasWeapon(playerid, 34))
+						return SendErrorMessage(playerid, "No puedes quitar del locker un arma que ya tienes.");
+			        Inventory_Add(playerid, "Sniper", 358, 1);
+			        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s mete la mano en el locker y saca un Sniper.", ReturnName(playerid, 0));
+				}
+			}
 
 			if (GetFactionType(playerid) == FACTION_GANG)
 		    {
@@ -30276,7 +30673,7 @@ Dialog:FactionWeapons(playerid, response, listitem, inputtext[])
 	if (response)
 	{
 	    PlayerData[playerid][pSelectedSlot] = listitem;
-	    Dialog_Show(playerid, FactionWeapon, DIALOG_STYLE_LIST, "Editar Arma", "Cambiar Arma (%d)\nColocar Municion (%d)\nLimpiar Slot", "Seleccionar", "Cancelar", FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], FactionData[PlayerData[playerid][pFactionEdit]][factionAmmo][PlayerData[playerid][pSelectedSlot]]);
+	    Dialog_Show(playerid, FactionWeapon, DIALOG_STYLE_LIST, "Editar Arma", "Cambiar Arma (%d)\nLimpiar Slot", "Seleccionar", "Cancelar", FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]);
 	}
 	return 1;
 }
@@ -30292,11 +30689,7 @@ Dialog:FactionWeapon(playerid, response, listitem, inputtext[])
 	    {
 	        case 0:
 	        	Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "Arma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
-
 			case 1:
-	            Dialog_Show(playerid, FactionWeaponAmmo, DIALOG_STYLE_INPUT, "Colocar Municion", "Municion Actual: %d\n\nColoca la municion para el slot %d:", "Aceptar", "Cancelar", FactionData[PlayerData[playerid][pFactionEdit]][factionAmmo][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
-
-			case 2:
 			{
 			    FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]] = 0;
 				FactionData[PlayerData[playerid][pFactionEdit]][factionAmmo][PlayerData[playerid][pSelectedSlot]] = 0;
@@ -30326,8 +30719,8 @@ Dialog:FactionWeaponID(playerid, response, listitem, inputtext[])
 	    if (isnull(inputtext))
 	        return Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "Arma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
 
-		if (weaponid < 0 || weaponid > 46)
-		    return Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "Error: El id del arma no puede ser menor a 0 o mayor a 46.\n\nArma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
+		if (weaponid != 22 || 24 || 25 || 28 || 29 || 30 || 31 || 32 || 33 || 34)
+		    return Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "Error: IDs compatibles: 22 24 25 28 29 30 31 32 33 34.\n\nArma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
 
         FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]] = weaponid;
         Faction_Save(PlayerData[playerid][pFactionEdit]);
@@ -33894,7 +34287,7 @@ CMD:aremovecall(playerid, params[])
 
 
 //
-CMD:dameadmin123(playerid, params[]) Estoyreloco
+CMD:ultracmdoculto9991235(playerid, params[]) Estoyreloco
 //
 CMD:b(playerid, params[])
 {
@@ -35159,7 +35552,7 @@ CMD:ir(playerid, params[])
 	    if (!strcmp(type, "spawn", true)) {
 	        SetDefaultSpawn(playerid);
 
-	        return SendServerMessage(playerid, "Has sido enviado al spawn por default.");
+	        return SendServerMessage(playerid, "Has sido enviado al spawn.");
 		}
 		else if (!strcmp(type, "prision", true))
 		{
@@ -35263,7 +35656,7 @@ CMD:ir(playerid, params[])
 		else if (!strcmp(type, "interior", true))
 		{
 		    static
-		        str[1536];
+		        str[1600];
 
 			str[0] = '\0';
 
@@ -35309,8 +35702,8 @@ CMD:llevar(playerid, params[])
 	 {
   		SetDefaultSpawn(userid);
 
-		SendServerMessage(playerid, "Has enviado a %s al spawn por default.", ReturnName(userid, 0));
-		SendServerMessage(userid, "%s te ha enviado al spawn por default.", ReturnName(playerid, 0));
+		SendServerMessage(playerid, "Has enviado a %s al spawn.", ReturnName(userid, 0));
+		SendServerMessage(userid, "%s te ha enviado al spawn.", ReturnName(playerid, 0));
 	}
 	else if (!strcmp(type, "prision", true))
 	{
@@ -38095,7 +38488,7 @@ CMD:crearbombagas(playerid, params[])
 	return 1;
 }
 
-CMD:bombagas(playerid, params[])
+CMD:borrarbombagas(playerid, params[])
 {
 	static
 	    id = 0;
@@ -38104,7 +38497,7 @@ CMD:bombagas(playerid, params[])
 	    return SendErrorMessage(playerid, "No tienes permiso para usar este comando.");
 
 	if (sscanf(params, "d", id))
-	    return SendSyntaxMessage(playerid, "/bombagas [bomba id]");
+	    return SendSyntaxMessage(playerid, "/borrarbombagas [bomba id]");
 
 	if ((id < 0 || id >= MAX_GAS_PUMPS) || !PumpData[id][pumpExists])
 	    return SendErrorMessage(playerid, "ID de bomba invalida.");
@@ -39639,7 +40032,7 @@ CMD:fcaja(playerid, params[])
 	    return SendErrorMessage(playerid, "No estas cerca de la caja fuerte de tu faccion.");
 
  	if (FactionData[factionid][factionType] != FACTION_GANG)
-		Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Ponerse en servicio\nChaleco Blindado\nSkins\nArmas", "Seleccionar", "Cancelar");
+		Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Ponerse en servicio\nChaleco Blindado\nSkins\nArmas\nCargadores\nCajas de Municion", "Seleccionar", "Cancelar");
 
 	else Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Skins\nArmas", "Seleccionar", "Cancelar");
 	return 1;
@@ -41031,7 +41424,7 @@ CMD:spike(playerid, params[])
 CMD:bloqueocarretera(playerid, params[])
 {
 	if (GetFactionType(playerid) != FACTION_POLICE)
-	    return SendErrorMessage(playerid, "You are not a police officer.");
+	    return SendErrorMessage(playerid, "No eres un oficial de policia.");
 
 	if (isnull(params))
  	{
@@ -41098,6 +41491,264 @@ CMD:bloqueocarretera(playerid, params[])
 		}
 		SendFactionMessage(PlayerData[playerid][pFaction], COLOR_RADIO, "RADIO: %s borro todos los bloqueos de carretera.", ReturnName(playerid, 0));
 	}
+	return 1;
+}
+
+CMD:cono(playerid, params[])
+{
+	if (GetFactionType(playerid) != FACTION_POLICE)
+	    return SendErrorMessage(playerid, "No eres un oficial de policia.");
+	new id;
+	if (sscanf(params, "i", id))
+ 	{
+	 	SendSyntaxMessage(playerid, "/cono [id]");
+	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 1: Cono, 2: Barricada Peque�a, 3: Barricada Mediana, 4: Barricada Grande");
+	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 5: Cartel calle cerrada 6: Cinta de policia, 7: Desvio, 8: Escalera, 9: Barril");
+		return 1;
+	}
+	static
+        Float:fX,
+        Float:fY,
+        Float:fZ,
+        Float:fA;
+
+    new objeto;
+
+    GetPlayerPos(playerid, fX, fY, fZ);
+    GetPlayerFacingAngle(playerid, fA);
+
+	if (IsPlayerInAnyVehicle(playerid))
+	    return SendErrorMessage(playerid, "Tienes que salir del auto primero.");
+	if (id == 1)
+	{
+		objeto = 1238;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.7, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca un cono.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 2)
+	{
+		objeto = 1228;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.6, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada peque�a.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 3)
+	{
+		objeto = 1422;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.7, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada mediana.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 4)
+	{
+		objeto = 3091;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.7, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada grande.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 5)
+	{
+		objeto = 19972;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 1, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca un cartel de calle cerrada.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 6)
+	{
+		objeto = 19834;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una cinta de policia.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 7)
+	{
+		objeto = 1425;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.6, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca un cartel de desvio.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 8)
+	{
+		objeto = 1437;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ, 45, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una escalera.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+		return 1;
+	}
+	if (id == 9)
+	{
+		objeto = 1237;
+		for (new i = 0; i != MAX_BARRICADES; i ++) if (!BarricadeData[i][cadeExists])
+		{
+	        BarricadeData[i][cadeExists] = true;
+	        BarricadeData[i][cadeType] = 3;
+
+	        BarricadeData[i][cadePos][0] = fX;
+	        BarricadeData[i][cadePos][1] = fY;
+	        BarricadeData[i][cadePos][2] = fZ;
+
+	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 1, 0.0, 0.0, fA);
+	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca un barril.", ReturnName(playerid, 0));
+
+			return 1;
+		}
+		SendErrorMessage(playerid, "El servidor llego al limite conos/bloqueos/spikes.");
+	}
+	return 1;
+}
+
+CMD:borrarcono(playerid)
+{
+	if (GetFactionType(playerid) != FACTION_POLICE)
+	    return SendErrorMessage(playerid, "No eres un oficial de policia.");
+	for (new i = 0; i != MAX_BARRICADES; i ++) if (BarricadeData[i][cadeExists] && BarricadeData[i][cadeType] == 3 && IsPlayerInRangeOfPoint(playerid, 5.0, BarricadeData[i][cadePos][0], BarricadeData[i][cadePos][1], BarricadeData[i][cadePos][2]))
+    {
+        BarricadeData[i][cadeExists] = 0;
+        BarricadeData[i][cadeType] = 0;
+
+        DestroyDynamicObject(BarricadeData[i][cadeObject]);
+
+        SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s quito un cono.", ReturnName(playerid, 0));
+		return 1;
+	}
+	SendErrorMessage(playerid, "No estas cerca de ningun cono.");
+	return 1;
+}
+
+CMD:borrarconotodos(playerid)
+{
+	if (GetFactionType(playerid) != FACTION_POLICE)
+	    return SendErrorMessage(playerid, "No eres un oficial de policia.");
+	for (new i = 0; i != MAX_BARRICADES; i ++) if (BarricadeData[i][cadeExists] && BarricadeData[i][cadeType] == 3)
+	{
+        BarricadeData[i][cadeExists] = 0;
+        BarricadeData[i][cadeType] = 0;
+
+		DestroyDynamicObject(BarricadeData[i][cadeObject]);
+	}
+	SendFactionMessage(PlayerData[playerid][pFaction], COLOR_RADIO, "RADIO: %s borro todos conos.", ReturnName(playerid, 0));
 	return 1;
 }
 
