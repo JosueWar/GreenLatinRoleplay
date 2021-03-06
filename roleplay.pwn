@@ -459,8 +459,12 @@ enum playerData {
 	Text3D:pNameTag,
 	pSpawnPoint,
 	pRecargar,
+<<<<<<< HEAD
 	pFakeDNI[32],
 	pSubsidioCheck
+=======
+	pFakeDNI[32]
+>>>>>>> parent of fb21f81 (Update roleplay.pwn)
 };
 
 enum reportData {
@@ -36792,7 +36796,17 @@ CMD:subsidio(playerid, params[])
 
 	if (IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
 	{
+<<<<<<< HEAD
 		if (IsPayTime())
+=======
+		return SendErrorMessage(playerid, "Tienes que esperar 1 minuto y volver a la fila para poder pedir un subsidio");
+	}
+	//ej 4:04 < 4:05, ahora si puede hacer peticion
+	else
+	{
+		//if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
+		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
+>>>>>>> parent of fb21f81 (Update roleplay.pwn)
 		{
 			amount = 100 + (connectedPlayers * 10);
 			GiveMoney(playerid, amount);
