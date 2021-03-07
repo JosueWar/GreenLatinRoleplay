@@ -15192,7 +15192,7 @@ public PlayerCheck()
 
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][59], "Tutorial: Hambre y Sed");
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][60], "El hambre y sed son mostrados~n~en la parte derecha de la pantalla. Despues~n~de un rato te dará hambre.");
-		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Este es un negocio de ~y~Comida Rapida~w~. Podes ~n~comprar comida aqui. Tambien podes comprar comida ~n~y bebida en un ~y~Minorista.");
+		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Este es un negocio de ~y~Comida Rapida~w~. Podes ~n~comprar comida aqui. Tambien podes comprar ~n~comida y bebida en un ~y~Minorista.");
 
 						SetPlayerInterior(i, 10);
 						SetPlayerPos(i, 365.013977, -73.615165, 983.073730);
