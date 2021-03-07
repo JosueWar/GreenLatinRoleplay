@@ -15236,7 +15236,7 @@ public PlayerCheck()
 
 		                PlayerData[i][pTutorial] = 0;
 		                PlayerData[i][pTutorialTime] = 0;
-		                GiveMoney(playerid, 1250);
+		                GiveMoney(i, 1250);
 
 		                SendServerMessage(i, "Escribe /tareas para ver tus tareas por completar.");
 		            }
