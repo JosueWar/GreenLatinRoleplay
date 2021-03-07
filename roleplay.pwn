@@ -9388,7 +9388,7 @@ Business_PurchaseMenu(playerid, bizid)
 	{
 	    case 1, 6:
 	    {
-			format(string, sizeof(string), "Producto\tPrecio\tStock\nCelular\t%s\t%s\nGPS\t%s\nSpray\t%s\nMochila\t%s\nBotella de Agua\t%s\nGaseosa\t%s\nTicket de Loteria\t%s\nRadio Portatil\t%s\nLata de Combustible\t%s\nPalanca\t%s\nBoombox\t%s\nMascara\t%s\nPrimeros Auxilios\t%s\nKit de Reparacion\t%s\nFrasco de NOS\t%s\nBat de Baseball\t%s\nPizza Congelada\t%s\nHamburguesa Congelada\t%s",
+			format(string, sizeof(string), "Producto\tPrecio\tStock\nCelular\t%s\t%d\nGPS\t%s\nSpray\t%s\nMochila\t%s\nBotella de Agua\t%s\nGaseosa\t%s\nTicket de Loteria\t%s\nRadio Portatil\t%s\nLata de Combustible\t%s\nPalanca\t%s\nBoombox\t%s\nMascara\t%s\nPrimeros Auxilios\t%s\nKit de Reparacion\t%s\nFrasco de NOS\t%s\nBat de Baseball\t%s\nPizza Congelada\t%s\nHamburguesa Congelada\t%s",
 				FormatNumber(BusinessData[bizid][bizPrices][0]),
 				BusinessData[bizid][bizProducts],
 				FormatNumber(BusinessData[bizid][bizPrices][1]),
@@ -9413,7 +9413,7 @@ Business_PurchaseMenu(playerid, bizid)
 		}
 		case 2:
 	    {
-			format(string, sizeof(string), "Producto\tPrecio\tStock\nCargador\t%s\t%s\nCartucho de Munición\t%s\nChaleco Blindado\t%s\nDesert Eagle\t%s\nRemington 870\t%s\nM14 Rifle\t%s",
+			format(string, sizeof(string), "Producto\tPrecio\tStock\nCargador\t%s\t%d\nCartucho de Munición\t%s\nChaleco Blindado\t%s\nDesert Eagle\t%s\nRemington 870\t%s\nM14 Rifle\t%s",
 				FormatNumber(BusinessData[bizid][bizPrices][0]),
 				BusinessData[bizid][bizProducts],
 				FormatNumber(BusinessData[bizid][bizPrices][1]),
@@ -9426,7 +9426,7 @@ Business_PurchaseMenu(playerid, bizid)
 		}
 		case 3:
 	    {
-			format(string, sizeof(string), "Producto\tPrecio\tStock\nRopa\t%s\t%s\nLentes\t%s\nGorros\t%s\nBandanas\t%s",
+			format(string, sizeof(string), "Producto\tPrecio\tStock\nRopa\t%s\t%d\nLentes\t%s\nGorros\t%s\nBandanas\t%s",
 				FormatNumber(BusinessData[bizid][bizPrices][0]),
 				BusinessData[bizid][bizProducts],
 				FormatNumber(BusinessData[bizid][bizPrices][1]),
@@ -9437,7 +9437,7 @@ Business_PurchaseMenu(playerid, bizid)
 		}
 		case 4, 8:
 		{
-            format(string, sizeof(string), "Producto\tPrecio\tStock\nAgua\t%s\t%s\nGaseosa\t%s\nPapas Fritas\t%s\nHamburguesa con Queso\t%s\nHamburguesa de Pollo\t%s\nNuggets de Pollo\t%s\nEnsalada\t%s",
+            format(string, sizeof(string), "Producto\tPrecio\tStock\nAgua\t%s\t%d\nGaseosa\t%s\nPapas Fritas\t%s\nHamburguesa con Queso\t%s\nHamburguesa de Pollo\t%s\nNuggets de Pollo\t%s\nEnsalada\t%s",
     			FormatNumber(BusinessData[bizid][bizPrices][0]),
     			BusinessData[bizid][bizProducts],
 				FormatNumber(BusinessData[bizid][bizPrices][1]),
@@ -9454,13 +9454,13 @@ Business_PurchaseMenu(playerid, bizid)
 	        string[0] = 0;
 
 	        for (new i = 0; i < sizeof(g_aFurnitureTypes); i ++) {
-	            format(string, sizeof(string), "Producto\tPrecio\tStock\n%s%s\t%s\t%s\n", string, g_aFurnitureTypes[i], FormatNumber(BusinessData[bizid][bizPrices][i]), BusinessData[bizid][bizProducts]);
+	            format(string, sizeof(string), "Producto\tPrecio\tStock\n%s%s\t%s\t%d\n", string, g_aFurnitureTypes[i], FormatNumber(BusinessData[bizid][bizPrices][i]), BusinessData[bizid][bizProducts]);
 			}
 			Dialog_Show(playerid, BusinessBuy, DIALOG_STYLE_TABLIST_HEADERS, BusinessData[bizid][bizName], string, "Comprar", "Cancelar");
 		}
 		case 9, 10:
 		{
-            format(string, sizeof(string), "Producto\tPrecio\tStock\nCerveza\t%s\t%s\nFernet con coca\t%s\nGin Tonic\t%s\nVodka con hielo\t%s\nFantino \t%s\nHamburguesa\t%s",
+            format(string, sizeof(string), "Producto\tPrecio\tStock\nCerveza\t%s\t%d\nFernet con coca\t%s\nGin Tonic\t%s\nVodka con hielo\t%s\nFantino \t%s\nHamburguesa\t%s",
     			FormatNumber(BusinessData[bizid][bizPrices][0]),
     			BusinessData[bizid][bizProducts],
 				FormatNumber(BusinessData[bizid][bizPrices][1]),
