@@ -37430,6 +37430,16 @@ CMD:comprar(playerid, params[])
 }
 
 
+stock EsHoraPar(hora)
+{
+	for(new i; i < 24; i+=2)
+	{
+	    if(i == hora)
+	        return 1;
+	}
+	return 0;
+}
+
 stock CheckSubsidioSQL()
 {
 	new
@@ -37437,24 +37447,33 @@ stock CheckSubsidioSQL()
 
 	gettime(Hora_, Min);
 
-	//if( !EsHoraPar(Hora_) || (Min > 20))
-	if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
+	//if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
+	if( !EsHoraPar(Hora_))
 	{
 		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '1'");
+		foreach (new i : Player)
+		{
+			PlayerData[i][pSubsidioCheck] = 1;
+		}
 		return 1;
 	}
-	/*
-	else(Min > 20)
+	
+	//else if ((Min == 5) || (Min == 15) || (Min == 25) || (Min == 35) || (Min == 45) || (Min == 55))
+	else if (Min > 20)
 	{
 		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '0'");
+		foreach (new i : Player)
+		{
+			PlayerData[i][pSubsidioCheck] = 0;
+		}
 		return 1;
 	}
-	*/
 	return 0;
 }
 
 CMD:subsidio(playerid, params[])
 {
+	
 	static
 		amount = 100,
 		horas,
@@ -37463,35 +37482,28 @@ CMD:subsidio(playerid, params[])
 
 	gettime(horas,minutos,segundos);
 
-	/*
-	if((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
+	
+	if(IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
 	{
-
-	}
-
-	//ej 4:01 < 4:00
-	if (PlayerData[playerid][pSubsidioTime] > gettime())
-	{
-		return SendErrorMessage(playerid, "Tienes que esperar 1 minuto y volver a la fila para poder pedir un subsidio");
-	}
-	//ej 4:04 < 4:05, ahora si puede hacer peticion
-	else
-	{
-		//if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (horas % 2 == 0 && minutos == 0))
-		if ((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500)) && (minutos == 00 || minutos == 5 || minutos == 10 || minutos == 20 || minutos == 25 || minutos == 30 || minutos == 40|| minutos == 50))
+		if(PlayerData[playerid][pSubsidioCheck] == 1)
 		{
 			amount = 100 + (connectedPlayers * 10);
 			GiveMoney(playerid, amount);
 			SendServerMessage(playerid,"Has recibido %d de dinero por el subsidio", amount);
-			PlayerData[playerid][pSubsidioTime] = gettime() + 60;
+			mysql_tquery(g_iHandle, "UPDATE `characters` SET `SubsidioCheck` = '0' WHERE `characters`.`ID` = '%d'", PlayerData[playerid][pID]);
+			PlayerData[playerid][pSubsidioCheck] = 0;
+
 		}
 		else
 		{
-			SendClientMessage(playerid, COLOR_RED,"Todavia no han pasado dos horas para recibir nuevo subsidio");
-			PlayerData[playerid][pSubsidioTime] = gettime();
+			return SendErrorMessage(playerid, "Ya has pedido el subsidio o tienes que esperar hasta que se habilite de nuevo para todos");
 		}
+		
 	}
-	*/
+	else
+	{
+		return SendErrorMessage(playerid, "Debes estar en el banco y en la ventanilla para poder pedir subsidio.");
+	}
 	return 1;
 }
 
