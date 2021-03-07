@@ -460,7 +460,7 @@ enum playerData {
 	pSpawnPoint,
 	pRecargar,
 	pFakeDNI[32],
-	pSubsidioTime
+	pSubsidioCheck
 };
 
 enum reportData {
@@ -14941,6 +14941,7 @@ public MinuteCheck()
 	    Plant_Refresh(i);
 	    Plant_Save(i);
 	}
+	CheckSubsidioSQL();
 	return 1;
 }
 
@@ -17776,7 +17777,7 @@ public OnPlayerConnect(playerid)
 	//Agregar jugadores en status
 	connectedPlayers = connectedPlayers + 1;
 	//Agregar tiempo subsidio
-	PlayerData[playerid][pSubsidioTime] = gettime();
+	
 
 	if (IsPlayerNPC(playerid))
 	    return 1;
@@ -27453,7 +27454,7 @@ public OnGameModeInit()
 	SetTimer("MinuteCheck", 60000, true);
 	SetTimer("WeatherRotator", 2400000, true);
 	SetTimer("RandomFire", 2400000, true);
-	SetTimer("MensajeAutomatico", 300000, true);
+	SetTimer("MensajeAutomatico", 600000, true);
 	return 1;
 }
 
@@ -27729,16 +27730,16 @@ public OnPlayerText(playerid, text[])
 				else if (!strcmp(text, "medicos", true))
 				{
 				    PlayerData[playerid][pEmergency] = 3;
-				    SendClientMessage(playerid, COLOR_HOSPITAL, "[OPERATORA]:{FFFFFF} Estas hablando con el hospital, hablenos de su emergencia.");
+				    SendClientMessage(playerid, COLOR_HOSPITAL, "[operadora]:{FFFFFF} Estas hablando con el hospital, hablenos de su emergencia.");
 				}
-				else SendClientMessage(playerid, COLOR_LIGHTBLUE, "[OPERATORA]:{FFFFFF} Disculpe, no entendi lo que dijo. Necesitas \"policia\" o \"medicos\"?");
+				else SendClientMessage(playerid, COLOR_LIGHTBLUE, "[operadora]:{FFFFFF} Disculpe, no entendi lo que dijo. Necesitas \"policia\" o \"medicos\"?");
 			}
 			case 2:
 			{
    				SendFactionMessageEx(FACTION_POLICE, COLOR_RADIO, "Llamada 911: %s (%s)", ReturnName(playerid, 0), GetPlayerLocation(playerid));
         		SendFactionMessageEx(FACTION_POLICE, COLOR_RADIO, "Descripcion: %s", text);
 
-			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[OPERATORA]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
+			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[operadora]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
 			    cmd_colgar(playerid, "\1");
 
 			    SetFactionMarker(playerid, FACTION_POLICE, 0x00D700FF);
@@ -27748,7 +27749,7 @@ public OnPlayerText(playerid, text[])
 			    SendFactionMessageEx(FACTION_MEDIC, COLOR_HOSPITAL, "Llamada 911: %s (%s)", ReturnName(playerid, 0), GetPlayerLocation(playerid));
        			SendFactionMessageEx(FACTION_MEDIC, COLOR_HOSPITAL, "Descripcion: %s", text);
 
-			    SendClientMessage(playerid, COLOR_HOSPITAL, "[OPERATORA]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
+			    SendClientMessage(playerid, COLOR_HOSPITAL, "[operadora]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
 			    cmd_colgar(playerid, "\1");
 
 			    SetFactionMarker(playerid, FACTION_MEDIC, 0x00D700FF);
@@ -27762,13 +27763,13 @@ public OnPlayerText(playerid, text[])
 		        {
 		            if (GetMoney(playerid) < 500)
 				    {
-    	                SendClientMessage(playerid, COLOR_CYAN, "[OPERATORAA]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
+    	                SendClientMessage(playerid, COLOR_CYAN, "[operadoraA]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
 					    cmd_colgar(playerid, "\1");
 					}
 					else
 					{
 						PlayerData[playerid][pPlaceAd] = 2;
-						SendClientMessage(playerid, COLOR_CYAN, "[OPERATORA]:{FFFFFF} Por favor, especifique su anuncio y lo anunciaremos..");
+						SendClientMessage(playerid, COLOR_CYAN, "[operadora]:{FFFFFF} Por favor, especifique su anuncio y lo anunciaremos..");
 					}
 				}
 			}
@@ -27776,7 +27777,7 @@ public OnPlayerText(playerid, text[])
 			{
 			    if (GetMoney(playerid) < 500)
 			    {
-                    SendClientMessage(playerid, COLOR_CYAN, "[OPERATORA]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
+                    SendClientMessage(playerid, COLOR_CYAN, "[operadora]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
 				    cmd_colgar(playerid, "\1");
 				}
 				else
@@ -27787,7 +27788,7 @@ public OnPlayerText(playerid, text[])
                     PlayerData[playerid][pAdTime] = 120;
 				    strpack(PlayerData[playerid][pAdvertise], text, 128 char);
 
-        	        SendClientMessage(playerid, COLOR_CYAN, "[OPERATORA]:{FFFFFF} Su anuncio será publicado en breve.");
+        	        SendClientMessage(playerid, COLOR_CYAN, "[operadora]:{FFFFFF} Su anuncio será publicado en breve.");
 				    cmd_colgar(playerid, "\1");
 				}
 			}
@@ -37428,6 +37429,29 @@ CMD:comprar(playerid, params[])
 	return 1;
 }
 
+
+stock CheckSubsidioSQL()
+{
+	new
+	    Hora_, Min;
+
+	gettime(Hora_, Min);
+
+	//if( !EsHoraPar(Hora_) || (Min > 20))
+	if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
+	{
+		mysql_tquery(g_iHandle,"UPDATE `Sv McZulian`.`characters` SET `SubsidioCheck` = '1'");
+		return 1;
+	}
+	return 0;
+}
+
+stock PlayerCheckSubsidio()
+{
+	//mysql_tquery(g_iHandle,"UPDATE `Sv McZulian`.`characters` SET `SubsidioCheck` = '1'");
+	return 0;
+}
+
 /*CMD:subsidio(playerid, params[])
 {
 	static
@@ -42498,7 +42522,7 @@ CMD:cambiarnombre(playerid, params[])
 	return 1;
 }
 
-CMD:acceptarnombre(playerid, params[])
+CMD:aceptarnombre(playerid, params[])
 {
 	static
 	    userid;
