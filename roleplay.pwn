@@ -37448,7 +37448,7 @@ stock CheckSubsidioSQL()
 	gettime(Hora_, Min);
 
 	//if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
-	if( !EsHoraPar(Hora_))
+	if(EsHoraPar(Hora_) == 1 && Min == 0)
 	{
 		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '1'");
 		foreach (new i : Player)
@@ -38340,14 +38340,14 @@ CMD:crearnegocio(playerid, params[])
  	{
 	 	SendSyntaxMessage(playerid, "/crearnegocio [type] [price]");
     	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 1: Minorista | 2: Armas | 3: Ropa | 4: Comida Rapida | 5: Concesionario ");
-    	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida a Mundo Abierto Beta");
+    	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida \'Dinamico\'");
 
     	return 1;
 	}
 	if (type < 1 || type > 8)
-	    return SendErrorMessage(playerid, "Tipo de negocio invalido, los tipos tienen que ser del 1 al 8.");
+	    return SendErrorMessage(playerid, "Tipo de negocio invalido, los tipos tienen que ser del 1 al 9.");
 
-	if (type > 8)
+	if (type == 8 || type == 10)
 	    return SendErrorMessage(playerid, "Recordar creack un checkpoint nuevo con /editarnegocio ID checkpoint, para agregar el punto de venta.");
 
 	id = Business_Create(playerid, type, price);
@@ -38372,7 +38372,7 @@ CMD:editarnegocio(playerid, params[])
 	if (sscanf(params, "ds[24]S()[128]", id, type, string))
  	{
 	 	SendSyntaxMessage(playerid, "/editarnegocio [id] [opcion]");
-	    SendClientMessage(playerid, COLOR_YELLOW, "[OPCIONES]:{FFFFFF} exterior, interior, checkpoint, entrega, nombre, precio, stock, tipo, autos, spawn");
+	    SendClientMessage(playerid, COLOR_YELLOW, "[OPCIONES]:{FFFFFF} exterior, interior, checkpoint \'dinamico\', entrega, nombre, precio, stock, tipo, autos, spawn");
 	    SendClientMessage(playerid, COLOR_YELLOW, "checkpoint, solo sirve para tiendas a cielo abierto");
 		return 1;
 	}
@@ -38417,11 +38417,18 @@ CMD:editarnegocio(playerid, params[])
 	//Sistema de checkpoints negocios
 	else if (!strcmp(type, "checkpoint", true))
 	{
-	    GetPlayerPos(playerid, BusinessData[id][bizCheck][0], BusinessData[id][bizCheck][1], BusinessData[id][bizCheck][2]);
-		Business_Refresh(id);
+		if (BusinessData[id][bizType] == 8 || BusinessData[id][bizType] == 10)
+		{
+			GetPlayerPos(playerid, BusinessData[id][bizCheck][0], BusinessData[id][bizCheck][1], BusinessData[id][bizCheck][2]);
+			Business_Refresh(id);
 
-		Business_Save(id);
-		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
+			Business_Save(id);
+			SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
+		}
+		else
+		{
+			return SendErrorMessage(playerid, "Este negocio no puede tener checkpoint, es solo para negocios dinamicos.");
+		}
 	}
 
 	else if (!strcmp(type, "entrega", true))
