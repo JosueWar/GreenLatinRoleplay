@@ -29,7 +29,7 @@
  	* Apple (scripter)
  	* Risky (ran the server)
 
-	Traduccion al español
+	Traduccion al españoll
 	* McZulian (80%)
 	* dado1996 (20%)
 
@@ -9458,19 +9458,6 @@ Business_PurchaseMenu(playerid, bizid)
 			}
 			Dialog_Show(playerid, BusinessBuy, DIALOG_STYLE_TABLIST_HEADERS, BusinessData[bizid][bizName], string, "Comprar", "Cancelar");
 		}
-		case 9, 10:
-		{
-            format(string, sizeof(string), "Producto\tPrecio\tStock\nCerveza\t%s\t%s\nFernet con coca\t%s\nGin Tonic\t%s\nVodka con hielo\t%s\nFantino \t%s\nHamburguesa\t%s",
-    			FormatNumber(BusinessData[bizid][bizPrices][0]),
-    			BusinessData[bizid][bizProducts],
-				FormatNumber(BusinessData[bizid][bizPrices][1]),
-				FormatNumber(BusinessData[bizid][bizPrices][2]),
-				FormatNumber(BusinessData[bizid][bizPrices][3]),
-				FormatNumber(BusinessData[bizid][bizPrices][4]),
-				FormatNumber(BusinessData[bizid][bizPrices][5])
-			);
-			Dialog_Show(playerid, BusinessBuy, DIALOG_STYLE_TABLIST_HEADERS, BusinessData[bizid][bizName], string, "Comprar", "Cancelar");
-		}
 	}
 	return 1;
 }
@@ -9602,7 +9589,7 @@ Business_Refresh(bizid)
         if (IsValidDynamicPickup(BusinessData[bizid][bizDeliverPickup]))
 		    DestroyDynamicPickup(BusinessData[bizid][bizDeliverPickup]);
 
-		//Eliminar pickups checkpoints de tiendas tipo dinamicos
+		//Eliminar pickups checkpoints de tiendas tipo 8
 		if (IsValidDynamicPickup(BusinessData[bizid][bizPickupV]))
 		    DestroyDynamicPickup(BusinessData[bizid][bizPickupV]);
 
@@ -9637,8 +9624,6 @@ Business_Refresh(bizid)
 		    case 6: pickup = 1650;
 		    case 7: pickup = 2096;
 		    case 8: pickup = 1582;
-		    case 9: pickup = 1667;
-		    case 10: pickup = 1667;
 		}
 		if (BusinessData[bizid][bizType] == 6) {
         	BusinessData[bizid][bizPickup] = CreateDynamicPickup(pickup, 23, BusinessData[bizid][bizPos][0], BusinessData[bizid][bizPos][1], BusinessData[bizid][bizPos][2] + 0.3, BusinessData[bizid][bizExteriorVW], BusinessData[bizid][bizExterior]);
@@ -9659,16 +9644,10 @@ Business_Refresh(bizid)
 		//aparecer checkpoint (con icono) para comprar
 		if (BusinessData[bizid][bizCheck][0] != 0.0 && BusinessData[bizid][bizCheck][0] != 0.0 && BusinessData[bizid][bizCheck][0] != 0.0)
 		{
-
 		    format(string, sizeof(string), "%s\n\nPunto de Venta", BusinessData[bizid][bizName]);
-		    if (BusinessData[bizid][bizType] == 8) {
-        		BusinessData[bizid][bizPickupV] = CreateDynamicPickup(pickup, 23, BusinessData[bizid][bizCheck][0], BusinessData[bizid][bizCheck][1], BusinessData[bizid][bizCheck][2]);
-		    	BusinessData[bizid][bizVentaText3D] = CreateDynamic3DTextLabel(string, COLOR_CLIENT, BusinessData[bizid][bizCheck][0], BusinessData[bizid][bizCheck][1], BusinessData[bizid][bizCheck][2], 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
-			}
-			else if (BusinessData[bizid][bizType] == 10) {
-			    BusinessData[bizid][bizPickupV] = CreateDynamicPickup(pickup, 23, BusinessData[bizid][bizCheck][0], BusinessData[bizid][bizCheck][1], BusinessData[bizid][bizCheck][2]);
-		    	BusinessData[bizid][bizVentaText3D] = CreateDynamic3DTextLabel(string, COLOR_CLIENT, BusinessData[bizid][bizCheck][0], BusinessData[bizid][bizCheck][1], BusinessData[bizid][bizCheck][2], 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
-			}
+
+		    BusinessData[bizid][bizPickupV] = CreateDynamicPickup(19198, 23, BusinessData[bizid][bizCheck][0], BusinessData[bizid][bizCheck][1], BusinessData[bizid][bizCheck][2]);
+		    BusinessData[bizid][bizVentaText3D] = CreateDynamic3DTextLabel(string, COLOR_CLIENT, BusinessData[bizid][bizCheck][0], BusinessData[bizid][bizCheck][1], BusinessData[bizid][bizCheck][2], 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 		}
 	}
 	return 1;
@@ -9868,43 +9847,6 @@ Business_Create(playerid, type, price)
 		            BusinessData[i][bizExterior] = 0; //ambos se asignan 0 para el exterior
 					BusinessData[i][bizExteriorVW] = 0; //ambos se asignan 0 para el exterior
 				}
-				
-				else if (type == 9) {
-                	BusinessData[i][bizInt][0] = 501.8523;
-   					BusinessData[i][bizInt][1] = -68.2582;
-			   		BusinessData[i][bizInt][2] = 998.7578;
-      				BusinessData[i][bizInt][3] = 185.5292;
-					BusinessData[i][bizInterior] = 11;
-
-					BusinessData[i][bizPrices][0] = 3;
-		            BusinessData[i][bizPrices][1] = 8;
-		            BusinessData[i][bizPrices][2] = 5;
-		            BusinessData[i][bizPrices][3] = 4;
-		            BusinessData[i][bizPrices][4] = 1;
-		            BusinessData[i][bizPrices][5] = 10;
-		            BusinessData[i][bizExterior] = GetPlayerInterior(playerid);
-					BusinessData[i][bizExteriorVW] = GetPlayerVirtualWorld(playerid);
-				}
-				
-				// Beta de tienda de comida rapida a mundo abierto
-				else if (type == 10) {
-
-					BusinessData[i][bizInt][0] = x;
-                	BusinessData[i][bizInt][1] = y;
-                	BusinessData[i][bizInt][2] = z;
-                	BusinessData[i][bizInt][3] = 0.0000;
-					BusinessData[i][bizInterior] = 0;
-
-					BusinessData[i][bizPrices][0] = 3;
-		            BusinessData[i][bizPrices][1] = 8;
-		            BusinessData[i][bizPrices][2] = 5;
-		            BusinessData[i][bizPrices][3] = 4;
-		            BusinessData[i][bizPrices][4] = 1;
-		            BusinessData[i][bizPrices][5] = 15;
-		            BusinessData[i][bizExterior] = 0; //ambos se asignan 0 para el exterior
-					BusinessData[i][bizExteriorVW] = 0; //ambos se asignan 0 para el exterior
-				}
-				
 
 				BusinessData[i][bizLocked] = false;
 				BusinessData[i][bizVault] = 0;
@@ -13725,6 +13667,49 @@ stock SetHoodStatus(vehicleid, status)
 	return SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, status, boot, objective);
 }
 
+stock EsHoraPar(hora)
+{
+	for(new i; i < 24; i+=2)
+	{
+	    if(i == hora)
+	        return 1;
+	}
+	return 0;
+}
+
+stock CheckSubsidioSQL()
+{
+	new
+	    Hora_, Min;
+
+	gettime(Hora_, Min);
+
+	//if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
+    if(EsHoraPar(Hora_) == 1 && Min == 0)
+	{
+		SendClientMessageToAll(0x000000FF,"____________________________ {FFFFFF}Atención - Anuncio del gobierno {000000}____________________________");
+		SendClientMessageToAll(0x92CFB4FF,"Ya se comenzaron a entregar los subsidios, porfavor presentarse en el banco entre los próximos 20 minutos.");
+		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '1'");
+		foreach (new i : Player)
+		{
+			PlayerData[i][pSubsidioCheck] = 1;
+		}
+		return 1;
+	}
+	
+	//else if ((Min == 5) || (Min == 15) || (Min == 25) || (Min == 35) || (Min == 45) || (Min == 55))
+	else if (Min > 20)
+	{
+		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '0'");
+		foreach (new i : Player)
+		{
+			PlayerData[i][pSubsidioCheck] = 0;
+		}
+		return 1;
+	}
+	return 0;
+}
+
 public OnObjectMoved(objectid)
 {
 	for (new i = 0; i < MAX_BOOTHS; i ++) if (g_BoothUsed[i] && g_BoothObject[i] == objectid) {
@@ -15149,7 +15134,7 @@ public PlayerCheck()
 
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][59], "Tutorial: Hambre y Sed");
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][60], "El hambre y sed son mostrados~n~en la parte derecha de la pantalla. Despues~n~de un rato te dará hambre.");
-		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Este es un negocio de ~y~Comida Rapida~w~. Podes ~n~comprar comida aqui. Tambien podes comprar comida ~n~y bebida en un ~y~Minorista.");
+		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Este es un negocio de ~y~Comida Rapida~w~. Podes ~n~comprar comida aqui. Tambien podes comprar ~n~comida y bebida en un ~y~Minorista.");
 
 						SetPlayerInterior(i, 10);
 						SetPlayerPos(i, 365.013977, -73.615165, 983.073730);
@@ -15193,6 +15178,7 @@ public PlayerCheck()
 
 		                PlayerData[i][pTutorial] = 0;
 		                PlayerData[i][pTutorialTime] = 0;
+		                GiveMoney(playerid, 1250);
 
 		                SendServerMessage(i, "Escribe /tareas para ver tus tareas por completar.");
 		            }
@@ -16893,7 +16879,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			
 
 			//Solo cambia de interior y vw si el tipo de negocio es el generado (antes del 8 en adelante, alias tienda mundo abierto)
-			if (BusinessData[id][bizType] < 8 || BusinessData[id][bizType] == 9)
+			if (BusinessData[id][bizType] < 8)
 			{
 				SetPlayerPos(playerid, BusinessData[id][bizInt][0], BusinessData[id][bizInt][1], BusinessData[id][bizInt][2]);
 				SetPlayerFacingAngle(playerid, BusinessData[id][bizInt][3]);
@@ -18322,7 +18308,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 620, 1547.5703, -1661.0313, 13.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 620, 1541.4531, -1642.0313, 13.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 647, 1541.7422, -1638.9141, 14.4375, 0.25);
-	/*
+	
 	////////gasolineras exterior by macia espinoza///////////////////////////
 	RemoveBuildingForPlayer(playerid, 4194, 1360.3828, -1840.6172, 26.8047, 0.25);
 	RemoveBuildingForPlayer(playerid, 4226, 1359.2813, -1796.4688, 24.3438, 0.25);
@@ -18358,7 +18344,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1310.8516, 14.1172, 0.25);
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1305.6016, 14.1172, 0.25);
 	RemoveBuildingForPlayer(playerid, 1617, 1417.0156, -1282.8906, 16.8906, 0.25);
-	*/
+	
 	CancelSelectTextDraw(playerid);
 
 	GetPlayerIp(playerid, PlayerData[playerid][pIP], 16);
@@ -18374,10 +18360,10 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	//Agregar jugadores en status
+	//Agregar jugadores en statu
 	connectedPlayers = connectedPlayers - 1;
 	PlayerData[playerid][pLeaveTime] = GetTickCount();
-
+	ConEstado[playerid] = false;
 	format(PlayerData[playerid][pLeaveIP], 16, PlayerData[playerid][pIP]);
 
  	TerminateConnection(playerid);
@@ -26854,21 +26840,6 @@ public OnGameModeInit()
 	CreateDynamicObject(2922, 1393.59961, -1632.29980, 38.40000,   0.00000, 0.00000, 89.99597);
 	CreateDynamicObject(4100, 1375.77356, -1679.40356, 15.30000,   0.00000, 0.00000, 317.99927);
 	CreateDynamicObject(4100, 1375.77344, -1679.40332, 12.52501,   0.00000, 0.00000, 317.99927);
-	/*
-	//Rejas Pay & Spray y Tunning
-	CreateObject(971, 1025.27954, -1029.22986, 32.10160,   0.00000, 0.00000, 0.00000);
-	CreateObject(971, 488.23410, -1735.45911, 11.14160,   0.00000, 0.00000, 174.00000);
-	CreateObject(971, 2071.54102, -1831.41431, 13.54690,   0.00000, 0.00000, 90.00000);
-	CreateObject(971, 719.81989, -462.47681, 16.33590,   0.00000, 0.00000, 0.00000);
-	CreateObject(971, -1904.45605, 277.85779, 41.04690,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, 2385.96094, 1043.56250, 12.59370,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, 1968.78955, 2162.33325, 12.59370,   0.00000, 0.00000, 270.00000);
-	CreateObject(980, -1421.79968, 2590.89697, 56.80568,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, -1935.38757, 239.34282, 36.12965,   0.00000, 0.00000, 0.00000);
-	CreateObject(980, -2425.79126, 1028.10962, 52.17105,   0.00000, 0.00000, 0.00000);
-	CreateObject(971, -99.74067, 1111.51843, 20.36211,   0.00000, 0.00000, 0.00000);
-	CreateObject(5340, 2644.85938, -2039.23438, 14.03906,   356.85840, 0.00000, -1.57080);
-	CreateObject(5043, 1843.36719, -1856.32031, 13.87500,   356.85840, 0.00000, 3.14159);
 	//24-7 Vinewood
 	CreateDynamicObject(3850, 1342.30005, -856.72998, 40.07000,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(3850, 1342.31006, -860.19000, 40.07000,   0.00000, 0.00000, 0.00000);
@@ -27466,7 +27437,23 @@ public OnGameModeInit()
 	CreateDynamicObject(18698, 1417.95459, -1356.61133, 12.85992, 0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(18698, 1421.59790, -1260.31348, 12.78621, 0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(18698, 1417.74512, -1256.38354, 11.20332, 0.00000, 0.00000, 0.00000);
-	*/
+	//REJAS PAY&SPRAY 8-Ball Transfender
+	CreateObject(19870, 1843.33020, -1858.50464, 13.66282,   0.00000, 0.00000, 90.00000);
+	CreateObject(19870, 2071.51294, -1833.70325, 14.29454,   0.00000, 0.00000, 90.00000);
+	CreateObject(19870, 1022.56116, -1029.34790, 32.90882,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, 1050.24390, -1026.02197, 33.56157,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, -1896.60034, 278.11880, 42.78907,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, 2008.28467, 2317.86987, 9.82031,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, 2008.28467, 2303.62378, 9.82031,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, 2008.28467, 2303.62378, 9.82031,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, 1968.56702, 2166.52051, 11.62032,   0.00000, 0.00000, 90.00000);
+	CreateObject(19912, -92.75473, 1111.56897, 20.45219,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, -1416.28833, 2590.71191, 56.96749,   0.00000, 0.00000, 0.00000);
+	CreateObject(19912, -2421.96265, 1028.03955, 52.15059,   0.00000, 0.00000, 0.00000);
+	CreateObject(19870, 722.40906, -462.47809, 16.70370,   0.00000, 0.00000, 180.00000);
+	CreateObject(19870, 485.88943, -1734.36731, 11.81461,   0.00000, 0.00000, -8.79999);
+	CreateObject(19870, 485.88943, -1734.36731, 15.28460,   0.00000, 0.00000, -8.79999);
+
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
 	    SetDynamicObjectMaterial(PrisonData[prisonCells][i], 0, 19302, "pd_jail_door02", "pd_jail_door02", 0xFF000000);
@@ -33126,7 +33113,6 @@ Dialog:BusinessBuy(playerid, response, listitem, inputtext[])
 				}
 		    }
 		}
-		
 		else if (BusinessData[bizid][bizType] == 4 || BusinessData[bizid][bizType] == 8)
 		{
 			switch (listitem)
@@ -33230,9 +33216,7 @@ Dialog:BusinessBuy(playerid, response, listitem, inputtext[])
 			    case 6:
 			    {
 			        if (PlayerData[playerid][pHunger] > 90)
-			        {
 			            return SendErrorMessage(playerid, "No tienes hambre en este momento.");
-			        }
 
 					PlayerData[playerid][pHunger] = (PlayerData[playerid][pHunger] + 20 > 100) ? (100) : (PlayerData[playerid][pHunger] + 20);
 
@@ -33247,7 +33231,6 @@ Dialog:BusinessBuy(playerid, response, listitem, inputtext[])
 			    }
 			}
 		}
-		
 		else if (BusinessData[bizid][bizType] == 7)
 		{
 		    new
@@ -33268,95 +33251,6 @@ Dialog:BusinessBuy(playerid, response, listitem, inputtext[])
             else {
                 ShowModelSelectionMenu(playerid, "Mueble", MODEL_SELECTION_FURNITURE, items, count, -35, 0.0, 225);
             }
-		}
-		else if (BusinessData[bizid][bizType] == 9 || BusinessData[bizid][bizType] == 10)
-		{
-			switch (listitem)
-			{
-			    case 0:
-			    {
-					PlayerData[playerid][pThirst] = (PlayerData[playerid][pThirst] + 10 > 100) ? (100) : (PlayerData[playerid][pThirst] + 10);
-
-					GiveMoney(playerid, -price);
-					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s ha pagado %s y recibio Cerveza.", ReturnName(playerid, 0), FormatNumber(price));
-
-					BusinessData[bizid][bizProducts]--;
-					BusinessData[bizid][bizVault] += Tax_Percent(price);
-
-					Business_Save(bizid);
-					Tax_AddPercent(price);
-			    }
-			    case 1:
-			    {
-			        PlayerData[playerid][pThirst] = (PlayerData[playerid][pThirst] + 10 > 100) ? (100) : (PlayerData[playerid][pThirst] + 10);
-
-					GiveMoney(playerid, -price);
-					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s ha pagado %s y recibio Fernet con coca.", ReturnName(playerid, 0), FormatNumber(price));
-
-					BusinessData[bizid][bizProducts]--;
-					BusinessData[bizid][bizVault] += Tax_Percent(price);
-
-					Business_Save(bizid);
-					Tax_AddPercent(price);
-			    }
-			    case 2:
-			    {
-			        PlayerData[playerid][pThirst] = (PlayerData[playerid][pThirst] + 10 > 100) ? (100) : (PlayerData[playerid][pThirst] + 10);
-
-					GiveMoney(playerid, -price);
-					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s ha pagado %s y recibio Gin Tonic.", ReturnName(playerid, 0), FormatNumber(price));
-
-					BusinessData[bizid][bizProducts]--;
-					BusinessData[bizid][bizVault] += Tax_Percent(price);
-
-					Business_Save(bizid);
-					Tax_AddPercent(price);
-			    }
-			    case 3:
-			    {
-			        PlayerData[playerid][pThirst] = (PlayerData[playerid][pThirst] + 10 > 100) ? (100) : (PlayerData[playerid][pThirst] + 10);
-
-					GiveMoney(playerid, -price);
-					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s ha pagado %s y recibio Vodka con hielo.", ReturnName(playerid, 0), FormatNumber(price));
-
-					BusinessData[bizid][bizProducts]--;
-					BusinessData[bizid][bizVault] += Tax_Percent(price);
-
-					Business_Save(bizid);
-					Tax_AddPercent(price);
-			    }
-			    case 4:
-			    {
-			        PlayerData[playerid][pThirst] = (PlayerData[playerid][pThirst] + 10 > 100) ? (100) : (PlayerData[playerid][pThirst] + 10);
-
-					GiveMoney(playerid, -price);
-					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s ha pagado %s y recibio Fantino.", ReturnName(playerid, 0), FormatNumber(price));
-
-					BusinessData[bizid][bizProducts]--;
-					BusinessData[bizid][bizVault] += Tax_Percent(price);
-
-					Business_Save(bizid);
-					Tax_AddPercent(price);
-			    }
-			    case 5:
-			    {
-			        if (PlayerData[playerid][pHunger] > 90)
-			        {
-			            return SendErrorMessage(playerid, "No tienes hambre en este momento.");
-			        }
-
-					PlayerData[playerid][pHunger] = (PlayerData[playerid][pHunger] + 20 > 100) ? (100) : (PlayerData[playerid][pHunger] + 20);
-
-					GiveMoney(playerid, -price);
-					SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s ha pagado %s y recibio hamburguesa.", ReturnName(playerid, 0), FormatNumber(price));
-
-					BusinessData[bizid][bizProducts]--;
-					BusinessData[bizid][bizVault] += Tax_Percent(price);
-
-					Business_Save(bizid);
-					Tax_AddPercent(price);
-			    }
-			}
 		}
 	}
     return 1;
@@ -37580,48 +37474,6 @@ CMD:comprar(playerid, params[])
 	return 1;
 }
 
-
-stock EsHoraPar(hora)
-{
-	for(new i; i < 24; i+=2)
-	{
-	    if(i == hora)
-	        return 1;
-	}
-	return 0;
-}
-
-stock CheckSubsidioSQL()
-{
-	new
-	    Hora_, Min;
-
-	gettime(Hora_, Min);
-
-	//if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
-	if(EsHoraPar(Hora_) == 1 && Min == 0)
-	{
-		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '1'");
-		foreach (new i : Player)
-		{
-			PlayerData[i][pSubsidioCheck] = 1;
-		}
-		return 1;
-	}
-	
-	//else if ((Min == 5) || (Min == 15) || (Min == 25) || (Min == 35) || (Min == 45) || (Min == 55))
-	else if (Min > 20)
-	{
-		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '0'");
-		foreach (new i : Player)
-		{
-			PlayerData[i][pSubsidioCheck] = 0;
-		}
-		return 1;
-	}
-	return 0;
-}
-
 CMD:subsidio(playerid, params[])
 {
 	
@@ -37634,7 +37486,7 @@ CMD:subsidio(playerid, params[])
 	gettime(horas,minutos,segundos);
 
 	
-	if(IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
+	if(IsPlayerInRangeOfPoint(playerid,2.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,2.0,-852.2942,1624.8451,1004.7500))
 	{
 		if(PlayerData[playerid][pSubsidioCheck] == 1)
 		{
@@ -38491,15 +38343,15 @@ CMD:crearnegocio(playerid, params[])
  	{
 	 	SendSyntaxMessage(playerid, "/crearnegocio [type] [price]");
     	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 1: Minorista | 2: Armas | 3: Ropa | 4: Comida Rapida | 5: Concesionario ");
-    	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida \'Dinamico\'| 9: Bar | 10: Bar \'Dinamico\'");
+    	SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida a Mundo Abierto Beta");
 
     	return 1;
 	}
-	if (type < 1 || type > 10)
-	    return SendErrorMessage(playerid, "Tipo de negocio invalido, los tipos tienen que ser del 1 al 10.");
+	if (type < 1 || type > 8)
+	    return SendErrorMessage(playerid, "Tipo de negocio invalido, los tipos tienen que ser del 1 al 8.");
 
-	if (type == 8 || type == 10)
-		SendClientMessage(playerid, COLOR_YELLOW, "Recordar creack un checkpoint nuevo con /editarnegocio ID checkpoint, para agregar el punto de venta.");
+	if (type > 8)
+	    return SendErrorMessage(playerid, "Recordar creack un checkpoint nuevo con /editarnegocio ID checkpoint, para agregar el punto de venta.");
 
 	id = Business_Create(playerid, type, price);
 
@@ -38523,7 +38375,7 @@ CMD:editarnegocio(playerid, params[])
 	if (sscanf(params, "ds[24]S()[128]", id, type, string))
  	{
 	 	SendSyntaxMessage(playerid, "/editarnegocio [id] [opcion]");
-	    SendClientMessage(playerid, COLOR_YELLOW, "[OPCIONES]:{FFFFFF} exterior, interior, checkpoint \'dinamico\', entrega, nombre, precio, stock, tipo, autos, spawn");
+	    SendClientMessage(playerid, COLOR_YELLOW, "[OPCIONES]:{FFFFFF} exterior, interior, checkpoint, entrega, nombre, precio, stock, tipo, autos, spawn");
 	    SendClientMessage(playerid, COLOR_YELLOW, "checkpoint, solo sirve para tiendas a cielo abierto");
 		return 1;
 	}
@@ -38568,18 +38420,11 @@ CMD:editarnegocio(playerid, params[])
 	//Sistema de checkpoints negocios
 	else if (!strcmp(type, "checkpoint", true))
 	{
-		if (BusinessData[id][bizType] == 8 || BusinessData[id][bizType] == 10)
-		{
-			GetPlayerPos(playerid, BusinessData[id][bizCheck][0], BusinessData[id][bizCheck][1], BusinessData[id][bizCheck][2]);
-			Business_Refresh(id);
+	    GetPlayerPos(playerid, BusinessData[id][bizCheck][0], BusinessData[id][bizCheck][1], BusinessData[id][bizCheck][2]);
+		Business_Refresh(id);
 
-			Business_Save(id);
-			SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
-		}
-		else
-		{
-			return SendErrorMessage(playerid, "Este negocio no puede tener checkpoint, es solo para negocios dinamicos.");
-		}
+		Business_Save(id);
+		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el checkpoint del negocio ID: %d.", ReturnName(playerid, 0), id);
 	}
 
 	else if (!strcmp(type, "entrega", true))
@@ -38645,11 +38490,11 @@ CMD:editarnegocio(playerid, params[])
 	    if (sscanf(string, "d", typeint))
 	    {
 	        SendSyntaxMessage(playerid, "/editarnegocio [id] [tipo] [tipo de negocio]");
-			SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 1: Minorista | 2: Armas | 3: Ropa | 4: Comida Rapida | 5: Concesionario | 6: Estacion de Servicio | 7: Muebles | 9 : Bar");
+			SendClientMessage(playerid, COLOR_YELLOW, "[TYPES]:{FFFFFF} 1: Minorista | 2: Armas | 3: Ropa | 4: Comida Rapida | 5: Concesionario | 6: Estacion de Servicio | 7: Muebles | 8: Comida Rapida a Mundo Abierto");
 			return 1;
 		}
-		if (typeint != 1 || typeint != 2 || typeint != 3 || typeint != 4 || typeint != 5 || typeint != 6 || typeint != 7 || typeint != 9)
-			return SendErrorMessage(playerid, "El tipo de negocio debe ser entre 1 y 7 o 9.");
+		if (typeint < 1 || typeint > 7)
+			return SendErrorMessage(playerid, "El tipo de negocio es entre 1 y 7.");
 
         BusinessData[id][bizType] = typeint;
 
@@ -38702,19 +38547,6 @@ CMD:editarnegocio(playerid, params[])
 			   	BusinessData[id][bizInt][2] = 1035.4210;
       			BusinessData[id][bizInt][3] = 270.0000;
 				BusinessData[id][bizInterior] = 6;
-			}
-			case 8: {
-				return SendErrorMessage(playerid, "No se puede editar este tipo de negocio, eliminelo y crea otro nuevo");
-			}
-			case 9: {
-				BusinessData[id][bizInt][0] = 501.8523;
-   				BusinessData[id][bizInt][1] = -68.2582;
-			   	BusinessData[id][bizInt][2] = 998.7578;
-      			BusinessData[id][bizInt][3] = 185.5292;
-				BusinessData[id][bizInterior] = 11;
-			}
-			case 10: {
-				return SendErrorMessage(playerid, "No se puede editar este tipo de negocio, eliminelo y crea otro nuevo");
 			}
 		}
 		foreach (new i : Player)
