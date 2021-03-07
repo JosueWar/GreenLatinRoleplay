@@ -37440,19 +37440,20 @@ stock CheckSubsidioSQL()
 	//if( !EsHoraPar(Hora_) || (Min > 20))
 	if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
 	{
-		mysql_tquery(g_iHandle,"UPDATE `Sv McZulian`.`characters` SET `SubsidioCheck` = '1'");
+		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '1'");
 		return 1;
 	}
+	/*
+	else(Min > 20)
+	{
+		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '0'");
+		return 1;
+	}
+	*/
 	return 0;
 }
 
-stock PlayerCheckSubsidio()
-{
-	//mysql_tquery(g_iHandle,"UPDATE `Sv McZulian`.`characters` SET `SubsidioCheck` = '1'");
-	return 0;
-}
-
-/*CMD:subsidio(playerid, params[])
+CMD:subsidio(playerid, params[])
 {
 	static
 		amount = 100,
@@ -37461,6 +37462,12 @@ stock PlayerCheckSubsidio()
 		segundos;
 
 	gettime(horas,minutos,segundos);
+
+
+	if((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
+	{
+
+	}
 
 	//ej 4:01 < 4:00
 	if (PlayerData[playerid][pSubsidioTime] > gettime())
@@ -37485,7 +37492,7 @@ stock PlayerCheckSubsidio()
 		}
 	}
 	return 1;
-}*/
+}
 
 CMD:conectados(playerid, params[])
 {
