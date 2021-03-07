@@ -13745,8 +13745,8 @@ stock CheckSubsidioSQL()
 	//if((Min == 10) || (Min == 20) || (Min == 30) || (Min == 40) || (Min == 50) || (Min == 00))
     if(EsHoraPar(Hora_) == 1 && Min == 0)
 	{
-		SendClientMessageToAll(0x000000FF,"____________________________ {FFFFFF}Atenciï¿½n - Anuncio del gobierno {000000}____________________________");
-		SendClientMessageToAll(0x92CFB4FF,"Ya se comenzaron a entregar los subsidios, porfavor presentarse en el banco entre los prï¿½ximos 20 minutos.");
+		SendClientMessageToAll(0x000000FF,"____________________________ {FFFFFF}Atención - Anuncio del gobierno {000000}____________________________");
+		SendClientMessageToAll(0x92CFB4FF,"Ya se comenzaron a entregar los subsidios, porfavor presentarse en el banco entre los próximos 20 minutos.");
 		mysql_tquery(g_iHandle,"UPDATE `characters` SET `SubsidioCheck` = '1'");
 		foreach (new i : Player)
 		{
@@ -42446,7 +42446,7 @@ CMD:cono(playerid, params[])
 	if (sscanf(params, "i", id))
  	{
 	 	SendSyntaxMessage(playerid, "/cono [id]");
-	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 1: Cono, 2: Barricada Pequeï¿½a, 3: Barricada Mediana, 4: Barricada Grande");
+	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 1: Cono, 2: Barricada Pequeña, 3: Barricada Mediana, 4: Barricada Grande");
 	 	SendClientMessage(playerid, COLOR_YELLOW, "ID: 5: Cartel calle cerrada 6: Cinta de policia, 7: Desvio, 8: Escalera, 9: Barril");
 		return 1;
 	}
@@ -42500,7 +42500,7 @@ CMD:cono(playerid, params[])
 	        BarricadeData[i][cadeObject] = CreateDynamicObject(objeto, fX, fY, fZ - 0.6, 0.0, 0.0, fA);
 	        SetPlayerPos(playerid, fX + 2, fY + 2, fZ + 1);
 
-			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada pequeï¿½a.", ReturnName(playerid, 0));
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s coloca una barricada pequeña.", ReturnName(playerid, 0));
 
 			return 1;
 		}
