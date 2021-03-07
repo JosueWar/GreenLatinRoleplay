@@ -37463,7 +37463,7 @@ CMD:subsidio(playerid, params[])
 
 	gettime(horas,minutos,segundos);
 
-
+	/*
 	if((IsPlayerInRangeOfPoint(playerid,5.0,-852.4701,1633.2644,1004.7500) || IsPlayerInRangeOfPoint(playerid,5.0,-852.2942,1624.8451,1004.7500))
 	{
 
@@ -37491,6 +37491,7 @@ CMD:subsidio(playerid, params[])
 			PlayerData[playerid][pSubsidioTime] = gettime();
 		}
 	}
+	*/
 	return 1;
 }
 
