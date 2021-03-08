@@ -610,7 +610,8 @@ enum carData {
 	carWeapons[5],
 	carAmmo[5],
 	carVehicle,
-	carJob
+	carJob,
+	carPlate[32]
 };
 
 enum carStorage {
@@ -3084,12 +3085,10 @@ stock ResetVehicle(vehicleid)
 stock RespawnVehicle(vehicleid)
 {
 	new id = Car_GetID(vehicleid);
-
 	if (id != -1)
 	    Car_Spawn(id);
 
 	else SetVehicleToRespawn(vehicleid);
-
 	ResetVehicle(vehicleid);
 	return 1;
 }
@@ -6962,6 +6961,9 @@ stock Car_Spawn(carid)
 			{
 			    if (CarData[carid][carMods][i]) AddVehicleComponent(CarData[carid][carVehicle], CarData[carid][carMods][i]);
 			}
+			new plate[32];
+			plate[0] = CarData[carid][carPlate];
+			SetVehicleNumberPlate(carid, plate);
    			ResetVehicle(CarData[carid][carVehicle]);
 			return 1;
 		}
@@ -6997,7 +6999,7 @@ public Car_Load()
 	    CarData[i][carImpoundPrice] = cache_get_field_int(i, "carImpoundPrice");
         CarData[i][carFaction] = cache_get_field_int(i, "carFaction");
         CarData[i][carJob] = cache_get_field_int(i, "carJob");
-
+        cache_get_field_content(i, "carPlate", CarData[i][carPlate], g_iHandle, 32);
 		for (new j = 0; j < 14; j ++)
 		{
 		    if (j < 5)
@@ -8590,7 +8592,7 @@ Car_Create(ownerid, modelid, Float:x, Float:y, Float:z, Float:angle, color1, col
 
 			if (color2 == -1)
 			    color2 = random(127);
-
+			
    		    CarData[i][carExists] = true;
             CarData[i][carModel] = modelid;
             CarData[i][carOwner] = ownerid;
@@ -8696,7 +8698,7 @@ Car_Save(carid)
 		CarData[carid][carMods][12],
 		CarData[carid][carMods][13]
 	);
-	format(query, sizeof(query), "%s, `carImpounded` = '%d', `carImpoundPrice` = '%d', `carFaction` = '%d', `carWeapon1` = '%d', `carWeapon2` = '%d', `carWeapon3` = '%d', `carWeapon4` = '%d', `carWeapon5` = '%d', `carAmmo1` = '%d', `carAmmo2` = '%d', `carAmmo3` = '%d', `carAmmo4` = '%d', `carAmmo5` = '%d', `carJob` = '%d' WHERE `carID` = '%d'",
+	format(query, sizeof(query), "%s, `carImpounded` = '%d', `carImpoundPrice` = '%d', `carFaction` = '%d', `carWeapon1` = '%d', `carWeapon2` = '%d', `carWeapon3` = '%d', `carWeapon4` = '%d', `carWeapon5` = '%d', `carAmmo1` = '%d', `carAmmo2` = '%d', `carAmmo3` = '%d', `carAmmo4` = '%d', `carAmmo5` = '%d', `carJob` = '%d', `carPlate` = '%s' WHERE `carID` = '%d'",
 		query,
 		CarData[carid][carImpounded],
 		CarData[carid][carImpoundPrice],
@@ -8712,6 +8714,7 @@ Car_Save(carid)
 		CarData[carid][carAmmo][3],
 		CarData[carid][carAmmo][4],
 		CarData[carid][carJob],
+		SQL_ReturnEscaped(CarData[carid][carPlate]),
 		CarData[carid][carID]
 	);
 	return mysql_tquery(g_iHandle, query);
@@ -15811,7 +15814,6 @@ public OnVehicleSpawn(vehicleid)
 	}
 	if (IsValidObject(CoreVehicles[vehicleid][vehCrate]) && GetVehicleModel(vehicleid) == 530)
 	    DestroyObject(CoreVehicles[vehicleid][vehCrate]);
-
 	ResetVehicle(vehicleid);
 	return 1;
 }
@@ -15905,7 +15907,7 @@ public OnPlayerUseItem(playerid, itemid, name[])
         cmd_celular(playerid, "\1");
     }
     else if (!strcmp(name, "Walkie-Talkie", true)) {
-        SendSyntaxMessage(playerid, "Use \"/pr [text]\" to chat with your radio.");
+        SendSyntaxMessage(playerid, "Usa \"/pr [texto]\" para usar la radio.");
     }
     else if (!strcmp(name, "Lata de Combustible", true)) {
         cmd_llenar(playerid, "\1");
@@ -29033,11 +29035,6 @@ public OnPlayerText(playerid, text[])
 				SendNearbyMessage(playerid, 20.0, COLOR_WHITE, "%s dice: %s", ReturnName(playerid, 0), text);
 
 			else SendNearbyMessage(playerid, 20.0, COLOR_WHITE, "(Telefono) %s dice: %s", ReturnName(playerid, 0), text);
-
-			if (!IsPlayerInAnyVehicle(playerid) && !PlayerData[playerid][pInjured] && !PlayerData[playerid][pLoopAnim]) {
-
-				SetTimerEx("StopChatting", strlen(text) * 100, false, "d", playerid);
-			}
 		}
 		switch (PlayerData[playerid][pEmergency])
 		{
@@ -29051,16 +29048,16 @@ public OnPlayerText(playerid, text[])
 				else if (!strcmp(text, "medicos", true))
 				{
 				    PlayerData[playerid][pEmergency] = 3;
-				    SendClientMessage(playerid, COLOR_HOSPITAL, "[operadora]:{FFFFFF} Estas hablando con el hospital, hablenos de su emergencia.");
+				    SendClientMessage(playerid, COLOR_HOSPITAL, "[OPERADORA]:{FFFFFF} Estas hablando con el hospital, hablenos de su emergencia.");
 				}
-				else SendClientMessage(playerid, COLOR_LIGHTBLUE, "[operadora]:{FFFFFF} Disculpe, no entendi lo que dijo. Necesitas \"policia\" o \"medicos\"?");
+				else SendClientMessage(playerid, COLOR_LIGHTBLUE, "[OPERADORA]:{FFFFFF} Disculpe, no entendi lo que dijo. Necesitas \"policia\" o \"medicos\"?");
 			}
 			case 2:
 			{
    				SendFactionMessageEx(FACTION_POLICE, COLOR_RADIO, "Llamada 911: %s (%s)", ReturnName(playerid, 0), GetPlayerLocation(playerid));
         		SendFactionMessageEx(FACTION_POLICE, COLOR_RADIO, "Descripcion: %s", text);
 
-			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[operadora]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
+			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[OPERADORA]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
 			    cmd_colgar(playerid, "\1");
 
 			    SetFactionMarker(playerid, FACTION_POLICE, 0x00D700FF);
@@ -29070,7 +29067,7 @@ public OnPlayerText(playerid, text[])
 			    SendFactionMessageEx(FACTION_MEDIC, COLOR_HOSPITAL, "Llamada 911: %s (%s)", ReturnName(playerid, 0), GetPlayerLocation(playerid));
        			SendFactionMessageEx(FACTION_MEDIC, COLOR_HOSPITAL, "Descripcion: %s", text);
 
-			    SendClientMessage(playerid, COLOR_HOSPITAL, "[operadora]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
+			    SendClientMessage(playerid, COLOR_HOSPITAL, "[OPERADORA]:{FFFFFF} Hemos alertado a todas las unidades en el area.");
 			    cmd_colgar(playerid, "\1");
 
 			    SetFactionMarker(playerid, FACTION_MEDIC, 0x00D700FF);
@@ -29084,13 +29081,13 @@ public OnPlayerText(playerid, text[])
 		        {
 		            if (GetMoney(playerid) < 500)
 				    {
-    	                SendClientMessage(playerid, COLOR_CYAN, "[operadoraA]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
+    	                SendClientMessage(playerid, COLOR_CYAN, "[OPERADORA]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
 					    cmd_colgar(playerid, "\1");
 					}
 					else
 					{
 						PlayerData[playerid][pPlaceAd] = 2;
-						SendClientMessage(playerid, COLOR_CYAN, "[operadora]:{FFFFFF} Por favor, especifique su anuncio y lo anunciaremos..");
+						SendClientMessage(playerid, COLOR_CYAN, "[OPERADORA]:{FFFFFF} Por favor, especifique su anuncio y lo anunciaremos..");
 					}
 				}
 			}
@@ -29098,7 +29095,7 @@ public OnPlayerText(playerid, text[])
 			{
 			    if (GetMoney(playerid) < 500)
 			    {
-                    SendClientMessage(playerid, COLOR_CYAN, "[operadora]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
+                    SendClientMessage(playerid, COLOR_CYAN, "[OPERADORA]:{FFFFFF} No tienes dinero suficiente para hacer publicidad.");
 				    cmd_colgar(playerid, "\1");
 				}
 				else
@@ -29109,7 +29106,7 @@ public OnPlayerText(playerid, text[])
                     PlayerData[playerid][pAdTime] = 120;
 				    strpack(PlayerData[playerid][pAdvertise], text, 128 char);
 
-        	        SendClientMessage(playerid, COLOR_CYAN, "[operadora]:{FFFFFF} Su anuncio será publicado en breve.");
+        	        SendClientMessage(playerid, COLOR_CYAN, "[OPERADORA]:{FFFFFF} Su anuncio será publicado en breve.");
 				    cmd_colgar(playerid, "\1");
 				}
 			}
@@ -29419,7 +29416,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 				}
    				else
 	   			{
-				   	Dialog_Show(playerid, BackpackDeposit, DIALOG_STYLE_INPUT, "Backpack Deposit", "Item: %s (Cantidad: %d)\n\nPlease enter the quantity that you wish to store for this item:", "Store", "Back", name, InventoryData[playerid][PlayerData[playerid][pInventoryItem]][invQuantity]);
+				   	Dialog_Show(playerid, BackpackDeposit, DIALOG_STYLE_INPUT, "Guardar Item", "Item: %s (Cantidad: %d)\n\nEscribe la cantidad de este item que quieres guardar:", "Guardar", "Atras", name, InventoryData[playerid][PlayerData[playerid][pInventoryItem]][invQuantity]);
 				}
 				PlayerData[playerid][pStorageSelect] = 0;
 			}
@@ -33570,7 +33567,7 @@ Dialog:Withdraw(playerid, response, listitem, inputtext[])
 		PlayerData[playerid][pBankMoney] -= amount;
 	    GiveMoney(playerid, amount);
 
-	    SendServerMessage(playerid, "You have withdrawn %s from your Cuenta bancaria.", FormatNumber(amount));
+	    SendServerMessage(playerid, "Retiraste %s de tu Cuenta bancaria.", FormatNumber(amount));
         Dialog_Show(playerid, Withdraw, DIALOG_STYLE_INPUT, "Retirar Fondos", "El saldo de su Cuenta bancaria: %s\n\nIngrese la cantidad de dinero que desea retirar:", "Retirar", "Volver", FormatNumber(PlayerData[playerid][pBankMoney]));
 	}
 	else {
@@ -33651,7 +33648,7 @@ Dialog:SavingsDeposit(playerid, response, listitem, inputtext[])
 		PlayerData[playerid][pSavings] += amount;
 	    GiveMoney(playerid, -amount);
 
-	    SendServerMessage(playerid, "You have deposited %s into your Cuenta de ahorros.", FormatNumber(amount));
+	    SendServerMessage(playerid, "Depositaste %s en tu Cuenta de ahorros.", FormatNumber(amount));
         Dialog_Show(playerid, SavingsDeposit, DIALOG_STYLE_INPUT, "Fondos de depósito", "Su Cuenta de ahorros balance: %s\n\nIngrese la cantidad de dinero que desee depositar:", "Depositar", "Volver", FormatNumber(PlayerData[playerid][pSavings]));
 	}
 	else {
@@ -35294,7 +35291,7 @@ Dialog:EditHat(playerid, response, listitem, inputtext[])
 				{
 				    PlayerData[playerid][pToggleHat] = 1;
 	                RemovePlayerAttachedObject(playerid, 1);
-					ShowPlayerFooter(playerid, "Usted tiene ~r~separado~w~ your hat.");
+					ShowPlayerFooter(playerid, "Usted tiene ~r~separado~w~ su sombrero.");
 				}
 			}
 			case 1:
@@ -36330,7 +36327,7 @@ CMD:x(playerid, params[])
 		SetPlayerPos(playerid, x+npos, y, z);
 		return 1;
 	}
-	else return SendErrorMessage(playerid, "You're not authorized.");
+	else return SendErrorMessage(playerid, "No estas autorizado.");
 }
 COMMAND:y(playerid, params[])
 {
@@ -36342,7 +36339,7 @@ COMMAND:y(playerid, params[])
 		SetPlayerPos(playerid, x, y+npos, z);
 		return 1;
 	}
-	else return SendErrorMessage(playerid, "You're not authorized.");
+	else return SendErrorMessage(playerid, "No estas autorizado.");
 }
 COMMAND:z(playerid, params[])
 {
@@ -36354,7 +36351,7 @@ COMMAND:z(playerid, params[])
 		SetPlayerPos(playerid, x, y, z+npos);
 		return 1;
 	}
-	else return SendErrorMessage(playerid, "You're not authorized.");
+	else return SendErrorMessage(playerid, "No estas autorizado.");
 }
 //
 CMD:matriculapd(playerid, params[])
@@ -36392,7 +36389,7 @@ CMD:aremovecall(playerid, params[])
 		return SendErrorMessage(playerid, "Tienes que ser administrador.");
 	if(sscanf(params, "i", vehicleid)) return SendErrorMessage(playerid, "Must enter a vehicle ID.");
     if (vehicleid < 1 || vehicleid > MAX_VEHICLES || !IsValidVehicle(vehicleid))
-		return SendErrorMessage(playerid, "You have specified an invalid vehicle ID.");
+		return SendErrorMessage(playerid, "ID de auto invalida.");
 	Delete3DTextLabel(vehicle3Dtext[vehicleid]);
 	return 1;
 }
@@ -38191,7 +38188,7 @@ CMD:fixveh(playerid, params[])
 	    	return SendErrorMessage(playerid, "ID de vehiculo invalida.");
 
 		RepairVehicle(vehicleid);
-		SendServerMessage(playerid, "You have repaired vehicle ID: %d.", vehicleid);
+		SendServerMessage(playerid, "Reparaste el auto ID: %d.", vehicleid);
 	}
 	return 1;
 }
@@ -38280,10 +38277,10 @@ CMD:rauto(playerid, params[])
 	    return SendSyntaxMessage(playerid, "/rauto [veh ID]");
 
 	if (vehicleid < 1 || vehicleid > MAX_VEHICLES || !IsValidVehicle(vehicleid))
-		return SendErrorMessage(playerid, "You have specified an invalid vehicle ID.");
+		return SendErrorMessage(playerid, "ID de auto invalida.");
 
 	RespawnVehicle(vehicleid);
-	SendServerMessage(playerid, "Has res: %d.", vehicleid);
+	SendServerMessage(playerid, "Has respawneado el auto ID: %d.", vehicleid);
 
 	return 1;
 }
@@ -38339,50 +38336,6 @@ CMD:rcercanos(playerid, params[])
 	    return SendErrorMessage(playerid, "No hay vehiculos cercanos para respawnear.");
 
 	SendServerMessage(playerid, "Has respawnead %d vehiculos cercanos.", count);
-	return 1;
-}
-
-CMD:veh(playerid, params[])
-{
-	static
-	    model[32],
-		color1,
-		color2;
-
-    if (PlayerData[playerid][pAdmin] < 3)
-	    return SendErrorMessage(playerid, "No tienes permiso para usar este comando.");
-
-	if (sscanf(params, "s[32]I(-1)I(-1)", model, color1, color2))
-	    return SendSyntaxMessage(playerid, "/veh [model id/name] <color 1> <color 2>");
-
-	if ((model[0] = GetVehicleModelByName(model)) == 0)
-	    return SendErrorMessage(playerid, "ID de vehiculo invalida.");
-
-	static
-	    Float:x,
-	    Float:y,
-	    Float:z,
-	    Float:a,
-		vehicleid;
-
-	GetPlayerPos(playerid, x, y, z);
-	GetPlayerFacingAngle(playerid, a);
-
-	vehicleid = CreateVehicle(model[0], x, y + 2, z, a, color1, color2, 0);
-
-	if (GetPlayerInterior(playerid) != 0)
-	    LinkVehicleToInterior(vehicleid, GetPlayerInterior(playerid));
-
-	if (GetPlayerVirtualWorld(playerid) != 0)
-		SetVehicleVirtualWorld(vehicleid, GetPlayerVirtualWorld(playerid));
-
-	if (IsABoat(vehicleid) || IsAPlane(vehicleid) || IsAHelicopter(vehicleid))
-	    PutPlayerInVehicle(playerid, vehicleid, 0);
-
-	ResetVehicle(vehicleid);
-
-	CoreVehicles[vehicleid][vehTemporary] = true;
-	SendServerMessage(playerid, "Has spawneado un %s (%d, %d).", ReturnVehicleModelName(model[0]), color1, color2);
 	return 1;
 }
 
@@ -38551,7 +38504,7 @@ CMD:setstat(playerid, params[])
 	        return SendSyntaxMessage(playerid, "/setstat [playerid/nombre] [trabajo] [ID de trabajo]");
 
 		if (strval(amount) < 0 || strval(amount) > 9)
-		    return SendErrorMessage(playerid, "You have specified an invalid job ID.");
+		    return SendErrorMessage(playerid, "ID de Job Invalida.");
 
 		PlayerData[userid][pJob] = strval(amount);
 		SendServerMessage(playerid, "Has cambiado el trabajo de %s a %s.", ReturnName(userid, 0), Job_GetName(PlayerData[userid][pJob]));
@@ -39999,7 +39952,7 @@ CMD:productos(playerid, params[])
 	if ((bizid = Business_Inside(playerid)) != -1 && Business_IsOwner(playerid, bizid)) {
 	    Business_ProductMenu(playerid, bizid);
 	}
-	else SendErrorMessage(playerid, "You are not in range of your business interior.");
+	else SendErrorMessage(playerid, "No estas dentro de tu negocio.");
 	return 1;
 }
 
@@ -40054,7 +40007,7 @@ CMD:beber(playerid, params[])
 	    return SendSyntaxMessage(playerid, "/beber [agua/gaseosa]");
 
 	if (PlayerData[playerid][pDrinking])
-	    return SendErrorMessage(playerid, "You are already drinking from a bottle.");
+	    return SendErrorMessage(playerid, "Ya estas bebiendo.");
 
 	if (!strcmp(params, "gaseosa", true))
 	{
@@ -40114,7 +40067,7 @@ CMD:cocinar(playerid, params[])
 	    return SendSyntaxMessage(playerid, "/cocinar [hamburguesa/pizza]");
 
     if (PlayerData[playerid][pCuffed])
-	    return SendErrorMessage(playerid, "You can't use this command at the moment.");
+	    return SendErrorMessage(playerid, "No puedes usar este comando ahora mismo.");
 
 	if (!strcmp(params, "hamburguesa", true))
 	{
@@ -40964,7 +40917,7 @@ CMD:editartrabajo(playerid, params[])
 		return 1;
 	}
 	if ((id < 0 || id >= MAX_DYNAMIC_JOBS) || !JobData[id][jobExists])
-	    return SendErrorMessage(playerid, "You have specified an invalid job ID.");
+	    return SendErrorMessage(playerid, "ID de Job Invalida.");
 
 	if (!strcmp(type, "localizacion", true))
 	{
@@ -43151,7 +43104,7 @@ CMD:pagar(playerid, params[])
 		return SendErrorMessage(playerid, "No puedes darte dinero a ti mismo.");
 
 	if (amount < 1)
-	    return SendErrorMessage(playerid, "Please specify an amount above 1 dollar.");
+	    return SendErrorMessage(playerid, "Pon una cantidad por arriba de $1.");
 
 	if (amount > 100 && PlayerData[playerid][pPlayingHours] < 2)
 	    return SendErrorMessage(playerid, "No puedes pagar mas de 100 sin tener mas de 2 horas jugadas.");
@@ -44212,7 +44165,7 @@ CMD:editarporton(playerid, params[])
 		    return SendSyntaxMessage(playerid, "/editarporton [id] [linkid] [gate link] (-1 for none)");
 
         if ((linkid < -1 || linkid >= MAX_GATES) || (linkid != -1 && !GateData[linkid][gateExists]))
-	    	return SendErrorMessage(playerid, "You have specified an invalid gate ID.");
+	    	return SendErrorMessage(playerid, "ID de Porton Invalida.");
 
         GateData[id][gateLinkID] = (linkid == -1) ? (-1) : (GateData[linkid][gateID]);
 		Gate_Save(id);
@@ -44234,7 +44187,7 @@ CMD:editarporton(playerid, params[])
 		    return SendSyntaxMessage(playerid, "/editarporton [id] [faccion] [porton de faccion] (-1 para ninguno)");
 
         if ((factionid < -1 || factionid >= MAX_FACTIONS) || (factionid != -1 && !FactionData[factionid][factionExists]))
-	    	return SendErrorMessage(playerid, "You have specified an invalid faction ID.");
+	    	return SendErrorMessage(playerid, "ID de Faccion Invalida.");
 
         GateData[id][gateFaction] = (factionid == -1) ? (-1) : (FactionData[factionid][factionID]);
 		Gate_Save(id);
@@ -45144,7 +45097,7 @@ CMD:jetpack(playerid, params[])
 		PlayerData[userid][pJetpack] = 1;
 
 		SetPlayerSpecialAction(userid, SPECIAL_ACTION_USEJETPACK);
-		SendServerMessage(playerid, "You have spawned a jetpack for %s.", ReturnName(userid, 0));
+		SendServerMessage(playerid, "Le diste un jetpack a %s.", ReturnName(userid, 0));
 	}
 	return 1;
 }
@@ -45257,7 +45210,7 @@ CMD:editarauto(playerid, params[])
 		return 1;
 	}
 	if (!IsValidVehicle(id) || Car_GetID(id) == -1)
-	    return SendErrorMessage(playerid, "You have specified an invalid vehicle ID.");
+	    return SendErrorMessage(playerid, "ID de auto invalida.");
 
 	id = Car_GetID(id);
 
@@ -45340,6 +45293,18 @@ CMD:editarauto(playerid, params[])
 
 		Car_Save(id);
 		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el tipo de trabajo del vehiculo ID: %d.", ReturnName(playerid, 0), CarData[id][carVehicle]);
+	}
+	else if (!strcmp(type, "placa", true))
+	{
+	    new placa[32];
+
+	    if (sscanf(string, "s[32]", placa))
+	        return SendSyntaxMessage(playerid, "/editarauto [id] [placa] [nueva placa]");
+
+		format(CarData[id][carPlate], 32, placa);
+		SetVehicleNumberPlate(id, placa);
+		Car_Save(id);
+		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto la placa del vehiculo ID: %d a %s.", ReturnName(playerid, 0), CarData[id][carVehicle], placa);
 	}
 	return 1;
 }
@@ -46406,7 +46371,7 @@ CMD:apareceritem(playerid, params[])
 	    if (id == -1)
 	        return SendErrorMessage(playerid, "El servidor llego al maximo de items spawneados.");
         Log_Write("logs/spawnitem.txt", "[%s] %s creo un %s", ReturnDate(), ReturnName(playerid, 0), g_aInventoryItems[i][e_InventoryItem]);
-		SendServerMessage(playerid, "Has creado un \"%s\" (escribe /cantidad para asignar la cantidad).", g_aInventoryItems[i][e_InventoryItem]);
+		SendServerMessage(playerid, "Has creado un \"%s\" (escribe /cantidaditem para asignar la cantidad).", g_aInventoryItems[i][e_InventoryItem]);
 		return 1;
 	}
     SendErrorMessage(playerid, "Nombre de item invalido (escribe /items para una lista).");
@@ -46460,7 +46425,7 @@ CMD:boombox(playerid, params[])
 	    string[128];
 
 	if (!Inventory_HasItem(playerid, "Boombox"))
-	    return SendErrorMessage(playerid, "You don't have a boombox on you.");
+	    return SendErrorMessage(playerid, "No tienes un Boombox.");
 
 	if (sscanf(params, "s[24]S()[128]", type, string))
 	{
@@ -47913,10 +47878,10 @@ CMD:revisar(playerid, params[])
 	    return SendSyntaxMessage(playerid, "/revisar [playerid/nombre] (Usa /buscar para revisar mejor)");
 
     if (userid == INVALID_PLAYER_ID || !IsPlayerNearPlayer(playerid, userid, 6.0))
-	    return SendErrorMessage(playerid, "The specified player is disconnected or not near you.");
+	    return SendErrorMessage(playerid, "El jugador esta muy lejos o esta desconectado.");
 
     if (userid == playerid)
-		return SendErrorMessage(playerid, "You cannot frisk yourself.");
+		return SendErrorMessage(playerid, "No te podes revisar a vos mismo.");
 
 	PlayerData[userid][pFriskOffer] = playerid;
 
@@ -47930,12 +47895,12 @@ CMD:setradio(playerid, params[])
 	new vehicleid = GetPlayerVehicleID(playerid);
 
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
-	    return SendErrorMessage(playerid, "You are not driving any vehicle.");
+	    return SendErrorMessage(playerid, "No estas manejando ningun auto.");
 
 	if (!IsEngineVehicle(vehicleid))
-	    return SendErrorMessage(playerid, "This vehicle doesn't have any radio.");
+	    return SendErrorMessage(playerid, "Este auto no tiene radio.");
 
-	Dialog_Show(playerid, Radio, DIALOG_STYLE_LIST, "Radio Channels", "Cultural\nOldies\nOther\nPop\nRhythm & Blues\nRock\nTalk\nUrban\nElectric\nTurn Radio Off", "Seleccionar", "Cancelar");
+	Dialog_Show(playerid, Radio, DIALOG_STYLE_LIST, "Radio Channels", "Cultural\nOldies\nOtros\nPop\nRhythm & Blues\nRock\nTalk\nUrban\nElectric\nApagar Radio", "Seleccionar", "Cancelar");
 	return 1;
 }
 
