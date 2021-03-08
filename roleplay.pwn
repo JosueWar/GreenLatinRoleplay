@@ -6940,9 +6940,7 @@ stock Car_Spawn(carid)
 
 		if (CarData[carid][carColor2] == -1)
 		    CarData[carid][carColor2] = random(127);
-
         CarData[carid][carVehicle] = CreateVehicle(CarData[carid][carModel], CarData[carid][carPos][0], CarData[carid][carPos][1], CarData[carid][carPos][2], CarData[carid][carPos][3], CarData[carid][carColor1], CarData[carid][carColor2], (CarData[carid][carOwner] != 0) ? (-1) : (1200000));
-
         if (CarData[carid][carVehicle] != INVALID_VEHICLE_ID)
         {
             if (CarData[carid][carPaintjob] != -1)
@@ -6961,12 +6959,11 @@ stock Car_Spawn(carid)
 			{
 			    if (CarData[carid][carMods][i]) AddVehicleComponent(CarData[carid][carVehicle], CarData[carid][carMods][i]);
 			}
-			new plate[32];
-			plate[0] = CarData[carid][carPlate];
-			SetVehicleNumberPlate(carid, plate);
    			ResetVehicle(CarData[carid][carVehicle]);
 			return 1;
 		}
+		SetVehicleNumberPlate(carid, CarData[carid][carPlate]);
+        SetVehicleToRespawn(carid);
 	}
 	return 0;
 }
@@ -38417,7 +38414,7 @@ CMD:setstat(playerid, params[])
  	{
 	 	SendSyntaxMessage(playerid, "/setstat [playerid/nombre] [parametro]");
 	 	SendClientMessage(playerid, COLOR_YELLOW, "[PARAMETROS]:{FFFFFF} genero, nacimiento, origen, banco, ahorros, hambre, sed, horas");
-		SendClientMessage(playerid, COLOR_YELLOW, "[PARAMETROS]:{FFFFFF} trabajo, ordenes, canales, dnifalso");
+		SendClientMessage(playerid, COLOR_YELLOW, "[PARAMETROS]:{FFFFFF} trabajo, ordenes, canal, dnifalso");
 		return 1;
 	}
 	if (userid == INVALID_PLAYER_ID)
@@ -45296,17 +45293,55 @@ CMD:editarauto(playerid, params[])
 	}
 	else if (!strcmp(type, "placa", true))
 	{
+		new vehid;
 	    new placa[32];
-
+	    new Float:X,Float:Y,Float:Z,Float:Angle;
+	    if (!IsPlayerInAnyVehicle(playerid))
+	    return SendErrorMessage(playerid, "No estas en un vehiculo.");
 	    if (sscanf(string, "s[32]", placa))
-	        return SendSyntaxMessage(playerid, "/editarauto [id] [placa] [nueva placa]");
+	        return SendSyntaxMessage(playerid, "/editarnegocio [id] [nombre] [nuevo nombre]");
 
-		format(CarData[id][carPlate], 32, placa);
-		SetVehicleNumberPlate(id, placa);
-		Car_Save(id);
-		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto la placa del vehiculo ID: %d a %s.", ReturnName(playerid, 0), CarData[id][carVehicle], placa);
+	    format(CarData[id][carPlate], 32, placa);
+	    vehid = GetPlayerVehicleID(playerid);
+   		GetPlayerPos(playerid,X,Y,Z);
+    	GetVehicleZAngle(vehid,Angle);
+    	SetVehicleNumberPlate(vehid,placa);
+    	SetVehicleToRespawn(vehid);
+    	SetVehiclePos(vehid,X,Y,Z);
+    	PutPlayerInVehicle(playerid,vehid,0);
+    	SetVehicleZAngle(vehid,Angle);
+    	SetCameraBehindPlayer(playerid);
+	    Car_Save(id);
+
+		SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: %s ajusto el la placa del auto ID: %d a \"%s\".", ReturnName(playerid, 0), id, placa);
 	}
 	return 1;
+}
+
+CMD:editarmatricula(playerid, params[])
+{
+	static
+		string2[128];
+	new VehicleId;
+	new Float:X,Float:Y,Float:Z,Float:Angle;
+	if (!IsPlayerInAnyVehicle(playerid))
+	    return SendErrorMessage(playerid, "No estas en un vehiculo.");
+	if (isnull(params) || strlen(params) > 32)
+	    return SendSyntaxMessage(playerid, "/cambiarnombre [nuevo nombre]");
+	format(string2,sizeof(string2),"%s", params);
+    VehicleId = GetPlayerVehicleID(playerid);
+    GetPlayerPos(playerid,X,Y,Z);
+    GetVehicleZAngle(VehicleId,Angle);
+    SetVehicleNumberPlate(VehicleId,string2);
+    SetVehicleToRespawn(VehicleId);
+    SetVehiclePos(VehicleId,X,Y,Z);
+    PutPlayerInVehicle(playerid,VehicleId,0);
+    SetVehicleZAngle(VehicleId,Angle);
+    SetCameraBehindPlayer(playerid);
+    //placa = params;
+    format(CarData[VehicleId][carPlate], 32, string2);
+    Car_Save(VehicleId);
+    return 1;
 }
 
 CMD:crearbasura(playerid, params[])
