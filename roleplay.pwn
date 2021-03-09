@@ -7173,7 +7173,7 @@ stock GetVehicleFromBehind(vehicleid)
 
 	for (new i = 1; i != MAX_VEHICLES; i ++) if (i != vehicleid && GetVehiclePos(i, fCoords[4], fCoords[5], fCoords[6]))
 	{
-		if (floatabs(fCoords[0] - fCoords[4]) < 6 && floatabs(fCoords[1] - fCoords[5]) < 6 && floatabs(fCoords[2] - fCoords[6]) < 6)
+		if (floatabs(fCoords[0] - fCoords[4]) < 7 && floatabs(fCoords[1] - fCoords[5]) < 7 && floatabs(fCoords[2] - fCoords[6]) < 7)
 			return i;
 	}
 	return INVALID_VEHICLE_ID;
@@ -46188,11 +46188,11 @@ CMD:editarauto(playerid, params[])
 	    if (sscanf(string, "d", typeint))
      	{
      	    SendSyntaxMessage(playerid, "/editarauto [id] [faccion] [tipo]");
-		 	SendClientMessage(playerid, COLOR_YELLOW, "[TIPOS]:{FFFFFF} 1: Policia | 2: Noticias | 3: Medicos | 4: Gobierno");
+		 	SendClientMessage(playerid, COLOR_YELLOW, "[TIPOS]:{FFFFFF} 1: Policia | 2: Noticias | 3: Medicos | 4: Gobierno | 6: Mecanicos");
 		 	return 1;
 		}
-		if (typeint < 0 || typeint > 4)
-		    return SendErrorMessage(playerid, "El tipo no puede ser menor a 1 o mayor a 4.");
+		if (typeint < 0 || typeint > 6 || typeint == 5)
+		    return SendErrorMessage(playerid, "El tipo no puede ser menor a 1 o mayor a 6 ni tampoco 5.");
 
 		CarData[id][carFaction] = typeint;
 
