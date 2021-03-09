@@ -8319,7 +8319,7 @@ Crate_Refresh(crateid)
 		else {
 		    format(string, sizeof(string), "[Caja %d]\n{FFFFFF}Semillas de Droga (pulsa 'F' para agarrar)", crateid);
 		}
-  		CrateData[crateid][crateText3D] = CreateDynamic3DTextLabel(string, COLOR_DARKBLUE, CrateData[crateid][cratePos][0], CrateData[crateid][cratePos][1], CrateData[crateid][cratePos][2] + 0.5, 10.0, INVALID_VEHICLE_ID, INVALID_PLAYER_ID, 0, CrateData[crateid][crateWorld], CrateData[crateid][crateInterior]);
+		CrateData[crateid][crateText3D] = CreateDynamic3DTextLabel(string, COLOR_DARKBLUE, CrateData[crateid][cratePos][0], CrateData[crateid][cratePos][1], CrateData[crateid][cratePos][2] + 0.5, 5.0, INVALID_VEHICLE_ID, INVALID_PLAYER_ID, 0, CrateData[crateid][crateWorld], CrateData[crateid][crateInterior]);
 	}
 	return 1;
 }
@@ -25603,7 +25603,6 @@ public OnGameModeInit()
 	CreateDynamicObject(850,2442.6000977,-1675.4000244,12.7200003,0.0000000,0.0000000,0.0000000); //object(cj_urb_rub_1) (1)
 	CreateDynamicObject(3119,2480.3000488,-1701.0000000,12.8079996,0.0000000,0.0000000,0.0000000); //object(cs_ry_props) (1)
 	CreateDynamicObject(2971,2479.5000000,-1708.9000244,12.4799995,0.0000000,0.0000000,4.0000000); //object(k_smashboxes) (1)
-	CreateDynamicObject(2890,2439.3000488,-1673.5000000,12.6000004,0.0000000,0.0000000,150.0000000); //object(kmb_skip) (1)
 	CreateDynamicObject(1773,2483.6999512,-1693.3000488,13.2799997,0.0000000,0.0000000,188.0000000); //object(cj_cooker2) (1)
 	CreateDynamicObject(1281,2526.0000000,-1665.5000000,14.8800001,1.0000000,0.0000000,0.0000000); //object(parktable1) (3)
 	CreateDynamicObject(1281,2376.3999023,-1789.1999512,13.3299999,0.0000000,0.0000000,0.0000000); //object(parktable1) (4)
@@ -25669,8 +25668,7 @@ public OnGameModeInit()
 	CreateDynamicObject(910,2180.3000488,-1675.9000244,14.5299997,0.0000000,357.5000000,80.0000000); //object(bust_cabinet_4) (1)
 	CreateDynamicObject(851,2168.8000488,-1686.0000000,14.3699999,0.0000000,0.0000000,0.0000000); //object(cj_urb_rub_2) (1)
 	CreateDynamicObject(850,2182.1999512,-1651.5999756,14.4300003,1.0000000,359.0000000,0.0000000); //object(cj_urb_rub_1) (1)
-	CreateDynamicObject(2971,2148.8999023,-1707.0000000,14.0699997,0.0000000,0.0000000,0.0000000); //object(k_smashboxes) (1)
-	CreateDynamicObject(2890,2170.0000000,-1725.1999512,12.4600000,0.0000000,0.0000000,70.0000000); //object(kmb_skip) (1)
+	CreateDynamicObject(2971,2148.8999023,-1707.0000000,14.0699997,0.0000000,0.0000000,0.0000000); //object(k_smashboxes) (1)	
 	CreateDynamicObject(1773,2171.8999023,-1723.8000488,13.2799997,0.0000000,0.0000000,130.0000000); //object(cj_cooker2) (1)
 	CreateDynamicObject(1549,2150.3999023,-1678.0999756,14.1000004,0.0000000,0.0000000,0.0000000); //object(cj_ashtray_b) (1)
 	CreateDynamicObject(1462,2160.2600098,-1694.0000000,14.1000004,0.0000000,0.0000000,90.0000000); //object(dyn_woodpile) (1)
