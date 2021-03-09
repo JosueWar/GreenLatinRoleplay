@@ -7795,12 +7795,13 @@ House_Refresh(houseid)
 		if (!HouseData[houseid][houseOwner]) {
 			format(string, sizeof(string), "[%s]\n%s\nID: %d", FormatNumber(HouseData[houseid][housePrice]), HouseData[houseid][houseAddress], GetHouseByID(HouseData[houseid][houseID]));
             HouseData[houseid][houseText3D] = CreateDynamic3DTextLabel(string, 0x33AA33FF, HouseData[houseid][housePos][0], HouseData[houseid][housePos][1], HouseData[houseid][housePos][2], 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, HouseData[houseid][houseExteriorVW], HouseData[houseid][houseExterior]);
+            HouseData[houseid][housePickup] = CreateDynamicPickup(1273, 23, HouseData[houseid][housePos][0], HouseData[houseid][housePos][1], HouseData[houseid][housePos][2], HouseData[houseid][houseExteriorVW], HouseData[houseid][houseExterior]);
 		}
 		else {
 			format(string, sizeof(string), "%s\nID: %d", HouseData[houseid][houseAddress], GetHouseByID(HouseData[houseid][houseID]));
 			HouseData[houseid][houseText3D] = CreateDynamic3DTextLabel(string, COLOR_WHITE, HouseData[houseid][housePos][0], HouseData[houseid][housePos][1], HouseData[houseid][housePos][2], 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, HouseData[houseid][houseExteriorVW], HouseData[houseid][houseExterior]);
+			HouseData[houseid][housePickup] = CreateDynamicPickup(19523, 23, HouseData[houseid][housePos][0], HouseData[houseid][housePos][1], HouseData[houseid][housePos][2], HouseData[houseid][houseExteriorVW], HouseData[houseid][houseExterior]);
 		}
-        HouseData[houseid][housePickup] = CreateDynamicPickup(1273, 23, HouseData[houseid][housePos][0], HouseData[houseid][housePos][1], HouseData[houseid][housePos][2], HouseData[houseid][houseExteriorVW], HouseData[houseid][houseExterior]);
         //Comentar para quitar casas
         //HouseData[houseid][houseMapIcon] = CreateDynamicMapIcon(HouseData[houseid][housePos][0], HouseData[houseid][housePos][1], HouseData[houseid][housePos][2], (HouseData[houseid][houseOwner] != 0) ? (32) : (31), 0, HouseData[houseid][houseExteriorVW], HouseData[houseid][houseExterior]);
 	}
@@ -12953,7 +12954,7 @@ CreateTextDraws(playerid) {
 	PlayerTextDrawSetProportional(playerid, PlayerData[playerid][pTextdraws][68], 1);
 	PlayerTextDrawSetSelectable(playerid, PlayerData[playerid][pTextdraws][68], 0);
 
-	PlayerData[playerid][pTextdraws][69] = CreatePlayerTextDraw(playerid, 13.000000, 431.000000, "~b~Waypoint:~w~ Calculando...");
+	PlayerData[playerid][pTextdraws][69] = CreatePlayerTextDraw(playerid, 13.000000, 431.000000, "~b~Objetivo:~w~ Calculando...");
 	PlayerTextDrawBackgroundColor(playerid, PlayerData[playerid][pTextdraws][69], 255);
 	PlayerTextDrawFont(playerid, PlayerData[playerid][pTextdraws][69], 1);
 	PlayerTextDrawLetterSize(playerid, PlayerData[playerid][pTextdraws][69], 0.270000, 1.000000);
@@ -13560,7 +13561,7 @@ stock IsNewsVehicle(vehicleid)
 stock IsACruiser(vehicleid)
 {
 	switch (GetVehicleModel(vehicleid)) {
-	    case 523, 427, 490, 528, 596..599, 601: return 1;
+	    case 523, 427, 490, 528, 596..599, 601, 407: return 1;
 	}
 	return 0;
 }
@@ -17918,7 +17919,7 @@ public OnPlayerUpdate(playerid)
 	}
 	if (PlayerData[playerid][pWaypoint])
 	{
-	    format(str, sizeof(str), "~b~Waypoint:~w~ %s (%.2f metros)", PlayerData[playerid][pLocation], GetPlayerDistanceFromPoint(playerid, PlayerData[playerid][pWaypointPos][0], PlayerData[playerid][pWaypointPos][1], PlayerData[playerid][pWaypointPos][2]));
+	    format(str, sizeof(str), "~b~Objetivo:~w~ %s (%.2f metros)", PlayerData[playerid][pLocation], GetPlayerDistanceFromPoint(playerid, PlayerData[playerid][pWaypointPos][0], PlayerData[playerid][pWaypointPos][1], PlayerData[playerid][pWaypointPos][2]));
 		PlayerTextDrawSetString(playerid, PlayerData[playerid][pTextdraws][69], str);
 	}
 	if (PlayerData[playerid][pMaskOn])
@@ -29616,6 +29617,13 @@ public OnGameModeInit()
 	CreateDynamicObject(8879, 2571.32227, -883.53168, 43.27062, 0.00000, 0.00000, 281.06784);
 	CreateDynamicObject(19380, 2575.22510, -876.05505, 51.62642, 0.00000, 89.00000, 0.47200);
 	CreateDynamicObject(1501, 2558.09570, -875.53888, 42.93459, 0.00000, 0.00000, 273.35406);
+	//Entrada Taxistas
+	CreateDynamicObject(1597, 1806.86096, -1889.54150, 15.22960,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(1215, 1811.27417, -1899.97510, 16.24101,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1215, 1811.03528, -1889.78455, 12.76977,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1482, 1813.24219, -1910.30786, 14.09804,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1812.21289, -1914.28967, 13.19223,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1361, 1812.30212, -1906.39355, 13.19223,   0.00000, 0.00000, 0.00000);
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
 	    SetDynamicObjectMaterial(PrisonData[prisonCells][i], 0, 19302, "pd_jail_door02", "pd_jail_door02", 0xFF000000);
@@ -32867,7 +32875,7 @@ Dialog:MainGPS(playerid, response, listitem, inputtext[])
 			    Dialog_Show(playerid, FindEntrance, DIALOG_STYLE_LIST, "Econtrar Entradas", "Escuela de Manejo cercana\nBanco mas cercano\nAlmacen mas cercano\nMunicipalidad mas cercana", "Seleccionar", "Cancelar");
 
 			case 3:
-			    Dialog_Show(playerid, FindJob, DIALOG_STYLE_LIST, "Encontrar Trabajo", "Camionero\nTaxista\nDescargador de Carga\nMinero\nVendedor de Comida\nBasurero\nClasificador de Paquetes", "Seleccionar", "Cancelar");
+			    Dialog_Show(playerid, FindJob, DIALOG_STYLE_LIST, "Encontrar Trabajo", "Camionero\nEliminado\nTaxista\nDescargador de Carga\nMinero\nVendedor de Comida\nBasurero\nClasificador de Paquetes", "Seleccionar", "Cancelar");
 
 			case 4:
 			{
