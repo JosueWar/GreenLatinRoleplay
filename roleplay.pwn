@@ -17280,6 +17280,94 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 			return 1;
 		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1577.3762,-1743.0922,-36.8141))
+	    {
+	        if (GetFactionType(playerid) != FACTION_POLICE)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, 1568.7450,-1690.4628,5.8906);
+			PlayerData[playerid][pEntrance] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			SetPlayerFacingAngle(playerid, 180);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1568.7450,-1690.4628,5.8906))
+	    {
+	        if (GetFactionType(playerid) != FACTION_POLICE)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, 1577.3762,-1743.0922,-36.8141);
+			PlayerData[playerid][pEntrance] = 63;
+			SetPlayerVirtualWorld(playerid, 9000);
+			SetPlayerFacingAngle(playerid, 270);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, -205.8949,-1762.7386,675.7687))
+	    {
+	        if (GetFactionType(playerid) != FACTION_MEDIC)
+	        	return 0;
+	        if(GetPlayerVirtualWorld(playerid) != 5003)
+	        	return 0;
+			SetPlayerPosEx(playerid, 1144.4675,-1329.3339,13.5923);
+			PlayerData[playerid][pEntrance] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			SetPlayerInterior(playerid, 0);
+			SetPlayerFacingAngle(playerid, 270);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1144.4675,-1329.3339,13.5923))
+	    {
+	        if (GetFactionType(playerid) != FACTION_MEDIC)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, -205.8949,-1762.7386,675.7687);
+			SetPlayerVirtualWorld(playerid, 5003);
+			SetPlayerInterior(playerid, 3);
+			SetPlayerFacingAngle(playerid, 0);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1148.8063,-1344.5333,13.6711))
+	    {
+	        if (GetFactionType(playerid) != FACTION_MEDIC)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, 1161.3020,-1329.6300,31.4960);
+			SetPlayerFacingAngle(playerid, 0);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1161.3020,-1329.6300,31.4960))
+	    {
+	        if (GetFactionType(playerid) != FACTION_MEDIC)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, 1148.8063,-1344.5333,13.6711);
+			SetPlayerFacingAngle(playerid, 0);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1486.7097,-1771.7772,33.3762))
+	    {
+	        if (GetFactionType(playerid) != FACTION_GOV)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, 1366.5391,159.0281,1008.3828);
+			SetPlayerVirtualWorld(playerid, 7067);
+			SetPlayerInterior(playerid, 3);
+			PlayerData[playerid][pEntrance] = 67;
+			SetPlayerFacingAngle(playerid, 0);
+			return 1;
+		}
+		if (IsPlayerInRangeOfPoint(playerid, 2.5, 1366.5391,159.0281,1008.3828))
+	    {
+	        if (GetFactionType(playerid) != FACTION_GOV)
+	        	return 0;
+
+			SetPlayerPosEx(playerid, 1486.7097,-1771.7772,33.3762);
+			SetPlayerVirtualWorld(playerid, 0);
+			SetPlayerInterior(playerid, 0);
+			PlayerData[playerid][pEntrance] = 0;
+			SetPlayerFacingAngle(playerid, 0);
+			return 1;
+		}
 	}
 	return 1;
 }
@@ -18648,6 +18736,215 @@ public OnPlayerConnect(playerid)
 	//Bar Unity
 	RemoveBuildingForPlayer(playerid, 5078, 1616.670, -1893.479, 14.328, 0.250);
 	RemoveBuildingForPlayer(playerid, 5066, 1610.439, -1891.699, 14.148, 0.250);
+	//SAEM
+	RemoveBuildingForPlayer(playerid, 5156, 2838.0391, -2423.8828, 10.9609, 0.25);
+	RemoveBuildingForPlayer(playerid, 5159, 2838.0313, -2371.9531, 7.2969, 0.25);
+	RemoveBuildingForPlayer(playerid, 5160, 2829.9531, -2479.5703, 5.2656, 0.25);
+	RemoveBuildingForPlayer(playerid, 5161, 2838.0234, -2358.4766, 21.3125, 0.25);
+	RemoveBuildingForPlayer(playerid, 5162, 2838.0391, -2423.8828, 10.9609, 0.25);
+	RemoveBuildingForPlayer(playerid, 5163, 2838.0391, -2532.7734, 17.0234, 0.25);
+	RemoveBuildingForPlayer(playerid, 5164, 2838.1406, -2447.8438, 15.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 5165, 2838.0313, -2520.1875, 18.4141, 0.25);
+	RemoveBuildingForPlayer(playerid, 5166, 2829.9531, -2479.5703, 5.2656, 0.25);
+	RemoveBuildingForPlayer(playerid, 5167, 2838.0313, -2371.9531, 7.2969, 0.25);
+	RemoveBuildingForPlayer(playerid, 3689, 2685.3828, -2366.0547, 19.9531, 0.25);
+	RemoveBuildingForPlayer(playerid, 3689, 2430.5859, -2583.9453, 20.5234, 0.25);
+	RemoveBuildingForPlayer(playerid, 3707, 2716.2344, -2452.5938, 20.2031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3707, 2720.3203, -2530.9141, 19.9766, 0.25);
+	RemoveBuildingForPlayer(playerid, 3707, 2480.8594, -2460.0547, 20.4922, 0.25);
+	RemoveBuildingForPlayer(playerid, 3707, 2539.1797, -2424.3594, 20.4922, 0.25);
+	RemoveBuildingForPlayer(playerid, 3690, 2685.3828, -2366.0547, 19.9531, 0.25);
+	RemoveBuildingForPlayer(playerid, 3690, 2430.5859, -2583.9453, 20.5234, 0.25);
+	RemoveBuildingForPlayer(playerid, 3688, 2387.8047, -2580.8672, 17.7891, 0.25);
+	RemoveBuildingForPlayer(playerid, 3688, 2450.8750, -2680.4531, 17.7891, 0.25);
+	RemoveBuildingForPlayer(playerid, 3687, 2503.5391, -2366.5078, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 3687, 2475.2578, -2394.7891, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 3687, 2450.5078, -2419.5391, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 3686, 2464.3047, -2617.0156, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 3710, 2788.1563, -2417.7891, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3710, 2788.1563, -2455.8828, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3710, 2788.1563, -2493.9844, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2511.9609, -2608.0156, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2511.9609, -2571.2422, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2511.9609, -2535.4531, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2660.4766, -2429.2969, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2639.5469, -2429.2969, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2618.8594, -2429.2969, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3708, 2720.3203, -2530.9141, 19.9766, 0.25);
+	RemoveBuildingForPlayer(playerid, 3708, 2716.2344, -2452.5938, 20.2031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3708, 2480.8594, -2460.0547, 20.4922, 0.25);
+	RemoveBuildingForPlayer(playerid, 3708, 2539.1797, -2424.3594, 20.4922, 0.25);
+	RemoveBuildingForPlayer(playerid, 3710, 2415.4609, -2468.5781, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2771.0703, -2372.4453, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2789.2109, -2377.6250, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2774.7969, -2386.8516, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2771.0703, -2520.5469, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2774.7969, -2534.9531, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2437.2109, -2490.0938, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2399.4219, -2490.6797, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2391.8750, -2503.5078, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2262.8359, -2638.7734, 14.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 3744, 2551.5313, -2472.6953, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2544.2500, -2524.0938, 16.4453, 0.25);
+	RemoveBuildingForPlayer(playerid, 3709, 2544.2500, -2548.8125, 16.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2814.2656, -2356.5703, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2814.2656, -2521.4922, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2568.4453, -2483.3906, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2563.1563, -2563.5781, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2531.7031, -2629.2266, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2519.8047, -2701.8750, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2381.1016, -2701.8750, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 1529, 2379.3203, -2166.2188, 24.9453, 0.25);
+	RemoveBuildingForPlayer(playerid, 5325, 2488.9922, -2509.2578, 18.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2422.7031, -2411.9219, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3746, 2472.4453, -2362.9375, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 5335, 2829.9531, -2479.5703, 5.2656, 0.25);
+	RemoveBuildingForPlayer(playerid, 5336, 2829.9531, -2479.5703, 5.2656, 0.25);
+	RemoveBuildingForPlayer(playerid, 3770, 2795.8281, -2394.2422, 14.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3770, 2746.4063, -2453.4844, 14.0781, 0.25);
+	RemoveBuildingForPlayer(playerid, 3770, 2507.3672, -2640.0703, 14.0781, 0.25);
+	RemoveBuildingForPlayer(playerid, 3769, 2464.1250, -2571.6328, 15.1641, 0.25);
+	RemoveBuildingForPlayer(playerid, 3769, 2400.9063, -2577.3359, 15.1641, 0.25);
+	RemoveBuildingForPlayer(playerid, 5352, 2838.1953, -2488.6641, 29.3125, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2381.1016, -2701.8750, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2406.5469, -2695.0156, 26.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2392.1172, -2653.5625, 13.9375, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2386.8438, -2653.5078, 13.9375, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2397.3984, -2653.6250, 13.9375, 0.25);
+	RemoveBuildingForPlayer(playerid, 1412, 2402.6719, -2653.6406, 13.9375, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2407.9453, -2653.6484, 13.9375, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2262.8359, -2638.7734, 14.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2376.3281, -2630.0000, 26.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2410.9766, -2632.8750, 16.4688, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2376.3281, -2575.8750, 26.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3621, 2387.8047, -2580.8672, 17.7891, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2391.8750, -2503.5078, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3625, 2400.9063, -2577.3359, 15.1641, 0.25);
+	RemoveBuildingForPlayer(playerid, 1315, 2333.1484, -2344.5938, 15.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2399.4219, -2490.6797, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3624, 2415.4609, -2468.5781, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2519.8047, -2701.8750, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2492.2031, -2695.0156, 26.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3621, 2450.8750, -2680.4531, 17.7891, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2424.2969, -2658.9844, 16.2969, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2430.5781, -2653.9453, 23.7188, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2450.0156, -2632.7734, 16.3594, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2469.6016, -2645.3203, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2470.1406, -2628.2656, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3626, 2507.3672, -2640.0703, 14.0781, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2531.7031, -2629.2266, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3627, 2464.3047, -2617.0156, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2469.6016, -2579.9844, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3625, 2464.1250, -2571.6328, 15.1641, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2498.3438, -2612.6563, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2496.5547, -2585.1797, 13.9063, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2501.8359, -2585.2422, 13.9063, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2511.8359, -2622.6172, 17.3906, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2511.9609, -2608.0156, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2511.9609, -2571.2422, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2450.0156, -2563.2188, 16.3594, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2496.5547, -2557.3359, 13.9063, 0.25);
+	RemoveBuildingForPlayer(playerid, 1413, 2501.8359, -2557.3984, 13.9063, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2498.3438, -2547.3203, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2470.2734, -2539.0234, 26.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2450.0156, -2535.5703, 16.3594, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2470.1406, -2530.5547, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2469.6016, -2514.6484, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2437.2109, -2490.0938, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2498.3438, -2481.9766, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2471.5859, -2494.0703, 15.0781, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2444.3281, -2435.0625, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2526.4297, -2561.3047, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2544.2500, -2548.8125, 16.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2511.9609, -2535.4531, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2544.2500, -2524.0938, 16.4453, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2533.3906, -2514.1094, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2533.6172, -2461.6875, 26.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2551.5313, -2472.6953, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2563.1563, -2563.5781, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2568.4453, -2483.3906, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2459.3359, -2427.8281, 16.7422, 0.25);
+	RemoveBuildingForPlayer(playerid, 3622, 2450.5078, -2419.5391, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2468.8594, -2413.5234, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2482.2031, -2412.1094, 16.3203, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2422.7031, -2411.9219, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2483.7188, -2403.3438, 16.7422, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2455.0703, -2399.0156, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3622, 2475.2578, -2394.7891, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2491.7031, -2383.3281, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2495.8438, -2386.9375, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2472.4453, -2362.9375, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 3622, 2503.5391, -2366.5078, 16.0469, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2546.0469, -2396.5938, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2512.0078, -2375.0859, 16.7422, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2513.0000, -2339.3281, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2571.1641, -2421.1328, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2592.4922, -2359.4219, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2618.8594, -2429.2969, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2626.2344, -2391.5234, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2674.5234, -2557.4922, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2669.9063, -2518.6641, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1315, 2672.5938, -2506.8594, 15.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1315, 2680.8594, -2493.0781, 15.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1635, 2704.3672, -2487.8672, 20.5625, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2742.2656, -2481.5156, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2696.0234, -2474.8594, 16.4141, 0.25);
+	RemoveBuildingForPlayer(playerid, 5326, 2661.5156, -2465.1406, 20.1094, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2669.9063, -2447.2891, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2639.5469, -2429.2969, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 3623, 2660.4766, -2429.2969, 17.0703, 0.25);
+	RemoveBuildingForPlayer(playerid, 1307, 2629.2109, -2419.6875, 12.2891, 0.25);
+	RemoveBuildingForPlayer(playerid, 1307, 2649.8984, -2419.6875, 12.2891, 0.25);
+	RemoveBuildingForPlayer(playerid, 1315, 2686.7578, -2416.6250, 15.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1315, 2672.5938, -2408.2500, 15.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2742.2656, -2416.5234, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2639.1953, -2392.8203, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2663.8359, -2392.8203, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2637.1719, -2385.8672, 16.4141, 0.25);
+	RemoveBuildingForPlayer(playerid, 1306, 2669.9063, -2394.5078, 19.8438, 0.25);
+	RemoveBuildingForPlayer(playerid, 1226, 2692.6797, -2387.4766, 16.4141, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2708.4063, -2391.5234, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2774.7969, -2534.9531, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2771.0703, -2520.5469, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2783.7813, -2501.8359, 14.6953, 0.25);
+	RemoveBuildingForPlayer(playerid, 3624, 2788.1563, -2493.9844, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2783.7813, -2486.9609, 14.6563, 0.25);
+	RemoveBuildingForPlayer(playerid, 3578, 2747.0078, -2480.2422, 13.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2783.7813, -2463.8203, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2773.3438, -2479.9688, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3624, 2788.1563, -2455.8828, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3626, 2746.4063, -2453.4844, 14.0781, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2783.7813, -2448.4766, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2773.3438, -2443.1719, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3577, 2744.5703, -2436.1875, 13.3438, 0.25);
+	RemoveBuildingForPlayer(playerid, 3577, 2744.5703, -2427.3203, 13.3516, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2783.7813, -2425.3516, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2774.7969, -2386.8516, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2771.0703, -2372.4453, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2783.7813, -2410.2109, 14.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3624, 2788.1563, -2417.7891, 16.7266, 0.25);
+	RemoveBuildingForPlayer(playerid, 3574, 2789.2109, -2377.6250, 15.2188, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2802.4297, -2556.5234, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2791.9531, -2501.8359, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2797.5156, -2486.8281, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2791.9531, -2486.9609, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2791.9531, -2463.8203, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2797.5156, -2448.3438, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2791.9531, -2448.4766, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2791.9531, -2425.3516, 14.6719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2791.9531, -2410.2109, 14.6563, 0.25);
+	RemoveBuildingForPlayer(playerid, 3761, 2797.5156, -2410.0781, 14.6328, 0.25);
+	RemoveBuildingForPlayer(playerid, 3626, 2795.8281, -2394.2422, 14.1719, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2814.2656, -2521.4922, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 5157, 2838.0391, -2532.7734, 17.0234, 0.25);
+	RemoveBuildingForPlayer(playerid, 5154, 2838.1406, -2447.8438, 15.7500, 0.25);
+	RemoveBuildingForPlayer(playerid, 3724, 2838.1953, -2488.6641, 29.3125, 0.25);
+	RemoveBuildingForPlayer(playerid, 3620, 2814.2656, -2356.5703, 25.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 5155, 2838.0234, -2358.4766, 21.3125, 0.25);
+	RemoveBuildingForPlayer(playerid, 3724, 2838.1953, -2407.1406, 29.3125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2762.7578, -2333.3828, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 1278, 2804.2422, -2333.3828, 26.7031, 0.25);
+	RemoveBuildingForPlayer(playerid, 5158, 2837.7734, -2334.4766, 11.9922, 0.25);
 	//Fin Removes
 	CancelSelectTextDraw(playerid);
 
@@ -30884,7 +31181,932 @@ public OnGameModeInit()
 	tmpobjid = CreateDynamicObject(16500, 1652.912231, -1843.122680, 14.073420, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00);
 	tmpobjid = CreateDynamicObject(16500, 1595.431030, -1792.042114, 14.073420, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00);
 	tmpobjid = CreateDynamicObject(16500, 1595.441040, -1803.582153, 14.073420, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00);
-
+	//Decoracion Disco
+	CreateDynamicObject(3850, 817.78766, -1387.40295, 13.15353,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(3850, 814.47754, -1387.40295, 13.15353,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(3850, 812.76727, -1389.09351, 13.15353,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(3850, 819.52777, -1389.09351, 13.15353,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(2233, 813.51294, -1386.82861, 12.59803,   0.00000, 0.00000, 39.30000);
+	CreateDynamicObject(2233, 819.63123, -1387.32776, 12.60803,   0.00000, 0.00000, -52.10001);
+	CreateDynamicObject(1886, 818.20990, -1386.06458, 16.53154,   20.70000, 0.00000, -31.30001);
+	CreateDynamicObject(19124, 817.74866, -1389.37805, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 814.44861, -1389.37805, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 812.79828, -1389.37805, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 811.07806, -1389.37805, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 819.49829, -1389.37805, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 821.17828, -1389.37805, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 817.57770, -1387.42822, 13.18261,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19124, 814.61707, -1387.42822, 13.18261,   0.00000, 0.00000, 0.00000);
+	//Interior Mafia Rusa
+	tmpobjid = CreateObject(19377,2776.470,-80.839,1317.753,0.000,90.000,89.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14771, "int_brothelint3", "GB_nastybar12", 0);
+	tmpobjid = CreateObject(19377,2776.471,-70.341,1317.753,0.000,90.000,89.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14771, "int_brothelint3", "GB_nastybar12", 0);
+	tmpobjid = CreateObject(19446,2781.199,-74.134,1319.588,0.000,0.000,179.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(1557,2779.658,-65.199,1317.854,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 3820, "boxhses_sfsx", "ws_wood_doors2", 0);
+	SetObjectMaterial(tmpobjid, 1, 14534, "ab_wooziea", "CJ_WOODDOOR5", 0);
+	tmpobjid = CreateObject(19446,2776.616,-86.023,1319.588,0.000,0.000,269.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2776.444,-65.112,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(1557,2776.635,-65.198,1317.854,0.000,0.000,359.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 3820, "boxhses_sfsx", "ws_wood_doors2", 0);
+	tmpobjid = CreateObject(19446,2775.069,-65.198,1319.588,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2780.625,-65.680,1319.588,0.000,0.000,45.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2775.658,-65.680,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19384,2775.069,-71.616,1319.588,0.000,0.000,179.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19377,2766.840,-70.341,1317.753,0.000,90.000,89.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14771, "int_brothelint3", "GB_nastybar12", 0);
+	tmpobjid = CreateObject(19446,2769.211,-74.260,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19377,2766.840,-80.839,1317.753,0.000,90.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14771, "int_brothelint3", "GB_nastybar12", 0);
+	tmpobjid = CreateObject(19427,2774.530,-73.721,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2774.510,-65.686,1319.588,0.000,0.000,45.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19384,2781.199,-67.718,1319.588,0.000,0.000,179.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19377,2786.099,-70.341,1317.753,0.000,90.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14771, "int_brothelint3", "GB_nastybar12", 0);
+	tmpobjid = CreateObject(19446,2790.330,-75.554,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19400,2783.908,-75.554,1319.588,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2781.770,-75.022,1319.588,0.000,0.000,45.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2790.907,-70.708,1319.588,0.000,0.000,359.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2790.751,-69.815,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2782.054,-69.815,1319.588,0.000,0.000,269.991,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2786.085,-65.129,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2781.770,-65.680,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2790.323,-65.709,1319.588,0.000,0.000,45.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2790.327,-69.250,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19474,2771.356,-69.543,1318.199,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14714, "vghss1int2", "HS1_2Floor1", 0);
+	SetObjectMaterial(tmpobjid, 2, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 3, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 4, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 5, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(2206,2777.000,-83.466,1317.750,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(2297,2790.356,-66.833,1317.838,0.000,0.000,228.000,300.000);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 2, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 3, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(1763,2786.729,-68.666,1317.838,0.000,0.000,96.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14760, "sfhosemed2", "carp19S", 0);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(1759,2787.634,-65.759,1317.838,0.000,0.000,348.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14760, "sfhosemed2", "carp19S", 0);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(14455,2781.085,-74.727,1319.510,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "motel_wall2", 0);
+	tmpobjid = CreateObject(1742,2783.839,-65.239,1317.838,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 2, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(19446,2767.666,-69.446,1319.588,0.000,0.000,359.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2766.813,-65.112,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2768.237,-73.667,1319.588,0.000,0.000,44.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2768.253,-65.713,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(1742,2768.543,-73.717,1317.838,0.000,0.000,134.000,300.000);
+	SetObjectMaterial(tmpobjid, 2, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 3, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(18762,2769.940,-65.199,1320.338,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14533, "pleas_dome", "ab_velvor", 0);
+	tmpobjid = CreateObject(18762,2772.915,-65.197,1320.338,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14533, "pleas_dome", "ab_velvor", 0);
+	tmpobjid = CreateObject(18762,2770.934,-65.199,1316.300,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14533, "pleas_dome", "ab_velvor", 0);
+	tmpobjid = CreateObject(18762,2771.925,-65.197,1316.300,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14533, "pleas_dome", "ab_velvor", 0);
+	tmpobjid = CreateObject(18762,2771.924,-65.197,1322.500,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14533, "pleas_dome", "ab_velvor", 0);
+	tmpobjid = CreateObject(18762,2770.933,-65.199,1322.500,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14533, "pleas_dome", "ab_velvor", 0);
+	tmpobjid = CreateObject(19446,2781.199,-83.755,1319.588,0.000,0.000,179.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2771.574,-77.609,1319.588,0.000,0.000,270.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(2099,2786.209,-65.220,1317.838,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 3, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 6, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(2117,2777.961,-82.500,1317.838,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(19446,2774.528,-82.372,1319.588,0.000,0.000,359.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2775.081,-85.440,1319.588,0.000,0.000,44.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2780.633,-85.449,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2780.615,-78.184,1319.588,0.000,0.000,44.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19384,2777.987,-77.609,1319.588,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2775.094,-78.189,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19354,2781.195,-77.609,1319.588,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2780.635,-77.027,1319.588,0.000,0.000,315.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19384,2767.292,-75.926,1319.588,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19384,2765.157,-77.609,1319.588,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19446,2763.590,-82.388,1319.588,0.000,0.000,359.983,300.000);
+	SetObjectMaterial(tmpobjid, 0, 8486, "ballys02", "walltiles_128", 0);
+	tmpobjid = CreateObject(19446,2764.441,-83.136,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 8486, "ballys02", "walltiles_128", 0);
+	tmpobjid = CreateObject(19384,2765.157,-77.698,1319.588,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 8486, "ballys02", "walltiles_128", 0);
+	tmpobjid = CreateObject(19446,2766.729,-82.376,1319.588,0.000,0.000,359.983,300.000);
+	SetObjectMaterial(tmpobjid, 0, 8486, "ballys02", "walltiles_128", 0);
+	tmpobjid = CreateObject(19427,2763.595,-74.260,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19384,2763.529,-75.930,1319.588,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(1494,2777.207,-77.626,1317.838,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14653, "ab_trukstpb", "mustard", 0);
+	SetObjectMaterial(tmpobjid, 1, 18028, "cj_bar2", "GB_nastybar01", 0);
+	tmpobjid = CreateObject(1494,2775.062,-72.398,1317.838,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14653, "ab_trukstpb", "mustard", 0);
+	SetObjectMaterial(tmpobjid, 1, 18028, "cj_bar2", "GB_nastybar01", 0);
+	tmpobjid = CreateObject(1494,2764.377,-77.641,1317.850,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14653, "ab_trukstpb", "mustard", 0);
+	SetObjectMaterial(tmpobjid, 1, 18028, "cj_bar2", "GB_nastybar01", 0);
+	tmpobjid = CreateObject(19427,2763.677,-80.037,1319.588,0.000,0.000,269.991,300.000);
+	SetObjectMaterial(tmpobjid, 0, 8486, "ballys02", "walltiles_128", 0);
+	tmpobjid = CreateObject(2297,2779.281,-78.045,1317.838,0.000,0.000,280.000,300.000);
+	SetObjectMaterial(tmpobjid, 2, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 3, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(1553,2784.097,-75.440,1319.800,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 15034, "genhotelsave", "AH_windows", 0);
+	tmpobjid = CreateObject(1553,2777.854,-85.900,1319.821,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 15034, "genhotelsave", "AH_windows", 0);
+	tmpobjid = CreateObject(1553,2770.972,-77.509,1319.936,0.000,0.000,179.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 15034, "genhotelsave", "AH_windows", 0);
+	tmpobjid = CreateObject(1763,2775.496,-76.950,1317.838,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14760, "sfhosemed2", "carp19S", 0);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(1763,2772.083,-73.632,1317.838,0.000,0.000,179.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14760, "sfhosemed2", "carp19S", 0);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(14455,2772.854,-74.483,1319.510,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "motel_wall2", 0);
+	tmpobjid = CreateObject(19427,2762.812,-77.581,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19427,2762.823,-74.346,1319.588,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14387, "dr_gsnew", "mp_gs_wall", 0);
+	tmpobjid = CreateObject(19377,2752.898,-73.000,1311.517,0.000,90.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 10101, "2notherbuildsfe", "Bow_Abpave_Gen", 0);
+	tmpobjid = CreateObject(19446,2752.885,-77.581,1313.354,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2756.202,-74.346,1313.354,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2757.631,-69.587,1313.354,0.000,0.000,359.983,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2752.876,-67.894,1313.354,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2748.141,-72.684,1313.354,0.000,0.000,359.983,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2757.331,-77.581,1316.854,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19384,2749.788,-74.346,1313.354,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2757.331,-74.346,1316.854,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2757.331,-74.346,1320.354,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(19446,2757.331,-77.581,1320.354,0.000,0.000,269.989,300.000);
+	SetObjectMaterial(tmpobjid, 0, 4556, "laland1_lan2", "gm_labuld2_a", 0);
+	tmpobjid = CreateObject(14414,2754.321,-76.290,1318.262,0.000,180.000,269.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	SetObjectMaterial(tmpobjid, 1, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(2708,2775.514,-69.163,1317.838,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(19377,2761.519,-82.447,1317.765,0.000,-90.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 15041, "bigsfsave", "AH_flroortile5", 0);
+	tmpobjid = CreateObject(2191,2774.449,-68.866,1317.838,0.000,0.000,270.000,300.000);
+	SetObjectMaterial(tmpobjid, 1, 14500, "imm_roomss", "Bow_bar_top", 0);
+	SetObjectMaterial(tmpobjid, 2, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(2078,2775.914,-85.399,1317.838,0.000,0.000,140.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(1821,2779.656,-66.113,1317.838,0.000,0.000,316.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(1744,2787.680,-65.216,1319.650,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14500, "imm_roomss", "Bow_bar_top", 0);
+	tmpobjid = CreateObject(2287,2786.199,-65.699,1320.000,0.000,0.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 1, 14420, "dr_gsbits", "mp_apt1_pic7", 0);
+	tmpobjid = CreateObject(2287,2771.354,-73.699,1319.989,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 1, 14420, "dr_gsbits", "mp_apt1_pic8", 0);
+	tmpobjid = CreateObject(2286,2774.699,-82.291,1320.370,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14420, "dr_gsbits", "mp_apt1_pic5", 0);
+	tmpobjid = CreateObject(2286,2774.812,-77.500,1320.400,0.000,0.000,180.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14420, "dr_gsbits", "mp_apt1_pic6", 0);
+	tmpobjid = CreateObject(19377,2776.471,-70.341,1321.400,0.000,90.000,89.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(19377,2786.099,-70.341,1321.400,0.000,90.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(19377,2776.471,-80.839,1321.400,0.000,90.000,89.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(19377,2766.839,-70.341,1321.400,0.000,90.000,89.994,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(19377,2766.839,-80.839,1321.400,0.000,90.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(19377,2752.898,-69.099,1315.189,0.000,90.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(1494,2763.541,-76.675,1317.838,0.000,0.000,90.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 14653, "ab_trukstpb", "mustard", 0);
+	SetObjectMaterial(tmpobjid, 1, 18028, "cj_bar2", "GB_nastybar01", 0);
+	tmpobjid = CreateObject(19377,2757.248,-76.064,1321.009,0.000,85.499,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0);
+	tmpobjid = CreateObject(19377,2767.803,-82.583,1321.375,0.000,-90.000,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 9525, "boigas_sfw", "GEwhite1_64", 0);
+	tmpobjid = CreateObject(19427,2771.414,-65.134,1319.295,89.799,90.099,0.000,300.000);
+	SetObjectMaterial(tmpobjid, 0, 10053, "slapart01sfe", "sl_hirisewhite1", 0);
+	tmpobjid = CreateObject(19893,2777.116,-83.609,1318.668,0.000,0.000,40.399,300.000);
+	SetObjectMaterial(tmpobjid, 1, 14571, "chinese_furn", "ab_tv_tricas1", 0);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tmpobjid = CreateObject(14535,2786.641,-72.674,1319.862,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(2964,2749.562,-68.794,1311.604,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1670,2783.718,-72.777,1318.689,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(14705,2790.331,-67.024,1319.791,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2118,2788.012,-68.447,1317.599,0.000,0.000,96.000,300.000);
+	tmpobjid = CreateObject(1670,2787.684,-67.968,1318.410,0.000,0.000,100.000,300.000);
+	tmpobjid = CreateObject(948,2781.743,-69.239,1317.838,0.000,0.000,16.000,300.000);
+	tmpobjid = CreateObject(2194,2790.200,-67.664,1319.873,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19823,2787.803,-69.662,1319.708,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2251,2789.594,-65.958,1318.682,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2120,2773.327,-70.025,1318.477,0.000,0.000,353.998,300.000);
+	tmpobjid = CreateObject(2120,2773.227,-68.629,1318.477,0.000,0.000,13.995,300.000);
+	tmpobjid = CreateObject(2120,2772.812,-71.698,1318.477,0.000,0.000,313.991,300.000);
+	tmpobjid = CreateObject(2120,2771.165,-72.155,1318.477,0.000,0.000,261.989,300.000);
+	tmpobjid = CreateObject(2120,2769.769,-71.453,1318.477,0.000,0.000,215.995,300.000);
+	tmpobjid = CreateObject(2120,2769.319,-70.047,1318.477,0.000,0.000,183.991,300.000);
+	tmpobjid = CreateObject(2120,2769.270,-68.760,1318.477,0.000,0.000,171.990,300.000);
+	tmpobjid = CreateObject(11707,2766.581,-81.017,1319.259,0.000,0.000,-89.999,300.000);
+	tmpobjid = CreateObject(2241,2768.724,-66.154,1318.343,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2241,2780.314,-66.000,1318.839,0.000,0.000,346.000,300.000);
+	tmpobjid = CreateObject(2253,2787.801,-70.322,1319.043,0.000,0.000,22.000,300.000);
+	tmpobjid = CreateObject(2811,2774.166,-73.300,1317.838,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2811,2782.639,-65.831,1317.838,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(15038,2774.197,-66.221,1318.456,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1714,2777.749,-85.013,1317.838,0.000,0.000,172.000,300.000);
+	tmpobjid = CreateObject(14455,2780.966,-83.952,1319.510,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(1726,2775.196,-81.057,1317.838,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(1811,2779.322,-81.462,1318.464,0.000,0.000,40.000,300.000);
+	tmpobjid = CreateObject(1811,2776.367,-81.543,1318.464,0.000,0.000,161.990,300.000);
+	tmpobjid = CreateObject(1811,2777.940,-79.941,1318.464,0.000,0.000,87.995,300.000);
+	tmpobjid = CreateObject(1727,2780.470,-76.237,1317.838,0.000,0.000,225.540,300.000);
+	tmpobjid = CreateObject(2811,2776.179,-78.150,1317.838,0.000,0.000,344.000,300.000);
+	tmpobjid = CreateObject(2528,2764.179,-78.894,1317.838,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(2523,2766.134,-78.313,1317.838,0.000,0.000,270.000,300.000);
+	tmpobjid = CreateObject(2828,2777.906,-83.170,1318.687,0.000,0.000,164.000,300.000);
+	tmpobjid = CreateObject(2820,2790.471,-71.432,1318.764,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2812,2790.406,-74.053,1318.764,0.000,0.000,280.000,300.000);
+	tmpobjid = CreateObject(2852,2787.945,-67.513,1318.391,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2853,2783.635,-71.806,1318.646,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2522,2766.170,-82.531,1317.838,0.000,0.000,180.000,300.000);
+	tmpobjid = CreateObject(2332,2780.208,-85.204,1318.302,0.000,0.000,224.000,300.000);
+	tmpobjid = CreateObject(14414,2760.000,-76.290,1314.640,0.000,0.000,89.994,300.000);
+	tmpobjid = CreateObject(2948,2749.604,-67.980,1314.500,90.000,180.000,270.000,300.000);
+	tmpobjid = CreateObject(2948,2753.729,-67.981,1314.500,90.000,179.994,269.994,300.000);
+	tmpobjid = CreateObject(2948,2757.544,-69.586,1314.500,90.000,179.994,179.994,300.000);
+	tmpobjid = CreateObject(2609,2774.728,-67.292,1318.571,0.000,0.000,270.000,300.000);
+	tmpobjid = CreateObject(2046,2787.600,-69.584,1320.000,0.000,0.000,180.000,300.000);
+	tmpobjid = CreateObject(2063,2751.998,-73.954,1312.512,0.000,0.000,180.000,300.000);
+	tmpobjid = CreateObject(2063,2755.443,-73.942,1312.512,0.000,0.000,181.994,300.000);
+	tmpobjid = CreateObject(2065,2756.970,-73.063,1311.604,0.000,0.000,266.000,300.000);
+	tmpobjid = CreateObject(1744,2757.544,-70.421,1313.141,0.000,0.000,270.000,300.000);
+	tmpobjid = CreateObject(941,2756.814,-70.416,1312.078,0.000,0.000,270.000,300.000);
+	tmpobjid = CreateObject(2069,2782.100,-74.635,1317.838,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2114,2754.122,-74.025,1311.750,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2284,2768.229,-69.393,1320.099,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(2894,2777.876,-83.588,1318.687,0.000,0.000,350.000,300.000);
+	tmpobjid = CreateObject(3017,2751.672,-73.949,1312.884,0.000,0.000,180.000,300.000);
+	tmpobjid = CreateObject(1747,2757.002,-68.061,1311.604,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1748,2756.929,-67.982,1312.036,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1752,2756.020,-68.260,1311.604,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1789,2754.693,-68.378,1312.160,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1738,2752.523,-68.233,1312.259,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1738,2765.391,-74.496,1318.494,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1738,2763.909,-81.175,1318.494,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(1738,2767.960,-71.056,1318.494,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(1738,2781.519,-72.222,1318.494,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(1736,2771.441,-65.999,1320.699,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1481,2751.287,-68.388,1312.307,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1668,2778.379,-83.473,1318.853,0.000,0.000,30.000,300.000);
+	tmpobjid = CreateObject(1667,2778.310,-83.738,1318.775,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(1665,2777.412,-83.718,1318.697,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(2394,2775.689,-68.375,1319.577,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(3354,2748.228,-71.114,1312.901,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(11712,2777.932,-77.714,1320.649,0.000,0.000,89.299,300.000);
+	tmpobjid = CreateObject(19787,2771.391,-65.184,1319.419,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19828,2779.904,-65.215,1318.849,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19828,2776.471,-77.512,1318.239,0.000,0.000,-179.099,300.000);
+	tmpobjid = CreateObject(16779,2778.081,-82.192,1321.360,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19814,2778.914,-77.708,1318.279,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19814,2774.610,-81.783,1318.199,0.000,0.000,90.000,300.000);
+	tmpobjid = CreateObject(19814,2753.572,-74.261,1311.833,0.000,0.000,179.600,300.000);
+	tmpobjid = CreateObject(19814,2774.337,-74.038,1318.279,0.000,0.000,44.900,300.000);
+	tmpobjid = CreateObject(19806,2778.059,-71.548,1321.059,0.000,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19814,2786.844,-75.453,1318.199,0.000,0.000,178.199,300.000);
+	tmpobjid = CreateObject(19461,2776.645,-63.518,1315.691,90.299,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19461,2779.702,-63.541,1315.681,89.800,0.000,0.000,300.000);
+	tmpobjid = CreateObject(19415,2778.157,-63.550,1320.487,0.000,-92.600,90.199,300.000);
+	tmpobjid = CreateObject(19824,2787.445,-69.664,1319.709,0.000,0.000,0.000,300.000);
+	//HQ Saem LS
+	CreateDynamicObject(8168,2268.8815900,-2670.8049300,14.2069000,0.0000000,0.0000000,17.0000000); //
+	CreateDynamicObject(987,2264.6010700,-2668.3317900,12.5891000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2264.5383300,-2680.2160600,12.5891000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2264.6010700,-2646.3317900,12.5891000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2276.4345700,-2646.4567900,12.5891000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2275.9150400,-2634.4609400,12.5891000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2275.8002900,-2680.2897900,12.5891000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3264,2264.3689000,-2657.3161600,12.5591000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3264,2264.3752400,-2669.1814000,12.5591000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3279,2272.0202600,-2650.8696300,11.7544300,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19425,2253.3574200,-2659.7619600,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2253.3491200,-2662.9282200,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2253.3693800,-2666.1113300,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2253.3698700,-2669.3117700,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2252.3574200,-2659.7619600,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2252.3491200,-2662.9282200,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2252.3693800,-2666.1113300,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19425,2252.3698700,-2669.3117700,12.4634000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2346.1079100,-2348.7773400,12.3637300,0.0000000,0.0000000,-133.6200000); //
+	CreateDynamicObject(987,2339.9311500,-2355.2390100,12.3637000,0.0000000,0.0000000,-133.6200000); //
+	CreateDynamicObject(3265,2343.6069300,-2350.6818800,12.5404300,0.0000000,0.0000000,-138.8399500); //
+	CreateDynamicObject(3265,2334.6794400,-2360.1628400,12.5404300,0.0000000,0.0000000,-138.8399500); //
+	CreateDynamicObject(1337,2333.0065900,-2341.9899900,12.3678000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(979,2329.6706500,-2345.4279800,12.9983400,0.0000000,0.0000000,46.3199900); //
+	CreateDynamicObject(1237,2326.2556200,-2348.9565400,12.3677900,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1237,2326.2556200,-2350.9565400,12.3678000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1237,2326.2556200,-2353.4565400,12.3678000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1237,2335.5065900,-2341.9899900,12.3678000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1237,2338.0065900,-2341.9899900,12.3678000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3279,2344.0612800,-2359.2431600,12.3613200,0.0000000,0.0000000,-42.4800000); //
+	CreateDynamicObject(8168,2483.4360400,-2283.9382300,25.7737500,0.0000000,0.0000000,-28.2599900); //
+	CreateDynamicObject(979,2478.2976100,-2277.8601100,24.4503000,0.0000000,0.0000000,-24.6000000); //
+	CreateDynamicObject(979,2469.5783700,-2274.5795900,24.4502900,0.0000000,0.0000000,-16.5600000); //
+	CreateDynamicObject(19425,2484.1513700,-2278.7749000,23.9484600,0.0000000,0.0000000,45.5399900); //
+	CreateDynamicObject(19425,2486.4011200,-2276.4904800,23.9484600,0.0000000,0.0000000,45.5399900); //
+	CreateDynamicObject(19425,2487.0305200,-2277.0847200,23.9485000,0.0000000,0.0000000,45.5400000); //
+	CreateDynamicObject(19425,2484.7812500,-2279.3701200,23.9485000,0.0000000,0.0000000,45.5400000); //
+	CreateDynamicObject(1411,2477.9624000,-2284.7404800,25.3828200,0.0000000,0.0000000,45.2399900); //
+	CreateDynamicObject(1411,2480.6950700,-2281.4382300,27.8169700,0.0000000,0.0000000,45.2399900); //
+	CreateDynamicObject(966,2487.8957500,-2284.9418900,23.8602800,0.0000000,0.0000000,-132.1798400); //
+	CreateDynamicObject(978,2491.3913600,-2288.4897500,24.4503000,0.0000000,0.0000000,-44.2799900); //
+	CreateDynamicObject(978,2495.8579100,-2296.1982400,24.4503000,0.0000000,0.0000000,-75.4800000); //
+	CreateDynamicObject(1237,2492.8149400,-2279.4409200,24.0401000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(978,2489.4052700,-2275.7536600,24.4503000,0.0000000,-1.0000000,-225.0600900); //
+	CreateDynamicObject(979,2496.1015600,-2282.5297900,24.4503000,0.0000000,-1.0000000,135.0000000); //
+	CreateDynamicObject(1262,2487.2473100,-2285.3081100,27.2002000,0.0000000,90.0000000,-135.0600300); //
+	CreateDynamicObject(1262,2482.0481000,-2280.1709000,27.2002000,0.0000000,90.0000000,-314.7600400); //
+	CreateDynamicObject(3265,2474.0803200,-2275.8378900,24.5081900,0.0000000,0.0000000,-165.2399600); //
+	CreateDynamicObject(3264,2367.8061500,-2173.0217300,20.6005200,0.0000000,0.0000000,-135.0000500); //
+	CreateDynamicObject(3264,2375.9326200,-2164.9028300,20.6305500,0.0000000,0.0000000,-135.0600100); //
+	CreateDynamicObject(3666,2368.3449700,-2172.8649900,23.4326600,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3666,2375.7380400,-2165.3754900,23.4326600,0.0000000,0.0000000,0.0000000); //
+	CreateObject(10771,2550.0124500,-2685.5864300,5.3832700,0.0000000,0.0000000,-90.0000000); //
+	CreateObject(10770,2542.4948700,-2688.8689000,38.2640300,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(11237,2542.6313500,-2685.8935500,38.3680100,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(10772,2549.8774400,-2686.8952600,17.1822600,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3115,2550.0090300,-2586.6494100,16.8742300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3114,2565.1374500,-2628.7089800,16.6241200,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3113,2550.1062000,-2576.4597200,4.7973800,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(2944,2562.9343300,-2676.0334500,11.6231600,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(2944,2548.0805700,-2694.7097200,18.3691700,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(5422,2563.4758300,-2717.5446800,12.0031300,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(5422,2563.4638700,-2721.7722200,12.0031000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(5422,2536.0495600,-2707.0666500,12.0671700,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(5422,2536.0319800,-2711.1672400,12.0672000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3114,2563.5971700,-2628.8359400,11.1427600,-90.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3115,2549.9267600,-2566.6984900,12.5465900,0.0000000,25.0000000,90.0000000); //
+	CreateDynamicObject(1337,2710.6496600,-2435.2949200,12.6015000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3268,2730.5227100,-2435.3049300,12.6015000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(3268,2730.5227100,-2472.3049300,12.6015000,0.0000000,0.0000000,180.0000000); //
+	CreateObject(4113,2527.2526900,-2441.9338400,48.4582400,0.0000000,0.0000000,-123.5399900); //
+	CreateDynamicObject(987,2377.0107400,-2651.1084000,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2389.0107400,-2651.1084000,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2401.0107400,-2651.1084000,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2413.0107400,-2651.1084000,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19503,2397.9714400,-2632.8457000,15.4911800,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2377.0876500,-2639.1723600,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2377.0876500,-2627.1723600,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2377.0876500,-2615.1723600,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2377.0876500,-2603.1723600,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2388.9777800,-2603.2404800,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2400.9777800,-2603.2404800,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2412.9777800,-2603.2404800,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2424.9777800,-2603.2404800,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2436.9777800,-2603.2404800,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2448.8051800,-2615.1408700,12.6156000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2448.9609400,-2603.2297400,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2448.8051800,-2627.1408700,12.6156000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2455.3051800,-2645.6408700,12.6156000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2448.8051800,-2651.1408700,12.6156000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2425.0107400,-2651.1084000,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2437.0107400,-2651.1084000,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2455.3327600,-2633.6897000,12.6156000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3265,2455.1269500,-2645.7370600,12.5539000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3265,2455.5852100,-2633.6618700,12.5539000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3265,2455.3859900,-2621.7392600,12.5539000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(3265,2449.0227100,-2626.8620600,12.5539000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3265,2449.0539600,-2639.5639600,12.5539000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3594,2413.5952100,-2625.2678200,13.1837200,0.0000000,0.0000000,67.9200000); //
+	CreateDynamicObject(3594,2419.6750500,-2639.9079600,13.1837200,0.0000000,0.0000000,166.4399700); //
+	CreateDynamicObject(16093,2440.5026900,-2611.1733400,16.5975000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(16638,2441.3479000,-2611.0437000,14.7079100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2431.0405300,-2603.2116700,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2431.0180700,-2609.1044900,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2430.9301800,-2621.0019500,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1337,2442.3330100,-2620.9314000,12.5539000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(3578,2418.5856900,-2614.7683100,13.2013400,0.0000000,0.0000000,-44.4000000); //
+	CreateDynamicObject(3578,2425.7534200,-2643.3215300,13.2013400,0.0000000,0.0000000,-89.9399900); //
+	CreateDynamicObject(18646,2448.8354500,-2639.3625500,17.6283600,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(18646,2448.8354500,-2626.8625500,17.6284000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2407.1096200,-2620.7978500,14.3614100,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2407.1154800,-2627.6872600,14.3614100,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19453,2402.3198200,-2620.0022000,14.3430100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2406.3225100,-2628.3266600,14.3614000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2404.8225100,-2628.3266600,14.3614000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2403.3225100,-2628.3266600,14.3614000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2401.8225100,-2628.3266600,14.3614000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2400.4926800,-2628.3344700,14.3614000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19453,2394.3198200,-2620.0022000,14.3430000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2390.0432100,-2620.6723600,14.3614100,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19321,2399.1845700,-2609.8586400,14.1560600,0.0000000,0.0000000,103.9800000); //
+	CreateDynamicObject(19434,2390.0415000,-2623.6091300,14.3802200,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0361300,-2622.1223100,11.5796800,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0415000,-2625.1091300,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0415000,-2626.6091300,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0415000,-2628.1091300,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0415000,-2629.6091300,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0832500,-2630.4292000,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0964400,-2635.1210900,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0939900,-2636.5720200,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0832500,-2640.6757800,11.8047900,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0939900,-2638.0720200,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0939900,-2639.0720200,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0832500,-2642.1757800,11.8048000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0603000,-2632.0371100,11.8048000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0603000,-2633.5371100,11.8048000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19325,2389.9592300,-2641.5966800,13.7835000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19325,2389.9592300,-2633.0966800,13.7835000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19325,2398.2172900,-2645.9047900,13.7835000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19325,2403.2172900,-2645.9047900,13.7835000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19325,2407.1772500,-2641.8879400,13.7835000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19325,2407.1765100,-2640.9079600,13.7835000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1502,2399.8037100,-2633.9865700,13.2287500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2399.7419400,-2634.7878400,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2399.7419400,-2636.2878400,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2406.8828100,-2641.4785200,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2400.4626500,-2637.1044900,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2401.9626500,-2637.1044900,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2403.4626500,-2637.1044900,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2404.9626500,-2637.1044900,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2406.2729500,-2637.3889200,14.3960100,0.0000000,0.0000000,73.3799800); //
+	CreateDynamicObject(19434,2406.9875500,-2638.4150400,11.7833000,0.0000000,0.0000000,-0.1800000); //
+	CreateDynamicObject(19434,2406.9875500,-2639.9150400,11.7833000,0.0000000,0.0000000,-0.1800000); //
+	CreateDynamicObject(19434,2406.9875500,-2642.9150400,11.7833000,0.0000000,0.0000000,-0.1800000); //
+	CreateDynamicObject(19434,2407.0043900,-2644.4045400,11.7833000,0.0000000,0.0000000,-0.1800000); //
+	CreateDynamicObject(19434,2401.7011700,-2645.7453600,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2406.3408200,-2645.4416500,14.3802000,0.0000000,0.0000000,107.0400200); //
+	CreateDynamicObject(19434,2400.2612300,-2645.7446300,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2399.2207000,-2645.7050800,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2404.7922400,-2645.6926300,11.7833000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2403.2922400,-2645.6926300,11.7833000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2397.6325700,-2645.6855500,11.7833000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2396.1325700,-2645.6855500,11.7833000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2394.7207000,-2645.7050800,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2393.2207000,-2645.7050800,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2391.7207000,-2645.7050800,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2390.2207000,-2645.7050800,14.3802000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(19434,2390.0939900,-2643.5720200,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2390.0939900,-2645.0720200,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2399.7314500,-2631.6867700,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2399.7314500,-2630.1867700,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2399.7314500,-2629.1867700,14.3802000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19434,2399.7390100,-2633.2011700,11.4925800,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1502,2390.0756800,-2622.9506800,13.2287500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(5779,2407.3652300,-2624.2568400,15.1889600,0.0000000,70.0000000,180.0000000); //
+	CreateDynamicObject(19447,2402.2492700,-2621.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.7492700,-2621.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2402.2492700,-2624.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2402.2492700,-2626.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.7492700,-2624.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.7492700,-2627.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.9487300,-2630.8181200,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.8310500,-2634.3501000,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.9306600,-2637.8400900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.7492700,-2641.3378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2394.7492700,-2643.8378900,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2402.6679700,-2638.9106400,15.8128000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2402.2492700,-2643.8378900,15.8127600,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(19447,2402.2492700,-2641.3378900,15.8100000,0.0000000,90.0000000,90.0000000); //
+	CreateDynamicObject(8038,2510.7731900,-2556.8720700,31.5436000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(3763,2395.8811000,-2685.9753400,38.7587600,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2390.2026400,-2691.3015100,12.6156000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2402.1037600,-2691.3828100,12.6156000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2402.1796900,-2679.4631300,12.6156000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2390.2482900,-2679.3232400,12.6156000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1586,2391.9384800,-2621.3659700,12.6462700,0.0000000,0.0000000,24.0600000); //
+	CreateDynamicObject(1586,2391.5085400,-2625.9106400,12.6462700,0.0000000,0.0000000,59.5799900); //
+	CreateDynamicObject(1586,2405.6562500,-2621.2414600,12.6462700,0.0000000,0.0000000,59.5799900); //
+	CreateDynamicObject(1586,2391.5293000,-2635.9633800,12.6462700,0.0000000,0.0000000,88.0200000); //
+	CreateDynamicObject(1586,2398.4890100,-2636.1672400,12.6462700,0.0000000,0.0000000,-212.4599800); //
+	CreateDynamicObject(1586,2406.1716300,-2639.4484900,12.6462700,0.0000000,0.0000000,-93.3599900); //
+	CreateDynamicObject(1586,2404.8151900,-2644.0791000,12.6462700,0.0000000,0.0000000,-125.9999900); //
+	CreateDynamicObject(9241,2457.8986800,-2519.2006800,14.2863300,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(9241,2428.5090300,-2519.2258300,14.2704300,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(9241,2457.8986800,-2554.2006800,14.2124900,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(9241,2428.8986800,-2554.2006800,14.3759200,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(11451,2674.0568800,-2347.9885300,12.5909000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(9583,2673.0234400,-2371.2080100,12.6132000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(11245,2673.5402800,-2371.2082500,35.9396000,0.0000000,-70.0000000,0.0000000); //
+	CreateDynamicObject(18234,2643.6674800,-2378.7573200,12.6111000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(11454,2715.2258300,-2367.0730000,12.6110000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(18234,2632.1674800,-2378.7773400,12.6111000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(18234,2621.1674800,-2378.7573200,12.6111000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(18234,2643.6877400,-2352.1242700,12.6111000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(18234,2632.6877400,-2352.1242700,12.6111000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(18234,2620.6877400,-2352.1242700,12.6111000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1496,2675.7021500,-2353.0144000,12.6289000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3707,2701.7431600,-2537.9765600,20.2985900,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3378,2729.2089800,-2591.2702600,-0.9551600,10.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3378,2729.2314500,-2597.8188500,-0.2048100,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3378,2729.2993200,-2620.3188500,-0.2048000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(11495,2741.7731900,-2634.0197800,0.7648000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(11495,2741.7731900,-2621.5197800,0.7648000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(11495,2741.7731900,-2609.0197800,0.7648000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(11495,2741.7731900,-2596.0197800,0.7648400,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(9958,2705.4543500,-2614.1657700,6.3720700,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3378,2720.9694800,-2632.1701700,-0.2000000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(10757,2643.0051300,-2432.1872600,20.3181200,0.0000000,0.0000000,150.0000000); //
+	CreateDynamicObject(9583,2646.9553200,-2430.2370600,-3.3362500,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(9583,2642.4721700,-2427.1748000,-2.3213300,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(9583,2641.4858400,-2435.6369600,-3.5359000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3660,2643.6613800,-2437.1369600,14.6761000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3660,2652.2150900,-2426.6997100,14.6761000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1337,2634.6010700,-2426.7253400,14.6761000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3660,2643.6579600,-2417.6201200,14.6761000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2622.6010700,-2417.3923300,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.6042500,-2421.5332000,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.5935100,-2425.6630900,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.5898400,-2429.7470700,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.5991200,-2433.8606000,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.5991200,-2438.0327100,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.6296400,-2442.1872600,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.6318400,-2446.2951700,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.6284200,-2450.4536100,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2622.6167000,-2454.5678700,13.1151500,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2624.7038600,-2456.6174300,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2628.8144500,-2456.5942400,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2632.9577600,-2456.6313500,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2637.0744600,-2456.6179200,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2639.1318400,-2454.5822800,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2641.1892100,-2452.5612800,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2645.3076200,-2452.5522500,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19445, 594.29779, -2568.00757, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19445, 594.29779, -2558.37549, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19445, 594.29779, -2548.74536, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19445, 594.29779, -2539.11475, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19445, 579.93433, -2534.38672, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 570.29828, -2534.38672, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19445, 560.67029, -2534.38672, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19446, 560.67230, -2543.84668, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 565.53180, -2539.11475, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 567.09229, -2534.38672, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 581.52380, -2539.12280, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 573.51031, -2534.38672, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19353, 583.14227, -2543.85059, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19353, 581.52380, -2542.33276, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2542.32471, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2535.91064, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 581.52380, -2535.91870, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19445, 589.57031, -2553.04639, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19445, 589.57031, -2563.60449, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 584.66779, -2558.87744, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 584.66779, -2562.08740, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 584.66779, -2555.66553, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19377, 589.40771, -2558.29102, 1.10460,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19426, 584.66577, -2553.76025, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19445, 589.56628, -2534.38672, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19445, 584.65979, -2539.11670, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19446, 589.56830, -2582.36670, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 589.55231, -2543.85059, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19353, 586.34631, -2543.85059, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19353, 592.76233, -2543.85059, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 565.53180, -2548.74536, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2545.53564, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2551.95679, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19446, 560.67230, -2553.47461, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19383, 565.53180, -2558.37549, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19383, 565.53180, -2568.00757, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19383, 565.53180, -2577.64111, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2555.16675, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2561.58569, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2571.21851, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2574.42944, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19353, 565.53180, -2580.85181, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19446, 560.67230, -2562.97461, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19446, 560.67230, -2572.76050, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19378, 589.47882, -2577.10083, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19383, 589.42029, -2571.92651, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19400, 584.74579, -2577.64160, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19427, 584.74579, -2572.68433, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19610, 587.95270, -2577.80151, 2.77370,   0.00000, 0.00000, 238.32809);
+	CreateDynamicObject(19611, 587.96918, -2577.81177, 1.14820,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19609, 592.01703, -2580.27393, 1.14050,   0.00000, 0.00000, 225.00000);
+	CreateDynamicObject(19613, 593.92120, -2575.01392, 1.14860,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(19613, 593.92120, -2574.26392, 1.14860,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(19613, 593.93408, -2573.52905, 1.14860,   0.00000, 0.00000, 270.00000);
+	CreateDynamicObject(19617, 591.24951, -2571.99683, 3.46330,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19616, 592.33710, -2572.18774, 1.13690,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19616, 590.83710, -2572.18774, 1.13690,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19616, 587.83710, -2572.18774, 1.13690,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19616, 586.33710, -2572.18774, 1.13690,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19317, 594.20428, -2574.56909, 3.44850,   0.00000, 45.00000, 270.00000);
+	CreateDynamicObject(19318, 594.21637, -2575.42163, 3.44850,   0.00000, 45.00000, 270.00000);
+	CreateDynamicObject(19319, 594.20520, -2576.37231, 3.44850,   0.00000, 45.00000, 270.00000);
+	CreateDynamicObject(19353, 586.20978, -2571.92651, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19353, 592.62982, -2571.92651, 2.88830,   0.00000, 0.00000, 90.00000);
+	CreateDynamicObject(19318, 556.06879, -2546.77686, 3.44850,   0.00000, 45.00000, 90.00000);
+	CreateDynamicObject(19445, 581.51849, -2577.64160, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19426, 581.51849, -2572.64038, 2.88830,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19379, 579.93127, -2577.10083, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 589.56549, -2566.59985, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 579.93073, -2566.59985, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 570.29712, -2577.10107, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 570.29712, -2566.59985, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 570.29712, -2556.09863, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 579.93073, -2556.09863, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 579.93073, -2545.59741, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(19379, 570.29712, -2545.59741, 1.06860,   0.00000, 90.00000, 90.00000);
+	CreateDynamicObject(970,2647.3718300,-2454.5903300,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2649.4689900,-2456.5473600,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2653.6057100,-2456.5395500,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2657.6875000,-2456.5390600,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2661.8012700,-2456.5146500,13.1151000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2663.8593800,-2454.4514200,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8710900,-2450.3147000,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8793900,-2446.2165500,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8696300,-2442.0756800,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8796400,-2437.9548300,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8635300,-2433.8532700,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8837900,-2429.7302200,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8652300,-2425.5900900,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8654800,-2421.4650900,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2663.8718300,-2417.3437500,13.1151000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0422400,-2419.4599600,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0158700,-2423.6025400,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0127000,-2427.6240200,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0715300,-2431.8242200,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0402800,-2435.9484900,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0046400,-2440.0961900,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0847200,-2444.1999500,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2626.0419900,-2448.3833000,12.5794100,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(1251,2630.8898900,-2453.2221700,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2635.0175800,-2453.1740700,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2639.1494100,-2453.0979000,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2647.4865700,-2453.0827600,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2651.5534700,-2453.2141100,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2655.6972700,-2453.0644500,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2659.7426800,-2453.0949700,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1251,2663.8740200,-2453.1108400,12.5794000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1226,2487.7299800,-2283.4101600,27.4117100,0.0000000,0.0000000,-129.5999800); //
+	CreateDynamicObject(1226,2483.3486300,-2279.0744600,27.4117100,0.0000000,0.0000000,-129.5999800); //
+	CreateDynamicObject(16770,2745.8254400,-2349.0673800,14.0208900,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1587,2770.3615700,-2341.5339400,14.3728200,0.0000000,180.0000000,90.0000000); //
+	CreateDynamicObject(1587,2772.1347700,-2344.3610800,14.3728000,0.0000000,180.0000000,90.0000000); //
+	CreateDynamicObject(1587,2773.7163100,-2347.5354000,14.3728000,0.0000000,180.0000000,90.0000000); //
+	CreateDynamicObject(1587,2769.5791000,-2354.4758300,14.3728000,0.0000000,180.0000000,90.0000000); //
+	CreateDynamicObject(1587,2771.7729500,-2351.8632800,14.3728000,0.0000000,180.0000000,90.0000000); //
+	CreateDynamicObject(1588,2769.5900900,-2354.4797400,13.9067300,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1588,2771.7712400,-2351.8710900,13.9067300,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1588,2773.7446300,-2347.5454100,13.9067000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1588,2772.1530800,-2344.3652300,13.9067300,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1588,2770.3952600,-2341.5373500,13.9067300,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1589,2769.6147500,-2354.4787600,13.9359900,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1589,2771.7717300,-2351.8784200,13.9180000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1589,2773.7492700,-2347.5749500,13.9359900,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1589,2772.1372100,-2344.3769500,13.9360000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1589,2770.3911100,-2341.5542000,13.9360000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1590,2769.6135300,-2354.4504400,13.9360000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1591,2769.6164600,-2354.4504400,13.9556000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1592,2769.6164600,-2354.4785200,13.9596000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(16613,2786.1999500,-2540.5803200,14.7263000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(987,2762.4631300,-2339.6848100,12.6230000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2774.4143100,-2339.6613800,12.6230000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2786.3549800,-2339.7038600,12.6230000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(987,2786.2531700,-2351.6535600,12.6230000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2786.2858900,-2357.6115700,12.6230000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(987,2774.4301800,-2357.6420900,12.6230000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2762.4296900,-2357.5554200,12.6230000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987,2750.5161100,-2357.5739700,12.6230000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3265,2750.4604500,-2357.4506800,12.6291000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(19447,2783.3459500,-2344.6147500,13.9783800,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19447,2783.3474100,-2352.6511200,13.9784000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19447,2783.3474100,-2352.6511200,17.4784000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(19447,2783.3459500,-2344.6147500,17.4784000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1592,2771.7714800,-2351.8774400,13.9596000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1592,2773.7492700,-2347.5749500,13.9596000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1592,2772.1372100,-2344.3769500,13.9596000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1592,2770.3911100,-2341.5542000,13.9596000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1591,2771.7727100,-2351.8505900,13.9556000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1591,2773.7497600,-2347.5373500,13.9556000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1591,2772.1372100,-2344.3515600,13.9556000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1591,2770.3911100,-2341.5295400,13.9556000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1590,2771.7712400,-2351.8544900,13.9220000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1590,2773.7497600,-2347.5373500,13.9360000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1590,2772.1372100,-2344.3515600,13.9360000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(1590,2770.3911100,-2341.5295400,13.9360000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(18234,2608.6877400,-2352.1242700,12.6111000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(18234,2597.1877400,-2352.1242700,12.6111000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(1337,2586.1660200,-2396.3979500,13.1693000,0.0000000,0.0000000,-45.7800000); //
+	CreateDynamicObject(3578,2593.6442900,-2403.3840300,13.1692800,0.0000000,0.0000000,-40.0200100); //
+	CreateDynamicObject(3578,2601.9885300,-2409.1523400,13.1692800,0.0000000,0.0000000,-28.6200100); //
+	CreateDynamicObject(3578,2611.2851600,-2412.9406700,13.1692800,0.0000000,0.0000000,-15.4800100); //
+	CreateDynamicObject(11547,2494.9577600,-2378.1284200,15.4379800,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(11547,2478.5527300,-2394.8635300,15.4380000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(11504,2473.0434600,-2372.5756800,12.6139000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3465,2472.9743700,-2388.8283700,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2476.8759800,-2392.7893100,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2480.9143100,-2396.5332000,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2484.6833500,-2400.3845200,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2489.2407200,-2372.1022900,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2493.0461400,-2376.1323200,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2496.9975600,-2380.0285600,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(3465,2501.0358900,-2383.7292500,13.8839400,0.0000000,0.0000000,-45.0000000); //
+	CreateDynamicObject(970,2501.2038600,-2384.3505900,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2497.2426800,-2380.5051300,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2493.4089400,-2376.6735800,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2489.5481000,-2372.7563500,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2500.6477100,-2383.5158700,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2496.4519000,-2379.8850100,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2492.7211900,-2375.8022500,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2488.6994600,-2372.0251500,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2472.4694800,-2388.6613800,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2473.2885700,-2389.1789600,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2476.3107900,-2392.4431200,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2477.2058100,-2393.0852100,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2480.3276400,-2396.5080600,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2481.1118200,-2396.8547400,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2484.1916500,-2400.4885300,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(970,2484.7990700,-2400.7788100,13.1515300,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3660,2503.4184600,-2337.9897500,14.9435000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3660,2489.5920400,-2351.8234900,14.9435000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3660,2475.7124000,-2365.7036100,14.9435000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3660,2456.3584000,-2385.1784700,14.9435000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3660,2442.5468800,-2398.9885300,14.9435000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3660,2428.6589400,-2412.8454600,14.9435000,0.0000000,0.0000000,45.0000000); //
+	CreateDynamicObject(3578,2586.2744100,-2396.4702100,13.1692800,0.0000000,0.0000000,-46.1400300); //
+	CreateDynamicObject(3268,2441.7067900,-2417.7277800,12.6061000,0.0000000,0.0000000,135.0000000); //
+	CreateDynamicObject(3268,2710.5520000,-2435.3190900,12.6015000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3268,2781.8754900,-2472.3391100,12.6015000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3268,2781.9233400,-2435.3564500,12.6015000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3573,2770.0649400,-2386.3676800,12.5998400,0.0000000,0.0000000,-32.9400000); //
+	CreateDynamicObject(3573,2778.2243700,-2405.9841300,15.1886200,0.0000000,0.0000000,114.0000000); //
+	CreateDynamicObject(3350,2661.1762700,-2349.9826700,16.2411500,0.0000000,0.0000000,-46.7400000); //
+	CreateDynamicObject(3030,2670.4931600,-2341.6557600,15.2713700,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3350,2687.0380900,-2350.0144000,16.2411500,0.0000000,0.0000000,20.8800000); //
+	CreateDynamicObject(9241,2736.6814000,-2374.9912100,14.2663000,0.0000000,0.0000000,-90.0000000); //
+	CreateDynamicObject(3066,2436.0639600,-2601.9387200,12.6422000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3066,2426.5825200,-2601.9270000,12.6422000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3066,2417.0903300,-2601.9260300,12.6422000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3066,2435.9890100,-2597.9448200,12.6422000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3066,2426.6174300,-2597.9018600,12.6422000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3066,2417.2148400,-2597.9086900,12.6422000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3573,2395.6936000,-2584.5971700,12.6190700,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3573,2402.0041500,-2520.9323700,12.6190700,0.0000000,0.0000000,-85.0799900); //
+	CreateDynamicObject(3573,2397.8857400,-2524.8901400,15.3276200,0.0000000,0.0000000,-176.0399900); //
+	CreateDynamicObject(970,2731.9101600,-2592.3808600,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9475100,-2588.2619600,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9138200,-2599.5168500,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9135700,-2603.6369600,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9306600,-2612.6594200,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9218800,-2616.8000500,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9836400,-2625.2002000,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2731.9748500,-2629.3212900,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.7185100,-2627.4145500,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.7116700,-2623.2900400,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.7031300,-2619.1816400,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.6994600,-2615.1215800,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.6989700,-2611.0019500,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.6987300,-2606.8613300,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.6977500,-2602.7204600,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.7053200,-2598.5998500,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.6840800,-2594.4594700,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2726.6821300,-2590.2973600,1.3895300,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(970,2724.6059600,-2629.4357900,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2728.6772500,-2634.8916000,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2724.5573700,-2634.8720700,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2720.4172400,-2634.8776900,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2716.3737800,-2634.8820800,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2720.4853500,-2629.4206500,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(970,2716.3505900,-2629.4575200,1.3895000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3265,2442.4497100,-2620.9975600,12.5539000,0.0000000,0.0000000,180.0000000); //
+	CreateDynamicObject(6965,2534.4760700,-2401.4687500,16.2881000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(6964,2534.5874000,-2401.6203600,11.9486400,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3515,2528.5883800,-2400.5004900,12.0939900,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(3515,2540.2141100,-2403.6535600,11.9296700,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(996,2501.6494100,-2442.0332000,13.1298200,0.0000000,0.0000000,-47.8800000); //
+	CreateDynamicObject(996,2496.0888700,-2435.9223600,13.1298200,0.0000000,0.0000000,-47.8800000); //
+	CreateDynamicObject(996,2490.5532200,-2429.7370600,13.1298200,0.0000000,0.0000000,-47.8800000); //
+	CreateDynamicObject(996,2570.5441900,-2420.1582000,13.1125100,0.0000000,0.0000000,44.1000000); //
+	CreateDynamicObject(996,2563.3784200,-2427.1877400,13.1125100,0.0000000,0.0000000,44.1000000); //
+	CreateDynamicObject(996,2556.5288100,-2434.0004900,13.1125100,0.0000000,0.0000000,44.1000000); //
+	CreateDynamicObject(3660,2634.6379400,-2427.4079600,14.6761000,0.0000000,0.0000000,90.0000000); //
+	CreateDynamicObject(3268,2710.5622600,-2472.3889200,12.6015000,0.0000000,0.0000000,0.0000000); //
+	CreateDynamicObject(987, 2762.60, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2729.90, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2718.00, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2741.90, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2706.00, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2694.10, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2682.10, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2670.10, -2565.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2670.20, -2553.70, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2670.20, -2541.70, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2670.20, -2529.70, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2670.20, -2517.80, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2670.10, -2512.80, 12.60,   0.00, 0.00, 272.00);
+	CreateDynamicObject(987, 2670.20, -2482.30, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2670.20, -2470.30, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2670.20, -2458.80, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2658.20, -2458.80, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2646.20, -2458.80, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2634.20, -2458.80, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2618.90, -2458.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2611.90, -2449.70, 12.60,   0.00, 0.00, 310.00);
+	CreateDynamicObject(987, 2611.70, -2437.90, 11.60,   0.00, 0.00, 272.00);
+	CreateDynamicObject(987, 2616.50, -2383.80, 12.60,   0.00, 0.00, 272.00);
+	CreateDynamicObject(987, 2616.40, -2371.90, 12.60,   0.00, 0.00, 270.00);
+	CreateDynamicObject(987, 2616.30, -2412.00, 12.60,   0.00, 0.00, 272.00);
+	CreateDynamicObject(987, 2774.50, -2565.80, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2786.50, -2565.90, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2798.50, -2565.80, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2810.50, -2566.10, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2554.00, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2542.30, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2530.30, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2518.50, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2518.50, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2506.50, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2494.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2482.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2470.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2458.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2446.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2434.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2422.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2410.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2398.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2386.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2374.80, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2363.00, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2351.00, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.50, -2342.00, 12.60,   0.00, 0.00, 90.00);
+	CreateDynamicObject(987, 2810.60, -2330.40, 12.60,   0.00, 0.00, 180.00);
+	CreateDynamicObject(987, 2798.50, -2330.50, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2786.50, -2330.50, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2774.60, -2330.50, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2762.60, -2330.70, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2750.60, -2330.60, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2738.60, -2330.50, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2726.80, -2330.70, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2714.80, -2330.60, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2708.80, -2330.60, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2684.90, -2330.60, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2672.70, -2330.40, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2660.70, -2330.30, 12.60,   0.00, 0.00, 181.99);
+	CreateDynamicObject(987, 2648.70, -2330.70, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2648.70, -2330.70, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2636.70, -2330.60, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2627.70, -2330.59, 12.60,   0.00, 0.00, 179.99);
+	CreateDynamicObject(987, 2616.50, -2330.60, 12.60,   0.00, 0.00, 269.99);
+	CreateDynamicObject(987, 2616.40, -2342.50, 12.60,   0.00, 0.00, 269.99);
+	CreateDynamicObject(987, 2625.20, -2458.60, 12.60,   0.00, 0.00, 0.00);
+	CreateDynamicObject(987, 2696.80, -2330.80, 12.30,   0.00, 0.00, 179.99);
 
     ////FIN MAPEOS////
 	for (new i = 0; i < 24; i ++) {
@@ -34575,7 +35797,7 @@ Dialog:Locker(playerid, response, listitem, inputtext[])
 
 							else format(string, sizeof(string), "%sSlot Vacío\n", string);
 					    }
-					    Dialog_Show(playerid, LockerWeapons, DIALOG_STYLE_LIST, "Armas del Locker", string, "Seleccionar", "Cancelar");
+					    Dialog_Show(playerid, , DIALOG_STYLE_LIST, "Armas del Locker", string, "Seleccionar", "Cancelar");
 					}
 					else return SendErrorMessage(playerid, "No puedes agarrar chaleco si no eres de LSPD o Gobierno.");
 				}
@@ -34908,10 +36130,7 @@ Dialog:FactionWeaponID(playerid, response, listitem, inputtext[])
 	    new weaponid = strval(inputtext);
 
 	    if (isnull(inputtext))
-	        return Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "Arma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
-
-		if (weaponid != 22 || 24 || 25 || 28 || 29 || 30 || 31 || 32 || 33 || 34)
-		    return Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "Error: IDs compatibles: 22 24 25 28 29 30 31 32 33 34.\n\nArma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
+	        return Dialog_Show(playerid, FactionWeaponID, DIALOG_STYLE_INPUT, "Cambiar Arma", "IDs compatibles: 22 24 25 28 29 30 31 32 33 34.\n\nArma Actual: %s (%d)\n\nColoca el nuevo ID de arma para el slot %d:", "Aceptar", "Cancelar", ReturnWeaponName(FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]]), FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]], PlayerData[playerid][pSelectedSlot]);
 
         FactionData[PlayerData[playerid][pFactionEdit]][factionWeapons][PlayerData[playerid][pSelectedSlot]] = weaponid;
         Faction_Save(PlayerData[playerid][pFactionEdit]);
