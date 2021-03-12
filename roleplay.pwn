@@ -1954,7 +1954,7 @@ stock ViewFactions(playerid)
 {
 	new string[1040];
 	for (new i = 0; i != MAX_FACTIONS; i ++) if (FactionData[i][factionExists]) {
- 		format(string, sizeof(string), "%s{FFFFFF}Faccion ({FFBF00}%i{FFFFFF}) | %s\nLider %s\n", string, i, FactionData[i][factionName], FactionData[i][factionLeader]);
+ 		format(string, sizeof(string), "%s{FFFFFF}Faccion ({FFBF00}%i{FFFFFF}) | %s  Lider %s\n", string, i, FactionData[i][factionName], FactionData[i][factionLeader]);
 	}
 	Dialog_Show(playerid, FactionsList, DIALOG_STYLE_MSGBOX, "Lista de Facciones", string, "Cerrar", "");
 	return 1;
@@ -4785,6 +4785,22 @@ stock EquipWeapon(playerid, weapon[])
 		    return SendErrorMessage(playerid, "Ya estas usando un arma (pulsa 'N' para guardarla).");
 
 		HoldWeapon(playerid, 30);
+
+	    SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s toma una AK-47 vacia y la sostiene.", ReturnName(playerid, 0));
+	    SendServerMessage(playerid, "Pulsa 'N' para guardar el arma. Tienes que colocarle un cargador para usarla.");
+	}
+	else if (!strcmp(weapon, "M4", true))
+	{
+	    if (!Inventory_HasItem(playerid, "M4"))
+	        return SendErrorMessage(playerid, "No tienes esta arma.");
+
+	    if (PlayerHasWeapon(playerid, 31))
+	        return SendErrorMessage(playerid, "Ya tienes esta arma.");
+
+		if (PlayerData[playerid][pHoldWeapon] > 0)
+		    return SendErrorMessage(playerid, "Ya estas usando un arma (pulsa 'N' para guardarla).");
+
+		HoldWeapon(playerid, 31);
 
 	    SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s toma una AK-47 vacia y la sostiene.", ReturnName(playerid, 0));
 	    SendServerMessage(playerid, "Pulsa 'N' para guardar el arma. Tienes que colocarle un cargador para usarla.");
@@ -8295,8 +8311,7 @@ Sign_Refresh(signid)
 {
 	if (signid != -1 && SignData[signid][signExists])
 	{
-		if (IsValidDynamicObject(SignData[signid][signObjeto]))
-		    DestroyDynamicObject(SignData[signid][signObjeto]);
+		DestroyDynamicObject(SignData[signid][signObjeto]);
 		SignData[signid][signObjeto] = CreateDynamicObject(SignData[signid][signObject], SignData[signid][signPos][0], SignData[signid][signPos][1], SignData[signid][signPos][2], 0.0, 0.0, SignData[signid][signPos][3], SignData[signid][signWorld], SignData[signid][signInterior]);
 	}
 	return 1;
@@ -16754,7 +16769,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				    Inventory_Remove(playerid, "M4");
 					PlayReloadAnimation(playerid, weaponid);
 
-					GiveWeaponToPlayer(playerid, weaponid, 31);
+					GiveWeaponToPlayer(playerid, weaponid, 35);
 					PlayerData[playerid][pRecargar] = 0;
 				}
 				case 33:
@@ -18177,9 +18192,43 @@ public OnPlayerUpdate(playerid)
 		  	}
 	    }
 	}
+	new SurfVeh = GetPlayerSurfingVehicleID(playerid);
+	if( SurfVeh != INVALID_VEHICLE_ID )
+	{
+		if(GetPlayerSpeed(SurfVeh) > 50.0)
+		{
+			switch(GetVehicleModel(SurfVeh))
+			{
+				case 595,446,452,453,454,472,473,484,493,430,422,543,554,600,605,478,556,557,433,444,455,470:
+				{
+					return 1;
+				}
+			}
+			new
+				Float:slx, Float:sly, Float:slz;
+	
+			GetPlayerPos(playerid, slx, sly, slz);
+			SetPlayerPos(playerid, slx, sly, slz+2.5);
+
+			ApplyAnimation(playerid, "ped", "BIKE_fallR", 4.0, 0, 1, 0, 0, 0,0);
+
+			new
+				Float:VD;
+
+			GetPlayerHealth(playerid, VD);
+			SetPlayerHealth(playerid, VD-20);
+
+			SetTimerEx("AnimUp_", 1100, 0, "d", playerid);
+			}
+		}
 	return 1;
 }
-
+forward AnimUp_(playerid);
+public AnimUp_(playerid)
+{
+    ApplyAnimation(playerid, "ped", "getup", 4.0, 0, 1, 0, 0, 0,0);
+	return 1;
+}
 public OnPlayerConnect(playerid)
 {
 	//Agregar jugadores en status
@@ -32135,7 +32184,7 @@ public OnGameModeInit()
 	CreateDynamic3DTextLabel("Puedes recibir el{72B1FF} /subsidio {FFFFFF}por parte del gobierno.", 0xFFFFFFE8, -852.2942,1624.8451,1004.7500, 5.0);
 	CreateDynamic3DTextLabel("Puedes recibir el{72B1FF} /subsidio {FFFFFF}por parte del gobierno.", 0xFFFFFFE8, -852.4701,1633.2644,1004.7500, 5.0);
 	CreateDynamic3DTextLabel("Usa {0352FC}/mercadonegro {FFFFFF}para comprar", 0xFFFFFFE8, 1421.8376,-1355.1323,13.5679, 5.0);
-
+	CreateDynamic3DTextLabel("En honor a {869ED1}Dieguito Armando Maradona", 0xFFFFFFE8, 479.7131,-1693.1550,15.0672, 10);
     for (new i = 0; i < 24; i ++)
 	{
 	    PrisonData[prisonCellOpened][i] = true;
@@ -35797,9 +35846,9 @@ Dialog:Locker(playerid, response, listitem, inputtext[])
 
 							else format(string, sizeof(string), "%sSlot Vacío\n", string);
 					    }
-					    Dialog_Show(playerid, , DIALOG_STYLE_LIST, "Armas del Locker", string, "Seleccionar", "Cancelar");
+					    Dialog_Show(playerid,	LockerWeapons, DIALOG_STYLE_LIST, "Armas del Locker", string, "Seleccionar", "Cancelar");
 					}
-					else return SendErrorMessage(playerid, "No puedes agarrar chaleco si no eres de LSPD o Gobierno.");
+					else return SendErrorMessage(playerid, "No puedes agarrar armas si no eres de LSPD o Gobierno.");
 				}
 				case 4:
 				{
@@ -35829,7 +35878,7 @@ Dialog:Locker(playerid, response, listitem, inputtext[])
 						}
 						Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Ponerse en servicio\nChaleco Blindado\nSkins\nArmas\nCargadores\nCajas de Municion", "Seleccionar", "Cancelar");
 					}
-					else return SendErrorMessage(playerid, "No puedes agarrar chaleco si no eres de LSPD o Gobierno.");
+					else return SendErrorMessage(playerid, "No puedes agarrar cargadores si no eres de LSPD o Gobierno.");
 				}
 				case 5:
 				{
@@ -35851,7 +35900,7 @@ Dialog:Locker(playerid, response, listitem, inputtext[])
 						}
 						Dialog_Show(playerid, Locker, DIALOG_STYLE_LIST, "Caja Fuerte de Faccion", "Ponerse en servicio\nChaleco Blindado\nSkins\nArmas\nCargadores\nCajas de Municion", "Seleccionar", "Cancelar");
 					}
-					else return SendErrorMessage(playerid, "No puedes agarrar chaleco si no eres de LSPD o Gobierno.");
+					else return SendErrorMessage(playerid, "No puedes agarrar cajas de municion si no eres de LSPD o Gobierno.");
 				}
 			}
 	    }
@@ -36179,7 +36228,7 @@ Dialog:FactionSkin(playerid, response, listitem, inputtext[])
 	if (response)
 	{
 	    static
-	        skins[299];
+	        skins[311];
 
 		switch (listitem)
 		{
@@ -50776,6 +50825,17 @@ CMD:recargar(playerid, params[])
 			ShowPlayerFooter(playerid, "Pulsa ~y~'H'~w~ para cargar el arma.");
 		}
 		case 30:
+	    {
+	        PlayerPlaySoundEx(playerid, 1131);
+			PlayerData[playerid][pUsedMagazine] = 1;
+
+	        Inventory_Remove(playerid, "Cargador");
+   			PlayReloadAnimation(playerid, 24);
+
+			SendNearbyMessage(playerid, 30.0, COLOR_PURPLE, "** %s le coloca el cargador a su arma.", ReturnName(playerid, 0));
+			ShowPlayerFooter(playerid, "Pulsa ~y~'H'~w~ para cargar el arma.");
+		}
+		case 31:
 	    {
 	        PlayerPlaySoundEx(playerid, 1131);
 			PlayerData[playerid][pUsedMagazine] = 1;
