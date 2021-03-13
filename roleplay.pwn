@@ -978,6 +978,7 @@ new GateData[MAX_GATES][gateData];
 
 new marihuanatimer[MAX_PLAYERS];
 new marihuanaestado[MAX_PLAYERS];
+
 /*
 	0 to 10: Character textdraws
 	11 to 22: ID card
@@ -9672,9 +9673,9 @@ Business_PurchaseMenu(playerid, bizid)
 		case 7:
 	    {
 	        string[0] = 0;
-
+	        format(string, sizeof(string), "Producto\tPrecio\tStock\n", string);
 	        for (new i = 0; i < sizeof(g_aFurnitureTypes); i ++) {
-	            format(string, sizeof(string), "Producto\tPrecio\tStock\n%s%s\t%s\t%d\n", string, g_aFurnitureTypes[i], FormatNumber(BusinessData[bizid][bizPrices][i]), BusinessData[bizid][bizProducts]);
+	            format(string, sizeof(string), "%s\t%s\t%d\n", string, g_aFurnitureTypes[i], FormatNumber(BusinessData[bizid][bizPrices][i]), BusinessData[bizid][bizProducts]);
 			}
 			Dialog_Show(playerid, BusinessBuy, DIALOG_STYLE_TABLIST_HEADERS, BusinessData[bizid][bizName], string, "Comprar", "Cancelar");
 		}
@@ -13724,6 +13725,17 @@ stock Float:GetPlayerSpeed(playerid)
 	return floatsqroot((velocity[0] * velocity[0]) + (velocity[1] * velocity[1]) + (velocity[2] * velocity[2])) * 100.0;
 }
 
+stock GetVehicleSpeed(vehicleid)
+{
+    new
+		Float:x,
+		Float:y,
+		Float:z;
+
+    GetVehicleVelocity(vehicleid, x, y, z);
+    return floatround( VectorSize (x, y, z) * 100.0);
+}
+
 stock GetGateByID(sqlid)
 {
 	for (new i = 0; i != MAX_GATES; i ++) if (GateData[i][gateExists] && GateData[i][gateID] == sqlid)
@@ -15332,7 +15344,7 @@ public PlayerCheck()
 
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][59], "Tutorial: Concesionario");
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][60], "Este es el ~g~~h~Concesionario~w~. Puedes comprar ~n~cualquier auto privado para ~n~vos, por un precio especifico.");
-		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Recuerda ~b~~h~/estacionar~w~ tu vehiculo! Tu vehiculo sera ~n~embargado si no esta estacionado ~n~correctamente.");
+		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Recuerda ~b~~h~/estacionar~w~ tu vehiculo! Tu vehiculo ~n~sera embargado si no esta estacionado ~n~correctamente.");
 
 						#if SERVER_CITY == 1
 						    SetPlayerPos(i, 546.784729, -1256.438354, 15.406070);
@@ -15400,7 +15412,7 @@ public PlayerCheck()
 		                PlayerData[i][pTutorialTime] = 15;
 
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][59], "Tutorial: Negocios");
-		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][60], "Los negocios tambien te dan un ingreso.~n~Podes ajustar las caracteristicas del~n~negocio, commo los precios y un mensaje.");//and even~n~hire employees to work for you!");
+		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][60], "Los negocios tambien te dan un ingreso.~n~Podes ajustar las caracteristicas del~n~negocio, como los precios y un mensaje.");//and even~n~hire employees to work for you!");
 		                PlayerTextDrawSetString(i, PlayerData[i][pTextdraws][61], "Este negocio es una ~p~~h~Tienda minorista~w~. Podes~n~comprar objetos escribiendo ~g~~h~/comprar~w~.~n~Escribe ~g~~h~/ayuda ~w~para mas comandos.");
 
 						#if SERVER_CITY == 1
@@ -17154,19 +17166,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	    {
 	        if (BusinessData[id][bizLocked])
 	            return SendErrorMessage(playerid, "Este negocio esta cerrado por su dueño.");
-
-			if (PlayerData[playerid][pTask] && !PlayerData[playerid][pStoreTask])
-			{
-			    PlayerData[playerid][pStoreTask] = 1;
-			    Dialog_Show(playerid, ShowOnly, DIALOG_STYLE_MSGBOX, "Negocio Minorista", "Este negocio es un minorista. Puedes comprar muchos objetos con el comando /comprar.\nHay muchas cosas utiles que puedes comprar aqui, las cuales se añadiran a tu inventario.\n\nEl objeto mas util es el GPS, te permitira encontrar lo que mas necesitas.\nPuedes salir de cualquier negocio pulsando la letra 'F'.", "Cerrar", "");
-
-			    if (IsTaskCompleted(playerid))
+	        if (BusinessData[id][bizType] == 1)
+	        {
+				if (PlayerData[playerid][pTask] && !PlayerData[playerid][pStoreTask])
 				{
-    				PlayerData[playerid][pTask] = 0;
-					ShowPlayerFooter(playerid, "Has ~g~completado~w~ todas tus tareas!");
+				    PlayerData[playerid][pStoreTask] = 1;
+				    Dialog_Show(playerid, ShowOnly, DIALOG_STYLE_MSGBOX, "Negocio Minorista", "Este negocio es un minorista. Puedes comprar muchos objetos con el comando /comprar.\nHay muchas cosas utiles que puedes comprar aqui, las cuales se añadiran a tu inventario.\n\nEl objeto mas util es el GPS, te permitira encontrar lo que mas necesitas.\nPuedes salir de cualquier negocio pulsando la letra 'F'.", "Cerrar", "");
+
+				    if (IsTaskCompleted(playerid))
+					{
+	    				PlayerData[playerid][pTask] = 0;
+						ShowPlayerFooter(playerid, "Has ~g~completado~w~ todas tus tareas!");
+					}
 				}
 			}
-			
 
 			//Solo cambia de interior y vw si el tipo de negocio es el generado (antes del 8 en adelante, alias tienda mundo abierto)
 			if (BusinessData[id][bizType] < 8 || BusinessData[id][bizType] == 9)
@@ -18195,7 +18208,7 @@ public OnPlayerUpdate(playerid)
 	new SurfVeh = GetPlayerSurfingVehicleID(playerid);
 	if( SurfVeh != INVALID_VEHICLE_ID )
 	{
-		if(GetPlayerSpeed(SurfVeh) > 50.0)
+		if(GetVehicleSpeed(SurfVeh) > 50.0)
 		{
 			switch(GetVehicleModel(SurfVeh))
 			{
@@ -18219,8 +18232,8 @@ public OnPlayerUpdate(playerid)
 			SetPlayerHealth(playerid, VD-20);
 
 			SetTimerEx("AnimUp_", 1100, 0, "d", playerid);
-			}
 		}
+	}
 	return 1;
 }
 forward AnimUp_(playerid);
@@ -19002,7 +19015,6 @@ public OnPlayerConnect(playerid)
 
 	ResetStatistics(playerid);
 	CreateTextDraws(playerid);
-
 	format(str, sizeof(str), "SELECT * FROM `blacklist` WHERE `Username` = '%s' OR `IP` = '%s'", ReturnName(playerid), PlayerData[playerid][pIP]);
 	mysql_tquery(g_iHandle, str, "OnQueryFinished", "dd", playerid, THREAD_BAN_LOOKUP);
 	return 1;
@@ -19061,8 +19073,8 @@ public OnGameModeInit()
 	SendRconCommand(rcon);
 	format(rcon, sizeof(rcon), "language Español");
 	SendRconCommand(rcon);
-	SetGameModeText(SERVER_REVISION);
 	UsePlayerPedAnims();
+	SetGameModeText(SERVER_REVISION);
     Streamer_SetVisibleItems(STREAMER_TYPE_OBJECT, 950);
 	if (mysql_errno(g_iHandle) != 0)
 	    return 0;
@@ -38104,10 +38116,7 @@ Dialog:LotteryNumber(playerid, response, listitem, inputtext[])
 
 Dialog:EditProduct(playerid, response, listitem, inputtext[])
 {
-	static
-	    bizid = -1;
-
-	if ((bizid = Business_Inside(playerid)) != -1 && Business_IsOwner(playerid, bizid))
+	if ((Business_Inside(playerid)) != -1 && PlayerData[playerid][pAdmin] >= 4)
 	{
 		if (response)
 		{
@@ -38130,7 +38139,7 @@ Dialog:PriceSet(playerid, response, listitem, inputtext[])
 	    bizid = -1,
 		item[32];
 
-	if ((bizid = Business_Inside(playerid)) != -1 && Business_IsOwner(playerid, bizid))
+	if ((bizid = Business_Inside(playerid)) != -1 && PlayerData[playerid][pAdmin] >= 4)
 	{
 		if (response)
 		{
@@ -43498,10 +43507,10 @@ CMD:productos(playerid, params[])
 	static
 	    bizid = -1;
 
-	if ((bizid = Business_Inside(playerid)) != -1 && Business_IsOwner(playerid, bizid)) {
+	if ((bizid = Business_Inside(playerid)) != -1 && PlayerData[playerid][pAdmin] >= 4) {
 	    Business_ProductMenu(playerid, bizid);
 	}
-	else SendErrorMessage(playerid, "No estas dentro de tu negocio.");
+	else SendErrorMessage(playerid, "No tienes permisos o no estas dentro de un negocio.");
 	return 1;
 }
 
@@ -45209,17 +45218,29 @@ CMD:borrarcaja(playerid, params[])
 
 CMD:crearcartel(playerid, params[])
 {
-	if (GetFactionType(playerid) != FACTION_POLICE && PlayerData[playerid][pFactionRank] >= 3 || PlayerData[playerid][pAdmin] < 2)
-	    return SendErrorMessage(playerid, "Tienes que ser policia o admin para usar este comando.");
-	new
-		items[50] = {-1, ...},
-		count;
-	for (new i = 0; i < sizeof(SignModelsM); i ++) {
-		items[count++] = SignModelsM[i][SignModel];
-	}
+	if (GetFactionType(playerid) == FACTION_POLICE && PlayerData[playerid][pFactionRank] >= 3 || PlayerData[playerid][pAdmin] > 2)
+	{
+		new
+			items[50] = {-1, ...},
+			count;
+		for (new i = 0; i < sizeof(SignModelsM); i ++) {
+			items[count++] = SignModelsM[i][SignModel];
+		}
 
-	ShowModelSelectionMenu(playerid, "Carteles Transito", MODEL_SELECTION_SIGNS, items, count, 0.0, 0.0, 180);
-	return 1;
+		ShowModelSelectionMenu(playerid, "Carteles Transito", MODEL_SELECTION_SIGNS, items, count, 0.0, 0.0, 180);
+	}
+	else if(PlayerData[playerid][pAdmin] > 2)
+	{
+		new
+			items[50] = {-1, ...},
+			count;
+		for (new i = 0; i < sizeof(SignModelsM); i ++) {
+			items[count++] = SignModelsM[i][SignModel];
+		}
+
+		ShowModelSelectionMenu(playerid, "Carteles Transito", MODEL_SELECTION_SIGNS, items, count, 0.0, 0.0, 180);
+	}
+	return SendErrorMessage(playerid, "No eres Policia o Admin");
 }
 
 CMD:borrarcartel(playerid, params[])
