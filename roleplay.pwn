@@ -18835,10 +18835,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1268, 218.2266, -1434.5625, 24.6406, 0.25);
 	RemoveBuildingForPlayer(playerid, 6350, 247.3906, -1454.8281, 37.7344, 0.25);
 	RemoveBuildingForPlayer(playerid, 1259, 218.2266, -1434.5625, 24.6406, 0.25);
-<<<<<<< HEAD
 
-=======
->>>>>>> a044965b8b79fad4776c4a21bba289eddf55efa6
 	//Mercado Negro
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1354.9453, 14.1172, 0.25);
 	RemoveBuildingForPlayer(playerid, 1411, 1417.3125, -1349.6953, 14.1172, 0.25);
@@ -27146,10 +27143,7 @@ public OnGameModeInit()
 	CreateDynamicObject(970, 205.56000, -1438.25000, 12.62000,   0.00000, 0.00000, 318.28000);
 	CreateDynamicObject(970, 208.06000, -1435.31006, 12.62000,   0.00000, 0.00000, 318.28000);
 	CreateDynamicObject(970, 209.30000, -1434.19995, 12.62000,   0.00000, 0.00000, 318.28000);
-<<<<<<< HEAD
 
-=======
->>>>>>> a044965b8b79fad4776c4a21bba289eddf55efa6
 	//Restaurante Gob
 	CreateDynamicObject(19461, 1300.856689, -1862.322631, 14.256855, 0.000000, 0.000000, -90.599990);//noname
 	CreateDynamicObject(19397, 1294.496704, -1862.276367, 14.246870, 0.000000, 0.000000, -90.000000);//noname
