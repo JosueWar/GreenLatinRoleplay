@@ -34567,7 +34567,7 @@ Dialog:PickupItems(playerid, response, listitem, inputtext[])
 			{
   				if (PlayerData[playerid][pPlayingHours] < 2)
 					return SendErrorMessage(playerid, "Debes tener al menos dos horas conectado.");
-
+				
 				GiveWeaponToPlayer(playerid, DroppedItems[id][droppedWeapon], DroppedItems[id][droppedAmmo]);
 
 				Item_Delete(id);
@@ -42416,7 +42416,7 @@ CMD:subsidio(playerid, params[])
 		{
 			amount = 200 + (connectedPlayers * 10);
 			GiveMoney(playerid, amount);
-			SendServerMessage(playerid,"Has recibido %d por el subsidio", FormatNumber(amount));
+			SendServerMessage(playerid,"Has recibido $%d por el subsidio", amount);
 			mysql_tquery(g_iHandle, "UPDATE `characters` SET `SubsidioCheck` = '0' WHERE `characters`.`ID` = '%d'", PlayerData[playerid][pID]);
 			PlayerData[playerid][pSubsidioCheck] = 0;
 
