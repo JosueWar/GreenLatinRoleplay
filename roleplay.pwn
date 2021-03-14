@@ -173,7 +173,7 @@
 #define MAX_DYNAMIC_CARS (1500)
 #define MAX_GAS_PUMPS (100)
 #define MAX_FURNITURE (2000)
-#define MAX_HOUSE_FURNITURE (30)
+#define MAX_HOUSE_FURNITURE (50)
 #define MAX_DYNAMIC_JOBS (25)
 #define MAX_CONTACTS (20)
 #define MAX_GPS_LOCATIONS (20)
@@ -39605,65 +39605,68 @@ Dialog:ADPLACEP(playerid, response, listitem, inputtext[])
 }
 Dialog:MercadoNegro(playerid, response, listitem, inputtext[])
 {
-	switch(listitem)
-    {
-		case 0:
-		{
-			if (Inventory_HasItem(playerid, "Colt 45"))
-				return SendErrorMessage(playerid,"Ya tienes una Colt 45");
-			if (1200 > GetMoney(playerid))
-	    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
-			Inventory_Add(playerid, "Colt 45", 346);
-			SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Colt 45");
-			GiveMoney(playerid, -1200);
-		}
-		case 1:
-		{
-			if (Inventory_HasItem(playerid, "Desert Eagle"))
-				return SendErrorMessage(playerid,"Ya tienes una Desert Eagle");
-			if (2000 > GetMoney(playerid))
-	    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
-			Inventory_Add(playerid, "Desert Eagle", 348);
-			SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Desert Eagle");
-			GiveMoney(playerid, -2000);
-		}
-		case 2:
-		{
-			if (Inventory_HasItem(playerid, "Tec-9"))
-				return SendErrorMessage(playerid,"Ya tienes una Tec-9");
-			if (3500 > GetMoney(playerid))
-	    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
-			Inventory_Add(playerid, "Tec-9", 372);
-			SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Tec-9");
-			GiveMoney(playerid, -3500);
-		}
-		case 3:
-		{
-			if (Inventory_Count(playerid, "Cargador") >= 5)
-				return SendErrorMessage(playerid,"No puedes comprar mas Cargadores");
-			if (85 > GetMoney(playerid))
-	    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
-			Inventory_Add(playerid, "Cargador", 19995, 1);
-			SendClientMessageEx(playerid, COLOR_GREY, "Compraste un Cargador");
-			GiveMoney(playerid, -85);
-		}
-		case 4:
-		{
-			if (Inventory_Count(playerid, "Caja de Municion") >= 5)
-				return SendErrorMessage(playerid,"No puedes llevar mas Cajas de Municion");
-			if (420 > GetMoney(playerid))
-	    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
-			Inventory_Add(playerid, "Caja de Municion", 19832, 1);
-			SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Caja de Municion");
-			GiveMoney(playerid, -420);
-		}
-		case 5:
-		{
-			if(PlayerData[playerid][pHasFakeDNI] == 0)
+	if(response)
+	{
+		switch(listitem)
+	    {
+			case 0:
 			{
-				Dialog_Show(playerid, FakeDNI, DIALOG_STYLE_INPUT, "Nombre DNI Falso", "Escribe el nombre y apellido para tu nuevo DNI Falso 32 letras max", "Aceptar", "Cancelar");
+				if (Inventory_HasItem(playerid, "Colt 45"))
+					return SendErrorMessage(playerid,"Ya tienes una Colt 45");
+				if (1200 > GetMoney(playerid))
+		    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
+				Inventory_Add(playerid, "Colt 45", 346);
+				SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Colt 45");
+				GiveMoney(playerid, -1200);
 			}
-			else return SendErrorMessage(playerid, "Ya tienes DNI Falso, haz un ticket en el discord para que te lo cambien.");
+			case 1:
+			{
+				if (Inventory_HasItem(playerid, "Desert Eagle"))
+					return SendErrorMessage(playerid,"Ya tienes una Desert Eagle");
+				if (2000 > GetMoney(playerid))
+		    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
+				Inventory_Add(playerid, "Desert Eagle", 348);
+				SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Desert Eagle");
+				GiveMoney(playerid, -2000);
+			}
+			case 2:
+			{
+				if (Inventory_HasItem(playerid, "Tec-9"))
+					return SendErrorMessage(playerid,"Ya tienes una Tec-9");
+				if (3500 > GetMoney(playerid))
+		    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
+				Inventory_Add(playerid, "Tec-9", 372);
+				SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Tec-9");
+				GiveMoney(playerid, -3500);
+			}
+			case 3:
+			{
+				if (Inventory_Count(playerid, "Cargador") >= 5)
+					return SendErrorMessage(playerid,"No puedes comprar mas Cargadores");
+				if (85 > GetMoney(playerid))
+		    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
+				Inventory_Add(playerid, "Cargador", 19995, 1);
+				SendClientMessageEx(playerid, COLOR_GREY, "Compraste un Cargador");
+				GiveMoney(playerid, -85);
+			}
+			case 4:
+			{
+				if (Inventory_Count(playerid, "Caja de Municion") >= 5)
+					return SendErrorMessage(playerid,"No puedes llevar mas Cajas de Municion");
+				if (420 > GetMoney(playerid))
+		    		return SendErrorMessage(playerid, "No tienes suficiente dinero.");
+				Inventory_Add(playerid, "Caja de Municion", 19832, 1);
+				SendClientMessageEx(playerid, COLOR_GREY, "Compraste una Caja de Municion");
+				GiveMoney(playerid, -420);
+			}
+			case 5:
+			{
+				if(PlayerData[playerid][pHasFakeDNI] == 0)
+				{
+					Dialog_Show(playerid, FakeDNI, DIALOG_STYLE_INPUT, "Nombre DNI Falso", "Escribe el nombre y apellido para tu nuevo DNI Falso 32 letras max", "Aceptar", "Cancelar");
+				}
+				else return SendErrorMessage(playerid, "Ya tienes DNI Falso, haz un ticket en el discord para que te lo cambien.");
+			}
 		}
 	}
 	return 1;
