@@ -1,0 +1,189 @@
+[29/11/2017, 00:06] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:06] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:08] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:12] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:17] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:17] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 02:49] n/a: Unknown column 'factionLeader' in 'field list'
+[18/12/2017, 03:07] n/a: Unknown column 'factionLeader' in 'field list'
+[18/12/2017, 03:10] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:10] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:10] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:11] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:11] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:11] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:11] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:11] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:12] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:12] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:13] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:13] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:13] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:13] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:13] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:14] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:14] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:14] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:15] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:16] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:17] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:17] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:18] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:18] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:18] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:18] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:19] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:19] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:19] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:20] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:20] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:20] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:21] n/a: Unknown column 'atmA' in 'field list'
+[18/12/2017, 03:21] n/a: Unknown column 'atmA' in 'field list'
+[07/01/2018, 22:58] n/a: Unknown column 'atmA' in 'field list'
+[07/01/2018, 22:59] n/a: Unknown column 'factionLeader' in 'field list'
+[09/05/2019, 14:38] n/a: Unknown column 'factionLeader' in 'field list'
+[26/01/2021, 17:47] Billboard_Load: Table 'glrp.billboards' doesn't exist
+[26/01/2021, 17:47] House_Load: Table 'glrp.houses' doesn't exist
+[26/01/2021, 17:47] Business_Load: Table 'glrp.businesses' doesn't exist
+[26/01/2021, 17:47] Dropped_Load: Table 'glrp.dropped' doesn't exist
+[26/01/2021, 17:47] Entrance_Load: Table 'glrp.entrances' doesn't exist
+[26/01/2021, 17:47] Car_Load: Table 'glrp.cars' doesn't exist
+[26/01/2021, 17:47] Job_Load: Table 'glrp.jobs' doesn't exist
+[26/01/2021, 17:47] Crate_Load: Table 'glrp.crates' doesn't exist
+[26/01/2021, 17:47] Plant_Load: Table 'glrp.plants' doesn't exist
+[26/01/2021, 17:47] Faction_Load: Table 'glrp.factions' doesn't exist
+[26/01/2021, 17:47] Arrest_Load: Table 'glrp.arrestpoints' doesn't exist
+[26/01/2021, 17:47] Gate_Load: Table 'glrp.gates' doesn't exist
+[26/01/2021, 17:47] Backpack_Load: Table 'glrp.backpacks' doesn't exist
+[26/01/2021, 17:47] Impound_Load: Table 'glrp.impoundlots' doesn't exist
+[26/01/2021, 17:47] ATM_Load: Table 'glrp.atm' doesn't exist
+[26/01/2021, 17:47] Garbage_Load: Table 'glrp.garbage' doesn't exist
+[26/01/2021, 17:47] Vendor_Load: Table 'glrp.vendors' doesn't exist
+[26/01/2021, 17:47] Rack_Load: Table 'glrp.gunracks' doesn't exist
+[26/01/2021, 17:47] Speed_Load: Table 'glrp.speedcameras' doesn't exist
+[26/01/2021, 17:47] Graffiti_Load: Table 'glrp.graffiti' doesn't exist
+[26/01/2021, 17:47] Detector_Load: Table 'glrp.detectors' doesn't exist
+[08/02/2021, 17:06] Billboard_Load: Table 'scrp.billboards' doesn't exist
+[08/02/2021, 17:06] House_Load: Table 'scrp.houses' doesn't exist
+[08/02/2021, 17:06] Business_Load: Table 'scrp.businesses' doesn't exist
+[08/02/2021, 17:06] Dropped_Load: Table 'scrp.dropped' doesn't exist
+[08/02/2021, 17:06] Entrance_Load: Table 'scrp.entrances' doesn't exist
+[08/02/2021, 17:06] Car_Load: Table 'scrp.cars' doesn't exist
+[08/02/2021, 17:06] Job_Load: Table 'scrp.jobs' doesn't exist
+[08/02/2021, 17:06] Crate_Load: Table 'scrp.crates' doesn't exist
+[08/02/2021, 17:06] Plant_Load: Table 'scrp.plants' doesn't exist
+[08/02/2021, 17:06] Faction_Load: Table 'scrp.factions' doesn't exist
+[08/02/2021, 17:06] Arrest_Load: Table 'scrp.arrestpoints' doesn't exist
+[08/02/2021, 17:06] Gate_Load: Table 'scrp.gates' doesn't exist
+[08/02/2021, 17:06] Backpack_Load: Table 'scrp.backpacks' doesn't exist
+[08/02/2021, 17:06] Impound_Load: Table 'scrp.impoundlots' doesn't exist
+[08/02/2021, 17:06] ATM_Load: Table 'scrp.atm' doesn't exist
+[08/02/2021, 17:06] Garbage_Load: Table 'scrp.garbage' doesn't exist
+[08/02/2021, 17:06] Vendor_Load: Table 'scrp.vendors' doesn't exist
+[08/02/2021, 17:06] Rack_Load: Table 'scrp.gunracks' doesn't exist
+[08/02/2021, 17:06] Speed_Load: Table 'scrp.speedcameras' doesn't exist
+[08/02/2021, 17:06] Graffiti_Load: Table 'scrp.graffiti' doesn't exist
+[08/02/2021, 17:06] Detector_Load: Table 'scrp.detectors' doesn't exist
+[09/02/2021, 00:11] n/a: Unknown column 'factionLeader' in 'field list'
+[09/02/2021, 00:25] n/a: Unknown column 'factionLeader' in 'field list'
+[09/02/2021, 00:26] n/a: Unknown column 'factionLeader' in 'field list'
+[10/02/2021, 14:28] n/a: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WH' at line 1
+[10/02/2021, 14:45] n/a: Unknown column 'factionLeader' in 'field list'
+[10/02/2021, 16:37] n/a: Unknown column 'factionLeader' in 'field list'
+[15/02/2021, 18:38] n/a: Unknown column 'factionLeader' in 'field list'
+[15/02/2021, 18:46] n/a: Unknown column 'factionLeader' in 'field list'
+[15/02/2021, 18:47] n/a: Unknown column 'factionLeader' in 'field list'
+[15/02/2021, 20:00] n/a: Unknown column 'factionLeader' in 'field list'
+[15/02/2021, 20:50] n/a: Unknown column 'atmA' in 'field list'
+[16/02/2021, 15:48] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 15:55] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 16:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 16:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 16:32] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:20] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:23] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:23] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:29] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:46] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:46] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:48] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:51] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:51] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 17:54] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 18:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 18:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 18:01] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 18:04] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:00] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:01] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:16] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:16] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:16] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:25] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 19:33] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:02] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:02] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:13] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:15] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:15] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:15] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:15] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:16] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:16] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:17] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:17] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:17] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:20] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:28] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:28] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:49] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 20:49] n/a: Unknown column 'factionLeader' in 'field list'
+[16/02/2021, 22:05] n/a: Unknown column 'atmA' in 'field list'
+[16/02/2021, 22:06] n/a: Unknown column 'atmA' in 'field list'
+[16/02/2021, 22:06] n/a: Unknown column 'atmA' in 'field list'
+[16/02/2021, 22:06] n/a: Unknown column 'atmA' in 'field list'
+[17/02/2021, 03:15] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 18:38] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 18:49] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 18:59] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 18:59] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:11] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:13] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:13] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:14] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:15] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:39] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:45] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:45] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:49] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:49] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:56] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:56] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 19:57] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 20:01] n/a: Unknown column 'factionLeader' in 'field list'
+[17/02/2021, 20:04] n/a: Unknown column 'factionLeader' in 'field list'
+[21/02/2021, 19:38] n/a: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WH' at line 1
+[21/02/2021, 19:38] n/a: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WH' at line 1
+[27/02/2021, 00:05] n/a: Unknown column 'factionFixX' in 'field list'
+[27/02/2021, 00:08] n/a: Unknown column 'factionFixX' in 'field list'
+[27/02/2021, 00:08] n/a: Unknown column 'factionFixX' in 'field list'
+[27/02/2021, 00:51] n/a: Unknown column 'Fakedni' in 'field list'
+[27/02/2021, 00:54] n/a: Unknown column 'Fakedni' in 'field list'

@@ -1,0 +1,169 @@
+COMANDOS TRADUCIDOS COMUNES				COMANDOS TRADUCIDOS ADMIN				COMANDOS TRADUCIDOS SISTEMA DINAMICO
+takejob			trabajar			makeadmin		daradmin			createhouse		crearcasa
+startdelivery		repartir			reports			reportes			destroyhouse		borrarcasa
+mine			minar				spectate		spec				edithouse		editarcasa
+dumpgarbage		tirarbasura			mute			silenciar			createbiz		crearnegocio
+sorting			clasificar			unmute			desilenciar			editibiz		editarnegocio
+craftparts		crearpartes			freeze			congelar			destroybiz		borrarnegocio
+seekhelp		ayudame				unfreeze		descongelar			createentrance		crearentrada
+park			estacionar			shooter			ultimodisparo			editentrance		editarentrada
+joblist			trabajos			bring			traer				destroyentrance		borrarentrada
+buy			comprar				sendto			llevar				createpump		crearbombagas
+help			ayuda				clearchat		limpiarchat			destroypump		borrarbombagas
+tasks			tareas				refill			llenarnecesidades		setpump			setbombagas
+drivingtest		pruebademanejo			revive			revivir				createjob		creartrabajo
+loadcrate		cargarcarga			acceptname		aceptarnombre			destroyjob		borrartrabajo
+changename		cambiarnombre			goto			ir				editjob			editartrabajo
+dropinjured		dejarpaciente			declinename		rechazarnombre			createfaction		crearfaccion
+call			llamar				checkstats		vercuenta			destroyfaction		borrarfaccion
+mybillboard		mipublicidad			atalk			aa				editfaction		editarfaccion
+unload			descargar			masked			enmascarados			createarrest		creararresto
+sellfood		vendercomida			listguns		listaarmas			destroyarrest		borrararresto
+callsign		matriculapd			respawncar		rauto				creategate		crearporton
+s			g				respawncars		rtodos				destroygate		borrarporton
+l			s				respawnnear		rcercanos			editgate		editarporton
+kill			suicidio			bringcar		traerauto			createimpound		crearembargadero
+changepass		cambiarpass			gotocar			irauto				destroyimpound		borrarembargadero
+lastlogged		ultimologin			release			liberar				editimpound		editarembargadero
+username		usuario				heal			sanar				createatm		crearatm
+properties		propiedades			dr			rr				destroyatm		borraratm
+stats			cuenta				spectate		spec				editcar			editarauto
+report			reportar			bleeding		sangrado			creategarbage		crearbasura
+engine			motor				blacklist		listanegra			destroygarbage		borrarbasura
+lights			luces				resetweps		quitararmas			createvendor		crearvendedor
+hood			capo				bringcar		traerauto			destroyvendor		borrarvendedor
+windows			(ven)tanas			entercar		entrarauto			createspeed		crearcamara
+buy			comprar				gotocar			irauto				destroyspeed		borrarcamara
+abandon			abandonar			destroyveh		destruirauto
+switch			cluces				givewep			adararma
+lock			cerradura			setplayer		setstat
+sell			vender				settester		hacertester
+approve			aceptar				factionmod		hacerfacmod
+storage			almacenamiento			setname			cambiarnombre
+products		productos			near			cercano
+drink			beber				createcrate		crearcaja
+cook			cocinar				destroycrate		borrarcaja
+vest			chaleco				crates			cajas
+vault			cajafuerte			setleader		hacerlider
+drivingtest		examenmanejo			asetfaction		hacaermiembro
+ammo			recargar			asetrank		adarrango
+bank			banco				deleteaccount		borrarcuenta
+park			estacionar			givecash		dardinero
+unmod			quitarmods			createcar		crearauto
+trunk			maletero			destroycar		borrarauto
+bname			negnombre			itemlist		items
+bmessage		negmensaje			restart			reiniciarsv
+furniture		muebles				asellhouse		avendercasa
+quitjob			renunciar			asellbiz		avendernegocio
+unload			descargar			setweather		setclima
+repair			reparar				setfuel			setgas
+nitrous			nitro				setcarhp		setautovida
+acceptcall		aceptarllamado			atune			amodificar
+usekit			usarkit				acolorcar		acolorauto
+phone			celular				apaintjob		apintarauto
+text			texto				spawnitem		apareceritem
+answer			contestar			setquantity		cantidad
+hangup			colgar				destroyitem		borraritem
+paint			pintar				adestroybox		aborrarboombox
+binfo			neginfo				createrack		crearestante
+opencrate		abrircaja			editrack		editarestante
+plant			plantar				destroyrack		borrarestante
+harvest			cosechar			tracenumber		vernumero
+open			abrir				flipcar			darvuelta
+drop			tirar				deletechar		borrarpersonaje
+flist			facciones
+joblist			trabajos
+flocker			fcaja
+online			fmiembros
+fquit			fsalir
+finvite			fcontratar
+fremove			fexpulsar
+frank			fdarrango
+spawnpoint		puntodespawn
+beanbag			balasgoma
+cuff			esposar
+uncuff			desesposar
+drag			arrastrar
+detain			detener
+mdc			omd
+arrest			arrestar
+seizeplant		confiscarplanta
+loadinjured		cargarherido
+dropinjured		dejarherido
+bondage			ponervenda
+broadcast		transmitir
+bc			tm
+inviteguest		agregarinvitado
+removeguest		quitarinvitado
+pay			pagar
+factions		facciones
+dept			d
+fill			llenar
+ticket			multar
+tickets			multas
+twithdraw		bretirar
+tdeposit		bdepositar
+roadblock		bloqueocarretera
+doorbell		timbre
+usedrug			usardroga
+fingerprint		huelladactilar
+backpack		mochila
+dropbackpack		tirarmochila
+releasecar		liberarvehiculo
+tow			enganchar
+untow			desenganchar
+impound			embargar
+channel			radiocanal
+disablecp		eliminarcheckpoint
+properties		propiedades
+listcars		llaves
+takebag			tomarbasura
+dance			bailar
+handsup			rendirse
+piss			orinar
+animcmds		acciones
+bat			batear
+wash			lavar
+lay			echarse
+workout			ejercitarse
+blowjob			mamada
+bomb			bomba
+carry			allevar
+deal			acuerdo
+sleep			dormir
+jump			saltar
+dancing			bailar2
+eating			comer
+puke			vomitar
+gsign			gesto
+chat			hablar
+goggles			gafas
+spray			apintar
+throw			lanzar
+swipe			tarjeta
+office			oficina
+knife			cuchillo
+cpr			rcp
+scratch			dj
+point			arobar
+cheer			animar
+smoke			fumar
+reload			recargar
+wank			paja
+cower			cubrirse
+drunk			borracho
+cry			llorar
+tired			cansado
+sit			sentarse
+fucku			jodete
+walk			caminar
+findgarbage		encontrarbasura
+search			revisar
+searchbp		revisarmochila
+take			confiscar
+kickdoor		tirarpuerta
+buyrack			comprarestante
+gunrack			estantearmas
+deleterack		borrarestante
+supporters		ayudantes
+showlicence		darlicencia

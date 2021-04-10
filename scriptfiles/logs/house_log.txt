@@ -1,0 +1,11 @@
+[15/02/2021, 18:41] Mister_West compro la casa ID: 181 for $75,000.
+[15/02/2021, 19:04] Mister_West compro la casa ID: 183 for $950,000.
+[15/02/2021, 23:34] Josue_Guerra compro la casa ID: 10 for $2,000.
+[16/02/2021, 15:13] Joseph_West compro la casa ID: 332 for $1.
+[16/02/2021, 15:13] Mister_West compro la casa ID: 333 for $1.
+[16/02/2021, 20:07] Ivan_Gonzales compro la casa ID: 100 for $2,000.
+[16/02/2021, 20:09] Joseph_West compro la casa ID: 180 for $1.
+[16/02/2021, 20:10] Joseph_West compro la casa ID: 1 for $20,000.
+[16/02/2021, 20:10] Joseph_West compro la casa ID: 250 for $5,000.
+[16/02/2021, 20:10] Ivan_Gonzales abandono la casa ID: 100.
+[16/02/2021, 20:13] Joseph_West abandono la casa ID: 250.
