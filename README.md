@@ -32,7 +32,7 @@ Plugins opcionales:
     CrashDetect (https://github.com/Zeex/samp-plugin-crashdetect)
     NativeChecker (https://github.com/Konstantinos-Sk/Nativechecker)
 
-#Recomendaciones
+# Recomendaciones
 
 Usar mysql 5 (en windows), aunque la version mas reciente deberia funcionar
 De no usar host propio, recomendable usar host preparado para samp y no VPS (de linux, ya que hay unos problemas con los pluggins)
